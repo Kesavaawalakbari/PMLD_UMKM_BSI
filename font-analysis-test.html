@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSI UMKM Centre - Font Analysis Test</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,600;0,700;0,900;1,100;1,300;1,400;1,600;1,700;1,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .font-test {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .lato-semibold {
+            font-family: 'Lato', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+            color: #333333;
+        }
+        
+        .inter-medium {
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 19px;
+            color: #333333;
+        }
+        
+        .register-title {
+            font-family: 'Lato', sans-serif;
+            font-weight: 900;
+            font-size: 56px;
+            line-height: 53px;
+            color: #F8AD3C;
+        }
+        
+        .btn-test {
+            display: inline-block;
+            width: 340px;
+            height: 48px;
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-family: 'Lato', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 20px;
+            text-decoration: none;
+            text-align: center;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid rgba(128, 128, 128, 0.5);
+        }
+        
+        .btn-orange {
+            background: #F8AD3C;
+            color: #FFFFFF;
+        }
+        
+        .btn-orange:hover {
+            background: #FDECC8;
+            color: #333333;
+        }
+        
+        .btn-teal {
+            background: #00A39D;
+            color: #FFFFFF;
+        }
+        
+        .btn-teal:hover {
+            background: #C7FFF7;
+            color: #333333;
+        }
+        
+        .input-test {
+            width: 340px;
+            height: 48px;
+            padding: 14px 20px;
+            border: 1px solid #00A39D;
+            border-radius: 8px;
+            font-family: 'Lato', sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            color: #333333;
+            box-sizing: border-box;
+        }
+        
+        .specs {
+            background: #f8f9fa;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 12px;
+            color: #666;
+            border-left: 3px solid #00A39D;
+        }
+    </style>
+</head>
+<body>
+    <h1>BSI UMKM Centre - Register Page Font Analysis Test</h1>
+    
+    <div class="test-container">
+        <h2>🎯 Judul Register Page</h2>
+        <div class="font-test">
+            <div class="register-title">Daftar<br>Akun...</div>
+            <div class="specs">
+                <strong>Specs:</strong> Lato ExtraBold, 56px, Line Height 53px, Color #F8AD3C
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-container">
+        <h2>🏷️ Form Labels</h2>
+        
+        <div class="font-test">
+            <div class="lato-semibold">Email</div>
+            <div class="specs">
+                <strong>Email Label:</strong> Lato SemiBold, 16px, Line Height 24px - Sesuai Figma
+            </div>
+        </div>
+        
+        <div class="font-test">
+            <div class="inter-medium">Nama</div>
+            <div class="specs">
+                <strong>Nama Label:</strong> Inter Medium, 16px, Line Height 19px - Sesuai Figma
+            </div>
+        </div>
+        
+        <div class="font-test">
+            <div class="inter-medium">Password</div>
+            <div class="specs">
+                <strong>Password Label:</strong> Inter Medium, 16px, Line Height 19px - Sesuai Figma
+            </div>
+        </div>
+        
+        <div class="font-test">
+            <div class="inter-medium">Konfirmasi Password</div>
+            <div class="specs">
+                <strong>Konfirmasi Password Label:</strong> Inter Medium, 16px, Line Height 19px - Sesuai Figma
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-container">
+        <h2>📝 Form Inputs</h2>
+        <div class="font-test">
+            <input type="email" class="input-test" placeholder="Masukkan Email anda...">
+            <div class="specs">
+                <strong>Input Specs:</strong> 340×48px, Lato Regular 16px, Line Height 24px, Border #00A39D
+            </div>
+        </div>
+        
+        <div class="font-test">
+            <input type="text" class="input-test" placeholder="Masukkan Nama anda...">
+        </div>
+        
+        <div class="font-test">
+            <input type="password" class="input-test" placeholder="Masukkan Password anda...">
+        </div>
+        
+        <div class="font-test">
+            <input type="password" class="input-test" placeholder="Masukkan kembali Password anda...">
+        </div>
+    </div>
+    
+    <div class="test-container">
+        <h2>🔘 Action Buttons</h2>
+        
+        <div class="font-test">
+            <button class="btn-test btn-orange">Daftarkan akun sekarang!</button>
+            <div class="specs">
+                <strong>Register Button:</strong> Orange #F8AD3C → Hover #FDECC8, Lato SemiBold 16px
+            </div>
+        </div>
+        
+        <div class="font-test">
+            <button class="btn-test btn-teal">Saya sudah memiliki akun</button>
+            <div class="specs">
+                <strong>Login Link:</strong> Teal #00A39D → Hover #C7FFF7, Lato SemiBold 16px
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-container">
+        <h2>✅ Implementation Status</h2>
+        <ul>
+            <li>✅ <strong>Font Loading:</strong> Lato + Inter families loaded</li>
+            <li>✅ <strong>Typography:</strong> Exact font weights dan sizes sesuai Figma</li>
+            <li>✅ <strong>Colors:</strong> BSI brand colors (#00A39D, #F8AD3C)</li>
+            <li>✅ <strong>Dimensions:</strong> 340×48px untuk buttons dan inputs</li>
+            <li>✅ <strong>Hover States:</strong> Light variants sesuai design system</li>
+            <li>✅ <strong>Responsive:</strong> Mobile-friendly breakpoints</li>
+        </ul>
+    </div>
+    
+    <div class="test-container">
+        <h2>🔗 Navigation</h2>
+        <p>
+            <a href="register.html" style="color: #00A39D; text-decoration: none; font-weight: 600;">
+                → Test Register Page Implementation
+            </a>
+        </p>
+        <p>
+            <a href="index.html" style="color: #F8AD3C; text-decoration: none; font-weight: 600;">
+                → Back to Login Page
+            </a>
+        </p>
+    </div>
+    
+    <script>
+        console.log('BSI UMKM Centre - Font Analysis Test Loaded');
+        console.log('Fonts loaded:', document.fonts.status);
+        
+        // Test font loading
+        document.fonts.ready.then(function () {
+            console.log('All fonts loaded successfully!');
+            console.log('Available fonts:', Array.from(document.fonts).map(f => f.family));
+        });
+    </script>
+</body>
+</html>

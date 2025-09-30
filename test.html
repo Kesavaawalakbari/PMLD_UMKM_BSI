@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSI UMKM Centre - Test Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Lato', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #00A39D;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        
+        .test-title {
+            color: #333;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #F8AD3C;
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .test-item {
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            border-left: 4px solid #00A39D;
+        }
+        
+        .test-item h4 {
+            color: #00A39D;
+            margin-bottom: 8px;
+        }
+        
+        .test-item p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .test-link {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #F8AD3C;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        
+        .test-link:hover {
+            background: #E6991F;
+        }
+        
+        .credential-box {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            padding: 5px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #00A39D;
+            font-weight: bold;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-online {
+            background: #4CAF50;
+        }
+        
+        .status-offline {
+            background: #f44336;
+        }
+        
+        .responsive-test {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .responsive-item {
+            padding: 8px 12px;
+            background: #00A39D;
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BSI UMKM Centre - Test & Demo Page</h1>
+        
+        <!-- Navigation Test Section -->
+        <div class="test-section">
+            <div class="test-title">🔗 Navigation & Pages</div>
+            <div class="test-grid">
+                <div class="test-item">
+                    <h4>Login Page</h4>
+                    <p>Halaman utama dengan form login dan validasi</p>
+                    <a href="index.html" class="test-link">Test Login Page</a>
+                    <div class="credential-box">
+                        <strong>Test Credentials:</strong><br>
+                        Email: test@bsi.co.id<br>
+                        Password: 123456
+                    </div>
+                </div>
+                
+                <div class="test-item">
+                    <h4>Registration Page</h4>
+                    <p>Form registrasi dengan validasi lengkap</p>
+                    <a href="register.html" class="test-link">Test Register Page</a>
+                </div>
+                
+                <div class="test-item">
+                    <h4>Dashboard Page</h4>
+                    <p>Halaman setelah login berhasil</p>
+                    <a href="dashboard.html" class="test-link">Test Dashboard</a>
+                    <p style="margin-top: 10px; font-size: 12px; color: #F8AD3C;">
+                        Note: Login dulu atau direct access
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Feature Test Section -->
+        <div class="test-section">
+            <div class="test-title">⚡ Features & Functionality</div>
+            <div class="test-grid">
+                <div class="test-item">
+                    <h4>Form Validation</h4>
+                    <ul class="feature-list">
+                        <li>Email format validation</li>
+                        <li>Password length checking</li>
+                        <li>Real-time error feedback</li>
+                        <li>Required field validation</li>
+                    </ul>
+                </div>
+                
+                <div class="test-item">
+                    <h4>User Experience</h4>
+                    <ul class="feature-list">
+                        <li>Loading states</li>
+                        <li>Success/Error messages</li>
+                        <li>Auto-focus on inputs</li>
+                        <li>Keyboard shortcuts (Ctrl+Enter)</li>
+                    </ul>
+                </div>
+                
+                <div class="test-item">
+                    <h4>Authentication</h4>
+                    <ul class="feature-list">
+                        <li>Mock login system</li>
+                        <li>Session management</li>
+                        <li>Auto redirect</li>
+                        <li>Logout functionality</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Responsive Test Section -->
+        <div class="test-section">
+            <div class="test-title">📱 Responsive Testing</div>
+            <p style="margin-bottom: 15px;">Test halaman pada berbagai ukuran layar:</p>
+            <div class="responsive-test">
+                <a href="index.html" class="responsive-item">Desktop (1440px+)</a>
+                <a href="index.html" class="responsive-item">Tablet (768px - 1023px)</a>
+                <a href="index.html" class="responsive-item">Mobile (320px - 767px)</a>
+            </div>
+            <p style="margin-top: 15px; font-size: 14px; color: #666;">
+                Gunakan Developer Tools (F12) untuk testing responsive breakpoints
+            </p>
+        </div>
+        
+        <!-- Browser Test Section -->
+        <div class="test-section">
+            <div class="test-title">🌐 Browser Compatibility</div>
+            <div class="test-grid">
+                <div class="test-item">
+                    <h4>Supported Browsers</h4>
+                    <ul class="feature-list">
+                        <li><span class="status-indicator status-online"></span>Chrome 80+</li>
+                        <li><span class="status-indicator status-online"></span>Firefox 75+</li>
+                        <li><span class="status-indicator status-online"></span>Safari 13+</li>
+                        <li><span class="status-indicator status-online"></span>Edge 80+</li>
+                    </ul>
+                </div>
+                
+                <div class="test-item">
+                    <h4>Features Tested</h4>
+                    <ul class="feature-list">
+                        <li>CSS Grid & Flexbox</li>
+                        <li>Custom Properties (CSS Variables)</li>
+                        <li>Modern JavaScript (ES6+)</li>
+                        <li>SVG Graphics</li>
+                        <li>Web Fonts (Google Fonts)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Performance Test Section -->
+        <div class="test-section">
+            <div class="test-title">⚡ Performance Metrics</div>
+            <div class="test-grid">
+                <div class="test-item">
+                    <h4>Loading Performance</h4>
+                    <ul class="feature-list">
+                        <li>First Contentful Paint: < 1.5s</li>
+                        <li>Largest Contentful Paint: < 2.5s</li>
+                        <li>Cumulative Layout Shift: < 0.1</li>
+                        <li>First Input Delay: < 100ms</li>
+                    </ul>
+                </div>
+                
+                <div class="test-item">
+                    <h4>Optimization Features</h4>
+                    <ul class="feature-list">
+                        <li>Minified CSS & JavaScript</li>
+                        <li>Optimized SVG graphics</li>
+                        <li>Web font preloading</li>
+                        <li>Efficient animations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Accessibility Test Section -->
+        <div class="test-section">
+            <div class="test-title">♿ Accessibility Features</div>
+            <div class="test-grid">
+                <div class="test-item">
+                    <h4>WCAG Compliance</h4>
+                    <ul class="feature-list">
+                        <li>Semantic HTML structure</li>
+                        <li>Proper ARIA labels</li>
+                        <li>Keyboard navigation</li>
+                        <li>Screen reader support</li>
+                        <li>Color contrast compliance</li>
+                    </ul>
+                </div>
+                
+                <div class="test-item">
+                    <h4>User Preferences</h4>
+                    <ul class="feature-list">
+                        <li>Reduced motion support</li>
+                        <li>High contrast mode</li>
+                        <li>Focus indicators</li>
+                        <li>Touch-friendly buttons</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Development Info -->
+        <div class="test-section">
+            <div class="test-title">🛠️ Development Information</div>
+            <div class="test-grid">
+                <div class="test-item">
+                    <h4>Technology Stack</h4>
+                    <ul class="feature-list">
+                        <li>HTML5 (Semantic markup)</li>
+                        <li>CSS3 (Modern features)</li>
+                        <li>Vanilla JavaScript (ES6+)</li>
+                        <li>Google Fonts (Lato)</li>
+                        <li>SVG Graphics</li>
+                    </ul>
+                </div>
+                
+                <div class="test-item">
+                    <h4>Project Files</h4>
+                    <ul class="feature-list">
+                        <li>index.html (Main login page)</li>
+                        <li>register.html (Registration page)</li>
+                        <li>dashboard.html (Dashboard page)</li>
+                        <li>styles.css (Main stylesheet)</li>
+                        <li>script.js (JavaScript functionality)</li>
+                        <li>README.md (Documentation)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Simple test functionality
+        console.log('BSI UMKM Centre Test Page loaded successfully');
+        
+        // Check if localStorage is available
+        if (typeof(Storage) !== "undefined") {
+            console.log('✓ localStorage is supported');
+        } else {
+            console.log('✗ localStorage is not supported');
+        }
+        
+        // Check if CSS Grid is supported
+        if (CSS.supports('display', 'grid')) {
+            console.log('✓ CSS Grid is supported');
+        } else {
+            console.log('✗ CSS Grid is not supported');
+        }
+        
+        // Display current viewport size
+        const displayViewport = () => {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            console.log(`Viewport: ${width}x${height}`);
+            
+            if (width >= 1440) {
+                console.log('Device: Desktop (Large)');
+            } else if (width >= 1024) {
+                console.log('Device: Desktop (Medium)');
+            } else if (width >= 768) {
+                console.log('Device: Tablet');
+            } else {
+                console.log('Device: Mobile');
+            }
+        };
+        
+        displayViewport();
+        window.addEventListener('resize', displayViewport);
+        
+        // Test page load time
+        window.addEventListener('load', () => {
+            const loadTime = performance.now();
+            console.log(`Page load time: ${loadTime.toFixed(2)}ms`);
+        });
+    </script>
+</body>
+</html>

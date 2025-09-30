@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSI UMKM Centre - Registrasi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- HANYA IMPORT LATO - Konsisten dengan index.html -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Shape Right Up - Pojok Kanan Atas -->
+    <!-- Shape Left Down - Orange decorative shape -->
+    <svg class="shape-left-down" xmlns="http://www.w3.org/2000/svg" width="91" height="91" viewBox="0 0 91 91" fill="none">
+        <path d="M91 90.2465V0H0.43588C58.2201 0 91 31.2145 91 90.2465Z" fill="#F8AD3C"/>
+    </svg>
+
+    <!-- Shape Right Up - Teal decorative shape -->
+    <svg class="shape-right-up" width="77" height="78" viewBox="0 0 77 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M77 77.2465V0H0.43588C58.2201 0 77 21.2145 77 77.2465Z" fill="#00A39D"/>
+    </svg>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <div class="nav-logo">
+                <img src="Logo BSI UMKM Centre.svg" alt="BSI UMKM Centre Logo" class="logo">
+            </div>
+            
+            <!-- Navigation Menu -->
+            <div class="nav-menu">
+                <button class="nav-btn">Tentang Kami</button>
+                <button class="nav-btn">Produk</button>
+                <button class="nav-btn">FAQ</button>
+            </div>
+            
+            <!-- Login Button -->
+            <a href="index.html" class="btn-login-nav">Login</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Background Pattern -->
+        <div class="background-pattern">
+            <div class="pattern-container">
+                <!-- Background with Mask group.svg -->
+            </div>
+            <!-- Main BSI UMKM Centre Logo -->
+            <div class="main-logo">
+                <img src="Logo BSI UMKM Centre.svg" alt="BSI UMKM Centre Yogyakarta" class="main-bsi-logo">
+            </div>
+        </div>
+
+        <!-- Registration Form Section -->
+        <div class="login-section">
+            <div class="form-container">
+                <!-- Welcome Text -->
+                <div class="welcome-text">
+                    <h1 class="title">Daftar<br>Akun...</h1>
+                    <p class="subtitle">
+                        Assalamualaikum warahmatullahi wabarakatuh,<br>
+                        Selamat datang di BSI UMKM Centre cabang<br>
+                        Yogyakarta.
+                    </p>
+                </div>
+
+                <!-- Registration Form -->
+                <form class="login-form" id="registrationForm">
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            class="form-input" 
+                            placeholder="Masukkan Email anda..."
+                            required
+                        >
+                        <div class="error-message" id="emailError"></div>
+                    </div>
+
+                    <!-- Name Field -->
+                    <div class="form-group">
+                        <label class="form-label" for="nama">Nama</label>
+                        <input 
+                            type="text" 
+                            id="nama" 
+                            class="form-input" 
+                            placeholder="Masukkan Nama anda..."
+                            required
+                        >
+                        <div class="error-message" id="namaError"></div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            class="form-input" 
+                            placeholder="Masukkan Password anda..."
+                            required
+                        >
+                        <div class="error-message" id="passwordError"></div>
+                    </div>
+
+                    <!-- Confirm Password Field -->
+                    <div class="form-group">
+                        <label class="form-label" for="confirmPassword">Konfirmasi Password</label>
+                        <input 
+                            type="password" 
+                            id="confirmPassword" 
+                            class="form-input" 
+                            placeholder="Masukkan kembali Password anda..."
+                            required
+                        >
+                        <div class="error-message" id="confirmPasswordError"></div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn-register">Daftarkan akun sekarang!</button>
+                        <a href="index.html" class="btn-login">Saya sudah memiliki akun</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="register.js"></script>
+</body>
+</html>
