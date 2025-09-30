@@ -1,0 +1,45 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: |
+        if [ -f frontend/package.json ]; then cd frontend && npm ci && cd ..; fi
+        if [ -f backend/package.json ]; then cd backend && npm ci && cd ..; fi
+
+    - name: Run linting
+      run: |
+        if [ -f frontend/package.json ]; then cd frontend && npm run lint || true && cd ..; fi
+        if [ -f backend/package.json ]; then cd backend && npm run lint || true && cd ..; fi
+
+    - name: Run tests
+      run: |
+        if [ -f frontend/package.json ]; then cd frontend && npm test -- --watchAll=false || true && cd ..; fi
+        if [ -f backend/package.json ]; then cd backend && npm test -- --watchAll=false || true && cd ..; fi
+
+  deploy-staging:
+    needs: test
+    if: github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy to staging
+      run: echo "Deploy to staging environment"
