@@ -213,22 +213,42 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.textContent = 'Mendaftarkan...';
             submitButton.classList.add('loading');
 
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            // API Configuration
+            const API_URL = 'http://localhost:5000/api/auth/register';
 
-            // Store user data (simulate database)
-            const userData = {
-                email: email,
-                name: name,
-                password: password, // In real app, this should be hashed
-                registeredAt: new Date().toISOString()
-            };
+            // Make API call to backend
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    nama: name,
+                    password: password,
+                    confirmPassword: password
+                })
+            });
 
-            // Store in localStorage (simulate database)
-            localStorage.setItem('bsi_user_data', JSON.stringify(userData));
+            const data = await response.json();
+
+            if (!response.ok) {
+                // Handle validation errors
+                if (data.errors && Array.isArray(data.errors)) {
+                    const errorMessages = data.errors.map(err => err.message).join(', ');
+                    throw new Error(errorMessages);
+                }
+                throw new Error(data.message || 'Registrasi gagal');
+            }
+
+            // Store token and user data in localStorage
+            if (data.data && data.data.token) {
+                localStorage.setItem('bsi_token', data.data.token);
+                localStorage.setItem('bsi_user', JSON.stringify(data.data.user));
+            }
 
             // Show success message
-            showSuccessMessage('Registrasi berhasil! Mengalihkan ke halaman login...');
+            showSuccessMessage(data.message || 'Registrasi berhasil! Mengalihkan ke halaman login...');
 
             // Redirect to login page after delay
             setTimeout(() => {
@@ -237,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         } catch (error) {
             console.error('Registration error:', error);
-            showErrorMessage('Terjadi kesalahan saat mendaftar. Silakan coba lagi.');
+            showErrorMessage(error.message || 'Terjadi kesalahan saat mendaftar. Silakan coba lagi.');
         } finally {
             // Reset button state
             submitButton.disabled = false;

@@ -1,6 +1,125 @@
-﻿# PMLD_UMKM_BSI
+﻿# 🏦 PMLD UMKM BSI - Platform Management System
 
-## Struktur Folder Proyek
+[![Status](https://img.shields.io/badge/status-active-success.svg)]()
+[![Backend](https://img.shields.io/badge/backend-complete-green.svg)]()
+[![Frontend](https://img.shields.io/badge/frontend-in--progress-yellow.svg)]()
+[![License](https://img.shields.io/badge/license-Private-red.svg)]()
+
+Platform manajemen UMKM (Usaha Mikro, Kecil, dan Menengah) untuk BSI (Bank Syariah Indonesia) dengan sistem authentication lengkap dan database integration.
+
+---
+
+## 🎉 Latest Update (1 Oktober 2025)
+
+### ✅ Backend Authentication System - COMPLETED
+
+Backend authentication system telah selesai diimplementasikan dengan fitur lengkap:
+
+- ✅ User Registration dengan validasi
+- ✅ User Login dengan JWT token
+- ✅ Password hashing dengan bcrypt
+- ✅ Protected routes dengan middleware
+- ✅ MongoDB database integration
+- ✅ Complete API documentation
+- ✅ Frontend integration (register.html & index.html)
+- ✅ Error handling dalam Bahasa Indonesia
+
+**📚 Dokumentasi Lengkap:**
+- [QUICKSTART.md](QUICKSTART.md) - Quick start guide
+- [SUMMARY.md](SUMMARY.md) - Ringkasan perubahan
+- [CHANGELOG.md](CHANGELOG.md) - Detailed changelog (12,000+ lines)
+- [backend/README.md](backend/README.md) - Backend setup guide
+- [docs/api/auth.md](docs/api/auth.md) - API documentation
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+1. Node.js (v16+) - [Download](https://nodejs.org/)
+2. MongoDB - [Download](https://www.mongodb.com/try/download/community) atau gunakan [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+
+### Installation
+
+```bash
+# 1. Clone repository
+git clone https://github.com/Kesavaawalakbari/PMLD_UMKM_BSI.git
+cd PMLD_UMKM_BSI
+
+# 2. Install backend dependencies
+cd backend
+npm install
+
+# 3. Setup environment (sudah ada .env default)
+# Atau copy dari .env.example jika perlu
+cp .env.example .env
+
+# 4. Jalankan MongoDB (jika local)
+mongod
+
+# 5. Jalankan backend server
+npm run dev
+
+# Server berjalan di http://localhost:5000
+```
+
+### Test Backend
+```bash
+# Browser
+http://localhost:5000/api/health
+
+# Expected response:
+{
+  "success": true,
+  "message": "BSI UMKM Centre API is running",
+  "database": "Connected"
+}
+```
+
+### Run Frontend
+```bash
+# Buka dengan Live Server di VS Code
+# Atau buka file langsung di browser:
+frontend/src/pages/index.html (Login)
+frontend/src/pages/register.html (Register)
+```
+
+---
+
+## 📦 Tech Stack
+
+### Backend
+- **Framework:** Express.js
+- **Database:** MongoDB + Mongoose
+- **Authentication:** JWT (jsonwebtoken)
+- **Security:** bcrypt.js, express-validator, CORS
+- **Development:** nodemon
+
+### Frontend
+- **Language:** Vanilla JavaScript (ES6+)
+- **API Client:** Fetch API
+- **Storage:** LocalStorage
+
+---
+
+## 🔐 API Endpoints
+
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/api/health` | ❌ | Health check |
+| POST | `/api/auth/register` | ❌ | Register user |
+| POST | `/api/auth/login` | ❌ | Login user |
+| GET | `/api/auth/profile` | ✅ | Get profile |
+| PUT | `/api/auth/profile` | ✅ | Update profile |
+| POST | `/api/auth/logout` | ✅ | Logout user |
+
+**Auth Required (✅):** Perlu JWT token di header `Authorization: Bearer {token}`
+
+📖 **Complete API Docs:** [docs/api/auth.md](docs/api/auth.md)
+
+---
+
+## 📁 Struktur Folder Proyek
 
 Proyek ini menggunakan struktur folder yang terorganisir untuk memisahkan tanggung jawab antara tim Frontend, Backend, dan DevOps. Berikut adalah penjelasan detail setiap folder:
 
