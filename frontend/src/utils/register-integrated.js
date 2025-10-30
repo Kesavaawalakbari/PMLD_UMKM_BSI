@@ -1,4 +1,4 @@
-// BSI UMKM Centre - Registration Form Script (WooCommerce Integrated)
+﻿// BSI UMKM Centre - Registration Form Script (WooCommerce Integrated)
 // Integrated with WooCommerce/WordPress User Registration
 
 import { register, isAuthenticated } from './auth.js';

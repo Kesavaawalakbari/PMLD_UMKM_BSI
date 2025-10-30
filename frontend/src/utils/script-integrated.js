@@ -1,4 +1,4 @@
-// BSI UMKM Centre - Login Page JavaScript (WooCommerce Integrated)
+﻿// BSI UMKM Centre - Login Page JavaScript (WooCommerce Integrated)
 // Integrated with WooCommerce/WordPress Authentication
 
 import { login, isAuthenticated } from './auth.js';
