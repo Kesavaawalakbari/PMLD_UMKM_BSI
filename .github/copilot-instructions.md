@@ -19,7 +19,7 @@ These instructions guide AI code assistants (like GitHub Copilot) in contributin
 4. **Security Vulnerabilities**: Never suggest code prone to common issues like SQL injection, XSS, CSRF, or insecure defaults. Implement proper sanitization and authentication.
 5. **Breaking Functionality**: Ensure changes do not introduce bugs, regressions, or build failures. Validate in a development environment before finalizing.
 6. **Incomplete or Fragmented Solutions**: Provide complete, runnable code with all necessary imports, error handling, and edge cases covered. Do not leave placeholders or unfinished implementations.
-7. **Over-Editing or Scope Creep**: Make targeted, minimal changes. Avoid broad refactors, renaming, or additions unless explicitly requested. Stick to the user's intent.
+
 
 ## Project-Specific Guidelines
 - **No New Files/Folders**: Do not create additional files or directories. Refine and improve existing ones only.

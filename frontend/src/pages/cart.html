@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keranjang Belanja - BSI UMKM Centre</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        .cart-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .cart-header {
+            margin-bottom: 30px;
+        }
+        
+        .cart-header h1 {
+            font-size: 32px;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+        
+        .cart-content {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+        }
+        
+        .cart-items {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .item-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .item-details {
+            flex: 1;
+        }
+        
+        .item-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+        
+        .item-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .qty-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .qty-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .qty-input {
+            width: 60px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 6px;
+            font-size: 16px;
+        }
+        
+        .item-remove {
+            background: transparent;
+            border: none;
+            color: #dc3545;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 10px;
+            transition: opacity 0.3s ease;
+        }
+        
+        .item-remove:hover {
+            opacity: 0.7;
+        }
+        
+        .cart-summary {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .summary-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .summary-row.total {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--secondary-color);
+            padding-top: 15px;
+            border-top: 2px solid var(--border-color);
+        }
+        
+        .btn-checkout {
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+        
+        .btn-checkout:hover {
+            background: var(--primary-dark);
+        }
+        
+        .btn-checkout:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .empty-cart i {
+            font-size: 64px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .empty-cart h2 {
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+        
+        .empty-cart p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+        
+        .btn-continue-shopping {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        
+        .btn-continue-shopping:hover {
+            opacity: 0.9;
+        }
+        
+        .coupon-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .coupon-input-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .coupon-input-group input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+        
+        .btn-apply-coupon {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+        
+        .loading-spinner {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .loading-spinner i {
+            font-size: 48px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .cart-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .cart-summary {
+                position: static;
+            }
+            
+            .cart-item {
+                flex-direction: column;
+            }
+            
+            .item-image {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cart-container">
+        <div class="cart-header">
+            <h1><i class="fas fa-shopping-cart"></i> Keranjang Belanja</h1>
+            <p id="cartItemCount"></p>
+        </div>
+
+        <div id="cartContent" class="cart-content">
+            <!-- Cart will be loaded here -->
+        </div>
+    </div>
+
+    <script type="module" src="../utils/cart.js"></script>
+</body>
+</html>
