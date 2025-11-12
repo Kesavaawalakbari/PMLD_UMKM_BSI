@@ -1,0 +1,539 @@
+/* BSI UMKM Centre - Consistent Styles for Login & Register */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* BSI Brand Colors */
+    --primer: #00A39D;           /* BSI Teal */
+    --sekunder: #F8AD3C;         /* BSI Orange */
+    --base-layer: #FFFFFF;       /* White */
+    --stroke-teks: #333333;      /* Text */
+    --grey: #808080;             /* Grey */
+    --error-color: #e74c3c;      /* Error Red */
+    --success-color: #27ae60;    /* Success Green */
+    
+    /* Typography */
+    --font-lato: 'Lato', sans-serif;
+}
+
+body {
+    font-family: var(--font-lato);
+    background: var(--base-layer);
+    color: var(--stroke-teks);
+    min-height: 100vh;
+}
+
+/* ===============================
+   DECORATIVE SHAPES
+   =============================== */
+
+/* Shape Right Up - Pojok Kanan Atas */
+.shape-right-up {
+    position: fixed;      /* Tetap di posisi meski di-scroll */
+    top: 0;              /* Posisi di atas */
+    right: 0;            /* Posisi di kanan */
+    width: 77px;         /* Lebar shape */
+    height: 78px;        /* Tinggi shape */
+    z-index: 1001;       /* Di atas navbar tapi di bawah modal */
+    pointer-events: none; /* Tidak mengganggu klik/interaksi */
+    display: block;      /* Memastikan element terlihat */
+}
+
+/* Shape Left Down - Area Header/Navbar sesuai Figma */
+.shape-left-down {
+    position: fixed;      /* Fixed position seperti semula */
+    top: 0;              /* Mulai dari atas halaman */
+    left: 0;             /* Posisi di kiri */
+    width: 80px;         /* Sesuai dengan tinggi navbar (80px) untuk rapi */
+    height: 80px;        /* Sama dengan navbar height untuk pas */
+    transform: rotate(180deg); /* Rotasi 180 derajat sesuai Figma */
+    z-index: 1001;       /* Kembali di atas navbar seperti semula */
+    pointer-events: none;
+}
+
+/* ===============================
+   NAVBAR
+   =============================== */
+.navbar {
+    background: var(--base-layer);
+    box-shadow: 0px 2px 12px 0px rgba(20, 20, 43, 0.08);
+    position: relative;
+    width: 100%;
+    height: 80px; /* Lebih compact dari 91px */
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 15px 30px; /* Lebih compact padding */
+}
+
+.nav-logo .logo {
+    height: 45px; /* Lebih compact dari 51px */
+    width: auto;
+    font-weight: 700;
+    color: var(--primer);
+    font-size: 18px;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 12px; /* Lebih compact dari 16px */
+    align-items: center;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    padding: 8px 12px; /* Lebih compact padding */
+    cursor: pointer;
+    font-family: var(--font-lato);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--primer);
+    transition: opacity 0.2s ease;
+}
+
+.nav-btn:hover {
+    opacity: 0.7;
+}
+
+.btn-login-nav {
+    background: var(--primer);
+    border: none;
+    border-radius: 8px;
+    min-width: 120px; /* Lebih compact dari 150px */
+    height: 42px; /* Lebih compact dari 48px */
+    padding: 8px 16px; /* Compact padding */
+    font-family: var(--font-lato);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--base-layer);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-login-nav:hover {
+    background: #008A82;
+}
+
+/* ===============================
+   MAIN CONTENT
+   =============================== */
+.main-content {
+    display: flex;
+    height: calc(100vh - 80px); /* Sesuaikan dengan navbar height baru */
+    min-height: 600px; /* Minimum height untuk compact layout */
+}
+
+/* Background Pattern Area (68%) */
+.background-pattern {
+    position: relative;
+    width: 68%;
+    background: var(--base-layer);
+    overflow: hidden;
+}
+
+.pattern-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 163, 157, 0.05) 0%, rgba(248, 173, 60, 0.05) 100%);
+    z-index: 1;
+}
+
+.main-logo {
+    position: absolute;
+    left: 150px; /* Lebih compact dari 198px */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.main-bsi-logo {
+    height: 100px; /* Lebih compact dari 126px */
+    width: auto;
+    font-size: 24px;
+    color: var(--primer);
+    font-weight: 700;
+}
+
+/* Login/Register Form Area (32%) */
+.login-section {
+    width: 32%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 15px; /* Lebih compact */
+}
+
+.form-container {
+    width: 340px; /* Sesuai Figma specification */
+    max-width: 100%;
+}
+
+/* Welcome Text */
+.welcome-text {
+    margin-bottom: 24px; /* Lebih compact dari 32px */
+}
+
+.title {
+    font-family: var(--font-lato);
+    font-weight: 900; /* ExtraBold sesuai Figma */
+    font-size: 56px; /* Sesuai Figma specification */
+    line-height: 53px; /* Sesuai Figma specification */
+    color: var(--sekunder);
+    margin-bottom: 12px; /* Lebih compact dari 16px */
+}
+
+.subtitle {
+    font-family: var(--font-lato);
+    font-weight: 400; /* Regular sesuai guide */
+    font-size: 16px; /* Body/Paragraph sesuai guide */
+    line-height: 24px;
+    color: var(--stroke-teks);
+    margin: 0;
+}
+
+/* Form Styling - KONSISTEN untuk Login & Register */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px; /* Lebih compact dari 21px */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px; /* Sesuai Figma specification untuk label-input gap */
+}
+
+/* UNIFIED LABEL STYLING - Button/Label sesuai guide */
+.form-label {
+    font-family: var(--font-lato);
+    font-weight: 600; /* SemiBold sesuai guide */
+    font-size: 16px; /* Button/Label: 16-18px sesuai guide */
+    line-height: 18px;
+    color: var(--stroke-teks);
+}
+
+/* UNIFIED INPUT STYLING */
+.form-input {
+    width: 340px; /* Sesuai Figma specification */
+    height: 52px; /* Sesuai Figma specification */
+    padding: 14px 20px; /* Sesuai Figma specification */
+    border: 1px solid var(--primer); /* Default: hijau saat kosong */
+    border-radius: 8px;
+    background: var(--base-layer);
+    font-family: var(--font-lato);
+    font-weight: 400; /* Regular sesuai guide */
+    font-size: 16px; /* Input/Form Field: 16px sesuai guide */
+    line-height: 24px;
+    color: var(--stroke-teks);
+    transition: all 0.2s ease;
+}
+
+.form-input::placeholder {
+    color: var(--stroke-teks);
+    opacity: 0.7;
+}
+
+/* State: Diklik/Focus atau Sudah terisi = Orange border */
+.form-input:focus,
+.form-input.filled {
+    outline: none;
+    border: 1px solid var(--sekunder) !important; /* Orange saat focus/terisi */
+    box-shadow: 0 0 0 2px rgba(248, 173, 60, 0.1);
+}
+
+/* Default state tetap hijau jika belum terisi */
+.form-input:not(.filled):not(:focus) {
+    border: 1px solid var(--primer) !important; /* Hijau saat kosong */
+    box-shadow: none;
+}
+
+/* Hover state */
+.form-input:hover:not(:focus):not(.filled) {
+    border-color: var(--primer);
+    box-shadow: 0 0 0 1px rgba(0, 163, 157, 0.2);
+}
+
+/* VALIDATION STATES */
+.form-input.error {
+    border-color: var(--error-color);
+    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.1);
+}
+
+.form-input.success {
+    border-color: var(--success-color);
+    box-shadow: 0 0 0 2px rgba(39, 174, 96, 0.1);
+}
+
+/* Form Options (Remember Me & Forgot Password) */
+.form-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px; /* Lebih compact dari 12px */
+    width: 339px; /* Sesuai Figma specification */
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.checkbox {
+    display: none;
+}
+
+.checkmark {
+    width: 14px;
+    height: 14px;
+    border: 1px solid var(--grey);
+    border-radius: 4px;
+    background: var(--base-layer);
+    position: relative;
+}
+
+.checkbox:checked + .checkmark {
+    background: var(--primer);
+    border-color: var(--primer);
+}
+
+.checkbox:checked + .checkmark::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--base-layer);
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.checkbox-text {
+    font-family: var(--font-lato);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--grey);
+}
+
+.forgot-password {
+    background: none;
+    border: none;
+    font-family: var(--font-lato);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: var(--grey);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.forgot-password:hover {
+    color: var(--primer);
+}
+
+/* UNIFIED BUTTON STYLING */
+.form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Sesuai Figma specification */
+    margin-top: 20px; /* Lebih compact dari 32px */
+}
+
+.btn-login {
+    width: 100%;
+    height: 48px; /* Sesuai standar touch target */
+    background: var(--sekunder);
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 8px;
+    font-family: var(--font-lato);
+    font-weight: 600; /* SemiBold sesuai guide */
+    font-size: 16px; /* Button/Label: 16-18px sesuai guide */
+    line-height: 18px;
+    color: var(--base-layer);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-login:hover {
+    background: #FDECC8;
+    color: #333333;
+}
+
+.btn-register {
+    width: 100%;
+    height: 48px; /* Sesuai standar touch target */
+    background: var(--primer);
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 8px;
+    font-family: var(--font-lato);
+    font-weight: 600; /* SemiBold sesuai guide */
+    font-size: 16px; /* Button/Label: 16-18px sesuai guide */
+    line-height: 18px;
+    color: var(--base-layer);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-register:hover {
+    background: #C7FFF7;
+    color: #333333;
+}
+
+/* ===============================
+   RESPONSIVE DESIGN
+   =============================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .main-content {
+        flex-direction: column;
+    }
+    
+    .background-pattern {
+        width: 100%;
+        height: 35%;
+    }
+    
+    .login-section {
+        width: 100%;
+        height: 65%;
+        padding: 30px 20px;
+    }
+    
+    .form-container {
+        width: 100%;
+        max-width: 350px;
+    }
+    
+    .title {
+        font-size: 32px;
+        line-height: 36px;
+    }
+    
+    .main-logo {
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .navbar {
+        height: auto;
+        padding: 15px 20px;
+    }
+    
+    .nav-container {
+        flex-direction: column;
+        gap: 15px;
+        height: auto;
+        padding: 0;
+    }
+    
+    .nav-menu {
+        order: -1;
+    }
+    
+    .main-content {
+        height: calc(100vh - 100px);
+    }
+    
+    .background-pattern {
+        height: 25%;
+    }
+    
+    .login-section {
+        height: 75%;
+        padding: 16px;
+    }
+    
+    .form-container {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .title {
+        font-size: 28px;
+        line-height: 32px;
+    }
+    
+    .subtitle {
+        font-size: 14px;
+        line-height: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .nav-btn {
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+    
+    .background-pattern {
+        height: 20%;
+    }
+    
+    .login-section {
+        height: 80%;
+        padding: 12px;
+    }
+    
+    .form-container {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .title {
+        font-size: 28px;
+        line-height: 32px;
+    }
+    
+    .subtitle {
+        font-size: 14px;
+        line-height: 20px;
+    }
+    
+    .form-input {
+        width: 100%;
+        height: 44px;
+        font-size: 16px;
+        padding: 12px 16px;
+    }
+}
