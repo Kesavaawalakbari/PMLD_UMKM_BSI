@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard UMKM - PMLD BSI</title>
+    <meta name="description" content="Dashboard untuk mengelola bisnis UMKM Anda">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/animations.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body class="dashboard-body">
+    <!-- Dashboard Header -->
+    <header class="dashboard-header">
+        <div class="header-content">
+            <div class="header-left">
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <span class="logo-text">PMLD UMKM</span>
+                </div>
+            </div>
+            
+            <div class="header-center">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" placeholder="Cari transaksi, produk, atau laporan..." class="search-input">
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="header-actions">
+                    <button class="action-btn notification-btn" data-count="5">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <button class="action-btn message-btn" data-count="3">
+                        <i class="fas fa-envelope"></i>
+                    </button>
+                    <div class="user-menu">
+                        <div class="user-avatar">
+                            <img src="../assets/images/user-avatar.jpg" alt="User Avatar">
+                        </div>
+                        <div class="user-info">
+                            <span class="user-name">John Doe</span>
+                            <span class="user-role">Pemilik Bisnis</span>
+                        </div>
+                        <button class="dropdown-toggle">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item active">
+                    <a href="#dashboard" class="nav-link" data-page="dashboard">
+                        <i class="fas fa-home nav-icon"></i>
+                        <span class="nav-text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#transactions" class="nav-link" data-page="transactions">
+                        <i class="fas fa-credit-card nav-icon"></i>
+                        <span class="nav-text">Transaksi</span>
+                        <span class="nav-badge">12</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#products" class="nav-link" data-page="products">
+                        <i class="fas fa-box nav-icon"></i>
+                        <span class="nav-text">Produk</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#customers" class="nav-link" data-page="customers">
+                        <i class="fas fa-users nav-icon"></i>
+                        <span class="nav-text">Pelanggan</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#analytics" class="nav-link" data-page="analytics">
+                        <i class="fas fa-chart-line nav-icon"></i>
+                        <span class="nav-text">Analitik</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#finance" class="nav-link" data-page="finance">
+                        <i class="fas fa-wallet nav-icon"></i>
+                        <span class="nav-text">Keuangan</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#marketing" class="nav-link" data-page="marketing">
+                        <i class="fas fa-bullhorn nav-icon"></i>
+                        <span class="nav-text">Marketing</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#reports" class="nav-link" data-page="reports">
+                        <i class="fas fa-file-alt nav-icon"></i>
+                        <span class="nav-text">Laporan</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="sidebar-divider"></div>
+            
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="#settings" class="nav-link" data-page="settings">
+                        <i class="fas fa-cog nav-icon"></i>
+                        <span class="nav-text">Pengaturan</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#help" class="nav-link" data-page="help">
+                        <i class="fas fa-question-circle nav-icon"></i>
+                        <span class="nav-text">Bantuan</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link">
+                        <i class="fas fa-sign-out-alt nav-icon"></i>
+                        <span class="nav-text">Keluar</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Dashboard Page -->
+        <div class="page-content active" id="dashboard-page">
+            <div class="page-header">
+                <div class="page-title-container">
+                    <h1 class="page-title">Dashboard</h1>
+                    <p class="page-subtitle">Selamat datang kembali! Berikut ringkasan bisnis Anda hari ini.</p>
+                </div>
+                <div class="page-actions">
+                    <button class="btn btn-outline">
+                        <i class="fas fa-download"></i>
+                        Export Data
+                    </button>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Tambah Produk
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card revenue-card" data-animate="fadeInUp">
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="stat-menu">
+                            <button class="menu-btn">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-title">Total Pendapatan</h3>
+                        <div class="stat-value">Rp 25.4 Juta</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+12.5% dari bulan lalu</span>
+                        </div>
+                    </div>
+                    <div class="stat-chart">
+                        <canvas id="revenueChart" width="100" height="40"></canvas>
+                    </div>
+                </div>
+
+                <div class="stat-card orders-card" data-animate="fadeInUp" data-delay="100">
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-menu">
+                            <button class="menu-btn">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-title">Total Pesanan</h3>
+                        <div class="stat-value">1,247</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+8.3% dari bulan lalu</span>
+                        </div>
+                    </div>
+                    <div class="stat-chart">
+                        <canvas id="ordersChart" width="100" height="40"></canvas>
+                    </div>
+                </div>
+
+                <div class="stat-card customers-card" data-animate="fadeInUp" data-delay="200">
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-menu">
+                            <button class="menu-btn">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-title">Pelanggan Aktif</h3>
+                        <div class="stat-value">892</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+15.2% dari bulan lalu</span>
+                        </div>
+                    </div>
+                    <div class="stat-chart">
+                        <canvas id="customersChart" width="100" height="40"></canvas>
+                    </div>
+                </div>
+
+                <div class="stat-card conversion-card" data-animate="fadeInUp" data-delay="300">
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <div class="stat-menu">
+                            <button class="menu-btn">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-title">Tingkat Konversi</h3>
+                        <div class="stat-value">3.24%</div>
+                        <div class="stat-change negative">
+                            <i class="fas fa-arrow-down"></i>
+                            <span>-2.1% dari bulan lalu</span>
+                        </div>
+                    </div>
+                    <div class="stat-chart">
+                        <canvas id="conversionChart" width="100" height="40"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="charts-row">
+                <div class="chart-container sales-chart" data-animate="fadeInUp">
+                    <div class="chart-header">
+                        <div class="chart-title-container">
+                            <h3 class="chart-title">Penjualan Bulanan</h3>
+                            <p class="chart-subtitle">Grafik penjualan 12 bulan terakhir</p>
+                        </div>
+                        <div class="chart-controls">
+                            <select class="chart-filter">
+                                <option value="12months">12 Bulan</option>
+                                <option value="6months">6 Bulan</option>
+                                <option value="3months">3 Bulan</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="chart-content">
+                        <canvas id="salesChart" width="600" height="300"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container category-chart" data-animate="fadeInUp" data-delay="100">
+                    <div class="chart-header">
+                        <div class="chart-title-container">
+                            <h3 class="chart-title">Kategori Terlaris</h3>
+                            <p class="chart-subtitle">Distribusi penjualan per kategori</p>
+                        </div>
+                    </div>
+                    <div class="chart-content">
+                        <canvas id="categoryChart" width="300" height="300"></canvas>
+                    </div>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #00A651;"></span>
+                            <span class="legend-label">Fashion (35%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #1E3A5F;"></span>
+                            <span class="legend-label">Elektronik (28%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #F39C12;"></span>
+                            <span class="legend-label">Makanan (22%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #E74C3C;"></span>
+                            <span class="legend-label">Lainnya (15%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activities & Top Products -->
+            <div class="content-row">
+                <div class="activity-container" data-animate="fadeInUp">
+                    <div class="section-header">
+                        <h3 class="section-title">Aktivitas Terbaru</h3>
+                        <a href="#" class="view-all-link">Lihat Semua</a>
+                    </div>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p class="activity-text">
+                                    <strong>Pesanan baru</strong> dari Ahmad Rizki
+                                </p>
+                                <p class="activity-meta">Rp 150,000 • 5 menit lalu</p>
+                            </div>
+                            <div class="activity-status">
+                                <span class="status-badge success">Baru</span>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p class="activity-text">
+                                    <strong>Pembayaran diterima</strong> untuk pesanan #12456
+                                </p>
+                                <p class="activity-meta">Rp 275,000 • 15 menit lalu</p>
+                            </div>
+                            <div class="activity-status">
+                                <span class="status-badge success">Lunas</span>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p class="activity-text">
+                                    <strong>Pelanggan baru</strong> Siti Nurhaliza bergabung
+                                </p>
+                                <p class="activity-meta">1 jam lalu</p>
+                            </div>
+                            <div class="activity-status">
+                                <span class="status-badge info">Baru</span>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p class="activity-text">
+                                    <strong>Review baru</strong> untuk Kaos Premium Cotton
+                                </p>
+                                <p class="activity-meta">Rating 5 bintang • 2 jam lalu</p>
+                            </div>
+                            <div class="activity-status">
+                                <span class="status-badge warning">Review</span>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p class="activity-text">
+                                    <strong>Stok menipis</strong> untuk Sepatu Sneakers
+                                </p>
+                                <p class="activity-meta">Sisa 5 unit • 3 jam lalu</p>
+                            </div>
+                            <div class="activity-status">
+                                <span class="status-badge error">Peringatan</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="products-container" data-animate="fadeInUp" data-delay="100">
+                    <div class="section-header">
+                        <h3 class="section-title">Produk Terlaris</h3>
+                        <a href="#" class="view-all-link">Lihat Semua</a>
+                    </div>
+                    <div class="products-list">
+                        <div class="product-item">
+                            <div class="product-image">
+                                <img src="../assets/images/product-1.jpg" alt="Product 1">
+                            </div>
+                            <div class="product-info">
+                                <h4 class="product-name">Kaos Premium Cotton</h4>
+                                <p class="product-category">Fashion</p>
+                                <p class="product-price">Rp 89,000</p>
+                            </div>
+                            <div class="product-stats">
+                                <span class="sales-count">124 terjual</span>
+                                <span class="rating">
+                                    <i class="fas fa-star"></i> 4.8
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="product-item">
+                            <div class="product-image">
+                                <img src="../assets/images/product-2.jpg" alt="Product 2">
+                            </div>
+                            <div class="product-info">
+                                <h4 class="product-name">Sepatu Sneakers</h4>
+                                <p class="product-category">Fashion</p>
+                                <p class="product-price">Rp 299,000</p>
+                            </div>
+                            <div class="product-stats">
+                                <span class="sales-count">89 terjual</span>
+                                <span class="rating">
+                                    <i class="fas fa-star"></i> 4.6
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="product-item">
+                            <div class="product-image">
+                                <img src="../assets/images/product-3.jpg" alt="Product 3">
+                            </div>
+                            <div class="product-info">
+                                <h4 class="product-name">Tas Kanvas Vintage</h4>
+                                <p class="product-category">Aksesoris</p>
+                                <p class="product-price">Rp 125,000</p>
+                            </div>
+                            <div class="product-stats">
+                                <span class="sales-count">76 terjual</span>
+                                <span class="rating">
+                                    <i class="fas fa-star"></i> 4.9
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="product-item">
+                            <div class="product-image">
+                                <img src="../assets/images/product-4.jpg" alt="Product 4">
+                            </div>
+                            <div class="product-info">
+                                <h4 class="product-name">Jam Tangan Smart</h4>
+                                <p class="product-category">Elektronik</p>
+                                <p class="product-price">Rp 450,000</p>
+                            </div>
+                            <div class="product-stats">
+                                <span class="sales-count">65 terjual</span>
+                                <span class="rating">
+                                    <i class="fas fa-star"></i> 4.7
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Other pages will be loaded here -->
+        <div class="page-content" id="transactions-page">
+            <div class="page-header">
+                <h1 class="page-title">Transaksi</h1>
+                <p class="page-subtitle">Kelola semua transaksi bisnis Anda</p>
+            </div>
+            <div class="coming-soon">
+                <i class="fas fa-hammer"></i>
+                <h3>Dalam Pengembangan</h3>
+                <p>Fitur ini sedang dalam tahap pengembangan dan akan segera tersedia.</p>
+            </div>
+        </div>
+
+        <!-- Add more pages as needed -->
+        <div class="page-content" id="products-page">
+            <div class="page-header">
+                <h1 class="page-title">Produk</h1>
+                <p class="page-subtitle">Kelola katalog produk Anda</p>
+            </div>
+            <div class="coming-soon">
+                <i class="fas fa-hammer"></i>
+                <h3>Dalam Pengembangan</h3>
+                <p>Fitur ini sedang dalam tahap pengembangan dan akan segera tersedia.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/animations.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
+</body>
+</html>

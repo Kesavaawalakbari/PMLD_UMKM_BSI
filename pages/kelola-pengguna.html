@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Pengguna - BSI UMKM Center Yogyakarta</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* RESET */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* VARIABLES */
+        :root {
+            --primary-teal: #00A39D;
+            --secondary-orange: #F8AD3C;
+            --text-primary: #2C3E50;
+            --text-secondary: #7F8C8D;
+            --text-muted: #6C757D;
+            --gray-50: #F8F9FA;
+            --gray-100: #E9ECEF;
+            --gray-200: #DEE2E6;
+            --white: #FFFFFF;
+            --error: #E74C3C;
+            --dashboard-bg: #F5F6FA;
+        }
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--dashboard-bg);
+            color: var(--text-primary);
+        }
+        
+        /* LAYOUT */
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            grid-template-rows: 70px 1fr;
+            grid-template-areas: "sidebar header" "sidebar main";
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .dashboard-sidebar {
+            grid-area: sidebar;
+            background: var(--primary-teal);
+            overflow-y: auto;
+            height: 100vh;
+        }
+        
+        .dashboard-header {
+            grid-area: header;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .dashboard-main {
+            grid-area: main;
+            padding: 20px;
+            overflow-y: auto;
+            height: calc(100vh - 70px);
+        }
+        
+        /* SIDEBAR */
+        .sidebar {
+            padding: 24px 0;
+        }
+        
+        .sidebar__logo {
+            padding: 40px 24px 40px 24px;
+            margin-bottom: 32px;
+            background: var(--primary-teal);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0;
+            position: relative;
+        }
+        
+        .logo-text {
+            color: white;
+            text-align: left;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .logo-text__brand {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -1px;
+            position: relative;
+        }
+        
+        .logo-text__subtitle {
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 2.5px;
+            line-height: 1.5;
+            white-space: nowrap;
+        }
+        
+        .logo-star {
+            color: var(--secondary-orange);
+            width: 28px;
+            height: 28px;
+            position: absolute;
+            top: -18px;
+            left: 60px;
+        }
+        
+        .nav-list {
+            list-style: none;
+            padding: 0 20px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
+        
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+        
+        .nav-item--active .nav-link {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .nav-icon {
+            width: 20px;
+            font-size: 20px;
+        }
+        
+        /* SUBMENU STYLES */
+        .nav-item-has-submenu {
+            position: relative;
+        }
+        
+        .nav-item-has-submenu > .nav-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+        
+        .submenu-arrow {
+            font-size: 12px;
+            transition: transform 0.3s ease;
+            margin-left: auto;
+        }
+        
+        .nav-item-has-submenu.submenu-open .submenu-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .nav-submenu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-item-has-submenu.submenu-open .nav-submenu {
+            max-height: 300px;
+        }
+        
+        .nav-submenu-item {
+            margin: 0;
+        }
+        
+        .nav-submenu-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px 12px 60px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-submenu-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding-left: 65px;
+        }
+        
+        .nav-submenu-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--secondary-orange);
+            font-weight: 600;
+        }
+        
+        /* HEADER */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 0 24px;
+            height: 100%;
+            position: relative;
+        }
+        
+        .header__toggle {
+            display: none;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            color: var(--primary-teal);
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        
+        .header__toggle:hover {
+            background: var(--gray-50);
+        }
+        
+        .header__search {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            max-width: 400px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .search-decoration {
+            position: absolute;
+            top: -24px;
+            left: -24px;
+            width: 80px;
+            height: auto;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 8px 0;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            background: transparent;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header__actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-left: auto;
+            position: relative;
+        }
+        
+        .header-decoration-right {
+            position: absolute;
+            top: -12px;
+            right: -24px;
+            width: 70px;
+            height: auto;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .action-btn {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 8px;
+            z-index: 10;
+        }
+        
+        .action-badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            min-width: 18px;
+            height: 18px;
+            background: var(--error);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .user-profile__toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .user-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+        }
+        
+        .user-info {
+            text-align: left;
+        }
+        
+        .user-name {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .user-role {
+            display: block;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        /* BREADCRUMB */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .breadcrumb-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .breadcrumb-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .breadcrumb-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-nav a:hover {
+            color: var(--primary-teal);
+        }
+        
+        .breadcrumb-nav span {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        /* TABLE CARD */
+        .table-card {
+            background: white;
+            border-radius: 10px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .table-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .table-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .table-divider {
+            width: 1px;
+            height: 24px;
+            background: var(--gray-200);
+        }
+        
+        .table-search {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            max-width: 300px;
+        }
+        
+        .table-search input {
+            flex: 1;
+            padding: 8px 0;
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
+        
+        /* TABLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        thead {
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        th {
+            padding: 16px 12px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        tbody tr {
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+        
+        tbody tr:hover {
+            background: var(--gray-50);
+        }
+        
+        td {
+            padding: 16px 12px;
+            font-size: 14px;
+        }
+        
+        .action-icons {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .action-icon {
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        .action-icon:hover {
+            color: var(--primary-teal);
+        }
+        
+        .action-icon.delete:hover {
+            color: var(--error);
+        }
+        
+        /* PAGINATION */
+        .table-pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 24px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .pagination-controls {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .pagination-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--gray-200);
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .pagination-btn:hover {
+            background: var(--gray-50);
+        }
+        
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* MODAL STYLES */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .modal-container {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 14px 0px rgba(38, 43, 67, 0.16);
+            width: 100%;
+            max-width: 554px;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .modal-header {
+            background: var(--primary-teal);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .modal-title {
+            font-family: 'Lato', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 30px;
+            color: #ffffff;
+            margin: 0;
+        }
+        
+        .modal-close {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 20px;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.2s;
+        }
+        
+        .modal-close:hover {
+            opacity: 0.8;
+        }
+        
+        .modal-divider {
+            height: 1px;
+            background: rgba(38, 43, 67, 0.2);
+        }
+        
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group {
+            position: relative;
+            width: 100%;
+        }
+        
+        .form-label {
+            position: absolute;
+            top: -8px;
+            left: 10px;
+            background: var(--secondary-orange);
+            color: #333333;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 15px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            z-index: 1;
+        }
+        
+        .form-input {
+            width: 100%;
+            border: 1px solid var(--primary-teal);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-family: 'Lato', sans-serif;
+            font-size: 16px;
+            line-height: 26px;
+            color: rgba(38, 43, 67, 0.7);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        .form-input:focus {
+            border-color: var(--primary-teal);
+        }
+        
+        .form-input:readonly {
+            background: #f9f9f9;
+            cursor: default;
+        }
+        
+        .btn-view-orders {
+            width: 100%;
+            background: var(--primary-teal);
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            padding: 8px 26px;
+            font-family: 'Lato', sans-serif;
+            font-size: 17px;
+            font-weight: 500;
+            line-height: 26px;
+            text-transform: capitalize;
+            cursor: pointer;
+            box-shadow: 0px 2px 6px 0px rgba(38, 43, 67, 0.14);
+            transition: all 0.3s;
+        }
+        
+        .btn-view-orders:hover {
+            background: #008a85;
+            transform: translateY(-2px);
+            box-shadow: 0px 4px 10px 0px rgba(38, 43, 67, 0.2);
+        }
+        
+        /* DELETE MODAL STYLES */
+        .modal-delete-container {
+            background: #ffffff;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 580px;
+            max-height: 90vh;
+            overflow: hidden;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 40px 50px;
+            box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.15);
+        }
+        
+        .modal-delete-close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background: transparent;
+            border: none;
+            color: #6C757D;
+            font-size: 20px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            border-radius: 50%;
+        }
+        
+        .modal-delete-close:hover {
+            background: #f0f0f0;
+            color: #333;
+        }
+        
+        .modal-delete-body {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .modal-delete-title {
+            font-family: 'Lato', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 28px;
+            color: #333333;
+            margin: 0;
+        }
+        
+        .modal-delete-text {
+            font-family: 'Lato', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 22px;
+            color: #666666;
+            margin: 0;
+            text-align: justify;
+        }
+        
+        .modal-delete-text strong {
+            font-weight: 600;
+            color: #333333;
+        }
+        
+        .modal-delete-user-info {
+            background: #f8f9fa;
+            padding: 12px 20px;
+            border-radius: 8px;
+            width: 100%;
+            font-family: 'Lato', sans-serif;
+            font-size: 14px;
+            color: #333333;
+            border-left: 4px solid var(--primary-teal);
+        }
+        
+        .modal-delete-actions {
+            display: flex;
+            gap: 16px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .btn-cancel,
+        .btn-delete {
+            flex: 1;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Lato', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-cancel {
+            background: #E0E0E0;
+            color: #333333;
+        }
+        
+        .btn-cancel:hover {
+            background: #D0D0D0;
+            transform: translateY(-2px);
+            box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-delete {
+            background: var(--primary-teal);
+            color: #ffffff;
+        }
+        
+        .btn-delete:hover {
+            background: #008a85;
+            transform: translateY(-2px);
+            box-shadow: 0px 4px 10px 0px rgba(0, 163, 157, 0.3);
+        }
+        
+        /* SUCCESS MODAL STYLES */
+        .modal-success-container {
+            background: #ffffff;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow: hidden;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 50px 60px;
+            box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.15);
+        }
+        
+        .modal-success-close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background: transparent;
+            border: none;
+            color: #6C757D;
+            font-size: 20px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            border-radius: 50%;
+        }
+        
+        .modal-success-close:hover {
+            background: #f0f0f0;
+            color: #333;
+        }
+        
+        .modal-success-body {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .modal-success-title {
+            font-family: 'Lato', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 32px;
+            color: #333333;
+            margin: 0;
+        }
+        
+        .modal-success-text {
+            font-family: 'Lato', sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 26px;
+            color: #666666;
+            margin: 0;
+        }
+        
+        .btn-okay {
+            width: 100%;
+            max-width: 300px;
+            padding: 12px 40px;
+            background: var(--primary-teal);
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Lato', sans-serif;
+            font-size: 17px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0px 2px 6px 0px rgba(38, 43, 67, 0.14);
+        }
+        
+        .btn-okay:hover {
+            background: #008a85;
+            transform: translateY(-2px);
+            box-shadow: 0px 4px 10px 0px rgba(0, 163, 157, 0.3);
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+                grid-template-rows: 70px 1fr;
+                grid-template-areas: "header" "main";
+            }
+            
+            .header__toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .dashboard-sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                width: 280px;
+                height: 100vh;
+                z-index: 1000;
+                transition: left 0.3s ease;
+            }
+            
+            .dashboard-sidebar.open {
+                left: 0;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+            }
+            
+            .user-info {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-main {
+                padding: 12px;
+            }
+            
+            .header {
+                padding: 0 12px;
+            }
+            
+            .header__search {
+                max-width: 200px;
+            }
+            
+            .search-decoration,
+            .header-decoration-right {
+                display: none;
+            }
+            
+            .breadcrumb {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            
+            .table-card {
+                padding: 16px;
+            }
+            
+            .table-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            table {
+                font-size: 12px;
+                display: block;
+                overflow-x: auto;
+            }
+            
+            th, td {
+                padding: 12px 8px;
+            }
+            
+            .modal-container {
+                max-width: 90%;
+                margin: 0 12px;
+            }
+            
+            .modal-title {
+                font-size: 18px;
+            }
+            
+            .modal-body {
+                padding: 16px;
+            }
+            
+            .form-label {
+                font-size: 12px;
+            }
+            
+            .form-input {
+                font-size: 14px;
+                padding: 10px 12px;
+            }
+            
+            .btn-view-orders {
+                font-size: 15px;
+                padding: 8px 16px;
+            }
+            
+            .modal-delete-container {
+                max-width: 90%;
+                padding: 30px 24px;
+                margin: 0 12px;
+            }
+            
+            .modal-delete-title {
+                font-size: 18px;
+                line-height: 24px;
+            }
+            
+            .modal-delete-text {
+                font-size: 13px;
+                line-height: 20px;
+            }
+            
+            .modal-delete-actions {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .btn-cancel,
+            .btn-delete {
+                width: 100%;
+                font-size: 15px;
+            }
+            
+            .modal-success-container {
+                max-width: 85%;
+                padding: 40px 30px;
+                margin: 0 12px;
+            }
+            
+            .modal-success-title {
+                font-size: 18px;
+                line-height: 26px;
+            }
+            
+            .modal-success-text {
+                font-size: 14px;
+                line-height: 22px;
+            }
+            
+            .btn-okay {
+                font-size: 16px;
+                padding: 12px 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- SIDEBAR -->
+        <aside class="dashboard-sidebar" id="sidebar">
+            <div class="sidebar">
+                <div class="sidebar__logo">
+                    <div class="logo-text">
+                        <span class="logo-text__brand">BSI</span>
+                        <div>
+                            <div class="logo-text__subtitle">UMKM CENTER</div>
+                            <div class="logo-text__subtitle">YOGYAKARTA</div>
+                        </div>
+                        <svg class="logo-star" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                </div>
+                <nav>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="dashboard-inline.html" class="nav-link">
+                                <i class="nav-icon fas fa-th-large"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="kelola-produk.html" class="nav-link">
+                                <i class="nav-icon fas fa-box"></i>
+                                <span>Kelola Produk</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="kelola-keuangan.html" class="nav-link">
+                                <i class="nav-icon fas fa-wallet"></i>
+                                <span>Kelola Keuangan</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="kelola-umkm.html" class="nav-link">
+                                <i class="nav-icon fas fa-store"></i>
+                                <span>Kelola UMKM</span>
+                            </a>
+                        </li>
+                        <li class="nav-item nav-item-has-submenu submenu-open">
+                            <a href="#" class="nav-link" id="kelolaPenggunaToggle">
+                                <i class="nav-icon fas fa-users"></i>
+                                <span>Kelola Pengguna</span>
+                                <i class="submenu-arrow fas fa-chevron-up"></i>
+                            </a>
+                            <ul class="nav-submenu" id="kelolaPenggunaSubmenu">
+                                <li class="nav-submenu-item">
+                                    <a href="kelola-pengguna.html" class="nav-submenu-link active">Kelola Pengguna</a>
+                                </li>
+                                <li class="nav-submenu-item">
+                                    <a href="pesanan.html" class="nav-submenu-link">Pesanan</a>
+                                </li>
+                                <li class="nav-submenu-item">
+                                    <a href="pengiriman.html" class="nav-submenu-link">Pengiriman</a>
+                                </li>
+                                <li class="nav-submenu-item">
+                                    <a href="penjualan.html" class="nav-submenu-link">Penjualan</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-question-circle"></i>
+                                <span>Bantuan</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        
+        <!-- HEADER -->
+        <header class="dashboard-header">
+            <div class="header">
+                <button class="header__toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header__search">
+                    <i class="fas fa-search" style="color: #6C757D;"></i>
+                    <input type="text" class="search-input" placeholder="Type to search...">
+                    <img src="../assets/images/Shape Left Down.webp" alt="" class="search-decoration">
+                </div>
+                <div class="header__actions">
+                    <img src="../assets/images/Shape Right Up.webp" alt="" class="header-decoration-right">
+                    <button class="action-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="action-badge">3</span>
+                    </button>
+                    <button class="action-btn">
+                        <i class="fas fa-comment-alt"></i>
+                        <span class="action-badge">5</span>
+                    </button>
+                    <button class="user-profile__toggle">
+                        <img src="https://ui-avatars.com/api/?name=Thomas+Anree&background=00A39D&color=fff" class="user-avatar">
+                        <div class="user-info">
+                            <span class="user-name">Thomas Anree</span>
+                            <span class="user-role">Administrator</span>
+                        </div>
+                        <i class="fas fa-chevron-down" style="color: #6C757D; font-size: 14px; margin-left: 8px;"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+        
+        <!-- MAIN CONTENT -->
+        <main class="dashboard-main">
+            <!-- BREADCRUMB -->
+            <div class="breadcrumb">
+                <h1 class="breadcrumb-title">Kelola Pengguna</h1>
+                <div class="breadcrumb-nav">
+                    <a href="dashboard-inline.html">Dashboard</a>
+                    <span>/</span>
+                    <span>Kelola Pengguna</span>
+                </div>
+            </div>
+            
+            <!-- TABLE -->
+            <div class="table-card">
+                <div class="table-header">
+                    <h2 class="table-title">Pengguna</h2>
+                    <div class="table-divider"></div>
+                    <div class="table-search">
+                        <i class="fas fa-search" style="color: #6C757D;"></i>
+                        <input type="text" placeholder="Cari Pengguna">
+                    </div>
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 100px;">ID Pengguna</th>
+                            <th style="width: 300px;">Nama</th>
+                            <th style="width: 200px;">Email</th>
+                            <th style="width: 100px;">Kontak</th>
+                            <th style="width: 100px;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>D001</td>
+                            <td>Mamat guncop el rumi</td>
+                            <td>mamat@gun.shop.com</td>
+                            <td>0819282910</td>
+                            <td>
+                                <div class="action-icons">
+                                    <i class="fas fa-eye action-icon" title="Lihat Detail"></i>
+                                    <i class="fas fa-trash-alt action-icon delete" title="Hapus"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>D002</td>
+                            <td>Budi Santoso</td>
+                            <td>budi.santoso@email.com</td>
+                            <td>0812345678</td>
+                            <td>
+                                <div class="action-icons">
+                                    <i class="fas fa-eye action-icon" title="Lihat Detail"></i>
+                                    <i class="fas fa-trash-alt action-icon delete" title="Hapus"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>D003</td>
+                            <td>Siti Nurhaliza</td>
+                            <td>siti.nur@email.com</td>
+                            <td>0856789012</td>
+                            <td>
+                                <div class="action-icons">
+                                    <i class="fas fa-eye action-icon" title="Lihat Detail"></i>
+                                    <i class="fas fa-trash-alt action-icon delete" title="Hapus"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>D004</td>
+                            <td>Ahmad Wijaya</td>
+                            <td>ahmad.wijaya@email.com</td>
+                            <td>0823456789</td>
+                            <td>
+                                <div class="action-icons">
+                                    <i class="fas fa-eye action-icon" title="Lihat Detail"></i>
+                                    <i class="fas fa-trash-alt action-icon delete" title="Hapus"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>D005</td>
+                            <td>Rina Kartika</td>
+                            <td>rina.kartika@email.com</td>
+                            <td>0898765432</td>
+                            <td>
+                                <div class="action-icons">
+                                    <i class="fas fa-eye action-icon" title="Lihat Detail"></i>
+                                    <i class="fas fa-trash-alt action-icon delete" title="Hapus"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="table-pagination">
+                    <span>1-5 of 29</span>
+                    <div class="pagination-controls">
+                        <button class="pagination-btn" disabled>
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="pagination-btn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modal Detail Pengguna -->
+    <div id="detailPenggunaModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">Detail Pengguna</h2>
+                <button id="closeModal" class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-divider"></div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">ID Pengguna</label>
+                    <input type="text" id="modalUserId" class="form-input" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Nama Pengguna</label>
+                    <input type="text" id="modalUserName" class="form-input" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="text" id="modalUserEmail" class="form-input" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Kontak</label>
+                    <input type="text" id="modalUserContact" class="form-input" readonly>
+                </div>
+                <button class="btn-view-orders">
+                    Lihat Pesanan oleh Pengguna
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Delete Confirmation -->
+    <div id="deleteConfirmModal" class="modal-overlay">
+        <div class="modal-delete-container">
+            <button id="closeDeleteModal" class="modal-delete-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-delete-body">
+                <h2 class="modal-delete-title">Kamu yakin ingin menghapus baris data ini 🗑️ ?</h2>
+                <p class="modal-delete-text">
+                    Apakah Kamu yakin ingin menghapus baris data ini? 🗑️ Data yang dihapus tidak dapat dikembalikan. Pastikan data yang dipilih benar sebelum melanjutkan. Tekan <strong>Hapus</strong> untuk mengonfirmasi 🔴 atau <strong>Batal</strong> jika ingin mempertahankan data ini 😊.
+                </p>
+                <div class="modal-delete-user-info" id="deleteUserInfo"></div>
+                <div class="modal-delete-actions">
+                    <button class="btn-cancel" id="btnCancelDelete">Batal</button>
+                    <button class="btn-delete" id="btnConfirmDelete">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Success -->
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-success-container">
+            <button id="closeSuccessModal" class="modal-success-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-success-body">
+                <h2 class="modal-success-title">Data Kamu telah berhasil disimpan! 📋✨</h2>
+                <p class="modal-success-text">
+                    Semua perubahan telah disimpan dan aman.<br>
+                    Kamu bisa melanjutkan pekerjaan tanpa khawatir. 👍
+                </p>
+                <button class="btn-okay" id="btnOkay">Okay</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Sidebar toggle for mobile
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        if (sidebarToggle && sidebar) {
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+            });
+            
+            // Close sidebar when clicking outside
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth <= 1024) {
+                    if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+                        sidebar.classList.remove('open');
+                    }
+                }
+            });
+        }
+        
+        // Submenu Toggle Functionality
+        const kelolaPenggunaToggle = document.getElementById('kelolaPenggunaToggle');
+        const kelolaPenggunaSubmenu = document.getElementById('kelolaPenggunaSubmenu');
+        
+        if (kelolaPenggunaToggle) {
+            kelolaPenggunaToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                const parentItem = this.closest('.nav-item-has-submenu');
+                parentItem.classList.toggle('submenu-open');
+            });
+        }
+        
+        // Modal Detail Pengguna Functionality
+        const modal = document.getElementById('detailPenggunaModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const viewButtons = document.querySelectorAll('.fa-eye.action-icon');
+        
+        console.log('Modal script loaded');
+        console.log('Found modal:', modal);
+        console.log('Found eye icons:', viewButtons.length);
+        
+        // Open modal when eye icon is clicked
+        viewButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Eye icon clicked');
+                
+                const row = this.closest('tr');
+                if (!row) {
+                    console.error('Row not found');
+                    return;
+                }
+                
+                const userId = row.cells[0].textContent.trim();
+                const userName = row.cells[1].textContent.trim();
+                const userEmail = row.cells[2].textContent.trim();
+                const userContact = row.cells[3].textContent.trim();
+                
+                console.log('User data:', {userId, userName, userEmail, userContact});
+                
+                // Fill modal with user data
+                document.getElementById('modalUserId').value = userId;
+                document.getElementById('modalUserName').value = userName;
+                document.getElementById('modalUserEmail').value = userEmail;
+                document.getElementById('modalUserContact').value = userContact;
+                
+                // Show modal
+                if (modal) {
+                    modal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden'; // Prevent background scroll
+                    console.log('Modal displayed');
+                } else {
+                    console.error('Modal not found');
+                }
+            });
+        });
+        
+        // Close modal when close button is clicked
+        if (closeModalBtn) {
+            closeModalBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+        }
+        
+        // Close modal when clicking outside the modal content
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // View Orders Button
+        const viewOrdersBtn = document.querySelector('.btn-view-orders');
+        if (viewOrdersBtn) {
+            viewOrdersBtn.addEventListener('click', function() {
+                const userId = document.getElementById('modalUserId').value;
+                const userName = document.getElementById('modalUserName').value;
+                // Redirect to pesanan page with user filter (future implementation)
+                alert(`Melihat pesanan dari ${userName} (ID: ${userId})`);
+            });
+        }
+        
+        // Delete Confirmation Modal Functionality
+        const deleteModal = document.getElementById('deleteConfirmModal');
+        const closeDeleteModalBtn = document.getElementById('closeDeleteModal');
+        const btnCancelDelete = document.getElementById('btnCancelDelete');
+        const btnConfirmDelete = document.getElementById('btnConfirmDelete');
+        const deleteButtons = document.querySelectorAll('.fa-trash-alt.action-icon.delete');
+        const deleteUserInfo = document.getElementById('deleteUserInfo');
+        
+        let userToDelete = null;
+        
+        console.log('Delete modal script loaded');
+        console.log('Found delete modal:', deleteModal);
+        console.log('Found delete buttons:', deleteButtons.length);
+        
+        // Open delete modal when trash icon is clicked
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Delete icon clicked');
+                
+                const row = this.closest('tr');
+                if (!row) {
+                    console.error('Row not found');
+                    return;
+                }
+                
+                const userId = row.cells[0].textContent.trim();
+                const userName = row.cells[1].textContent.trim();
+                const userEmail = row.cells[2].textContent.trim();
+                
+                userToDelete = {
+                    id: userId,
+                    name: userName,
+                    email: userEmail,
+                    row: row
+                };
+                
+                console.log('User to delete:', userToDelete);
+                
+                // Display user info in modal
+                deleteUserInfo.innerHTML = `<strong>${userName}</strong> (${userId}) - ${userEmail}`;
+                
+                // Show delete modal
+                if (deleteModal) {
+                    deleteModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                    console.log('Delete modal displayed');
+                } else {
+                    console.error('Delete modal not found');
+                }
+            });
+        });
+        
+        // Close delete modal function
+        function closeDeleteModal() {
+            deleteModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            userToDelete = null;
+        }
+        
+        // Close delete modal when close button is clicked
+        if (closeDeleteModalBtn) {
+            closeDeleteModalBtn.addEventListener('click', closeDeleteModal);
+        }
+        
+        // Close delete modal when cancel button is clicked
+        if (btnCancelDelete) {
+            btnCancelDelete.addEventListener('click', closeDeleteModal);
+        }
+        
+        // Confirm delete
+        if (btnConfirmDelete) {
+            btnConfirmDelete.addEventListener('click', function() {
+                if (userToDelete) {
+                    console.log('Deleting user:', userToDelete);
+                    
+                    // Remove the row from table
+                    userToDelete.row.remove();
+                    
+                    // Close delete modal
+                    closeDeleteModal();
+                    
+                    // Show success modal
+                    showSuccessModal();
+                }
+            });
+        }
+        
+        // Close delete modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === deleteModal) {
+                closeDeleteModal();
+            }
+        });
+        
+        // Close delete modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && deleteModal.style.display === 'flex') {
+                closeDeleteModal();
+            }
+        });
+        
+        // Success Modal Functionality
+        const successModal = document.getElementById('successModal');
+        const closeSuccessModalBtn = document.getElementById('closeSuccessModal');
+        const btnOkay = document.getElementById('btnOkay');
+        
+        console.log('Success modal script loaded');
+        console.log('Found success modal:', successModal);
+        
+        // Show success modal
+        function showSuccessModal() {
+            if (successModal) {
+                successModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                console.log('Success modal displayed');
+            } else {
+                console.error('Success modal not found');
+            }
+        }
+        
+        // Close success modal
+        function closeSuccessModal() {
+            successModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close success modal when close button is clicked
+        if (closeSuccessModalBtn) {
+            closeSuccessModalBtn.addEventListener('click', closeSuccessModal);
+        }
+        
+        // Close success modal when Okay button is clicked
+        if (btnOkay) {
+            btnOkay.addEventListener('click', closeSuccessModal);
+        }
+        
+        // Close success modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === successModal) {
+                closeSuccessModal();
+            }
+        });
+        
+        // Close success modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && successModal.style.display === 'flex') {
+                closeSuccessModal();
+            }
+        });
+    </script>
+</body>
+</html>
