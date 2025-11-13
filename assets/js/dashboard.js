@@ -1,172 +1,341 @@
-/* ==============================================
-   PMLD UMKM BSI - Dashboard JavaScript
-   ============================================== */
+/**/* ==============================================
 
-class Dashboard {
-    constructor() {
-        this.sidebarCollapsed = false;
+ * BSI UMKM Center - Dashboard JavaScript   PMLD UMKM BSI - Dashboard JavaScript
+
+ * Interactivity for dashboard admin page   ============================================== */
+
+ * 
+
+ * @version 1.0.0class Dashboard {
+
+ * @date November 4, 2025    constructor() {
+
+ */        this.sidebarCollapsed = false;
+
         this.currentPage = 'overview';
-        this.charts = {};
-        
+
+(function() {        this.charts = {};
+
+  'use strict';        
+
         this.init();
+
+  // Wait for DOM to be ready    }
+
+  document.addEventListener('DOMContentLoaded', function() {
+
+    initSidebarToggle();    init() {
+
+    initDropdowns();        this.setupEventListeners();
+
+    initVisitorsChart();        this.initializeComponents();
+
+    initAnimations();        this.showPage('overview');
+
+  });        this.updateDateTime();
+
     }
 
-    init() {
-        this.setupEventListeners();
-        this.initializeComponents();
-        this.showPage('overview');
-        this.updateDateTime();
-    }
+  /**
 
-    setupEventListeners() {
-        // Sidebar toggle
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        if (sidebarToggle) {
-            sidebarToggle.addEventListener('click', () => this.toggleSidebar());
-        }
+   * Initialize sidebar toggle for mobile    setupEventListeners() {
 
-        // Navigation links
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const pageId = link.getAttribute('data-page');
-                if (pageId) {
-                    this.showPage(pageId);
-                    this.setActiveNavLink(link);
-                }
-            });
+   */        // Sidebar toggle
+
+  function initSidebarToggle() {        const sidebarToggle = document.getElementById('sidebarToggle');
+
+    const toggle = document.getElementById('sidebarToggle');        if (sidebarToggle) {
+
+    const sidebar = document.getElementById('sidebar');            sidebarToggle.addEventListener('click', () => this.toggleSidebar());
+
+            }
+
+    if (!toggle || !sidebar) return;
+
+            // Navigation links
+
+    toggle.addEventListener('click', function() {        const navLinks = document.querySelectorAll('.nav-link');
+
+      sidebar.classList.toggle('open');        navLinks.forEach(link => {
+
+    });            link.addEventListener('click', (e) => {
+
+                    e.preventDefault();
+
+    // Close sidebar when clicking outside on mobile                const pageId = link.getAttribute('data-page');
+
+    document.addEventListener('click', function(e) {                if (pageId) {
+
+      if (window.innerWidth <= 1024) {                    this.showPage(pageId);
+
+        if (!sidebar.contains(e.target) && !toggle.contains(e.target)) {                    this.setActiveNavLink(link);
+
+          sidebar.classList.remove('open');                }
+
+        }            });
+
+      }        });
+
+    });
+
+  }        // Search functionality
+
+        const searchInput = document.getElementById('searchInput');
+
+  /**        if (searchInput) {
+
+   * Initialize dropdown menus            searchInput.addEventListener('input', (e) => this.handleSearch(e.target.value));
+
+   */        }
+
+  function initDropdowns() {
+
+    const dropdowns = document.querySelectorAll('.dropdown');        // Action buttons
+
+            const notificationBtn = document.getElementById('notificationBtn');
+
+    dropdowns.forEach(function(dropdown) {        if (notificationBtn) {
+
+      const toggle = dropdown.querySelector('.dropdown__toggle');            notificationBtn.addEventListener('click', () => this.showNotifications());
+
+      const menu = dropdown.querySelector('.dropdown__menu');        }
+
+      
+
+      if (!toggle || !menu) return;        const messageBtn = document.getElementById('messageBtn');
+
+              if (messageBtn) {
+
+      toggle.addEventListener('click', function(e) {            messageBtn.addEventListener('click', () => this.showMessages());
+
+        e.stopPropagation();        }
+
+        
+
+        // Close other dropdowns        // User menu
+
+        dropdowns.forEach(function(otherDropdown) {        const userMenu = document.querySelector('.user-menu');
+
+          if (otherDropdown !== dropdown) {        if (userMenu) {
+
+            otherDropdown.classList.remove('active');            userMenu.addEventListener('click', () => this.toggleUserMenu());
+
+          }        }
+
         });
 
-        // Search functionality
-        const searchInput = document.getElementById('searchInput');
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => this.handleSearch(e.target.value));
-        }
+                // Responsive sidebar
 
-        // Action buttons
-        const notificationBtn = document.getElementById('notificationBtn');
-        if (notificationBtn) {
-            notificationBtn.addEventListener('click', () => this.showNotifications());
-        }
+        dropdown.classList.toggle('active');        if (window.innerWidth <= 1024) {
 
-        const messageBtn = document.getElementById('messageBtn');
-        if (messageBtn) {
-            messageBtn.addEventListener('click', () => this.showMessages());
-        }
+      });            this.sidebarCollapsed = true;
 
-        // User menu
-        const userMenu = document.querySelector('.user-menu');
-        if (userMenu) {
-            userMenu.addEventListener('click', () => this.toggleUserMenu());
-        }
+    });        }
 
-        // Responsive sidebar
-        if (window.innerWidth <= 1024) {
-            this.sidebarCollapsed = true;
-        }
+    
 
-        // Window resize handler
-        window.addEventListener('resize', () => this.handleResize());
+    // Close dropdowns when clicking outside        // Window resize handler
 
-        // Click outside to close sidebar on mobile
-        document.addEventListener('click', (e) => this.handleOutsideClick(e));
-    }
+    document.addEventListener('click', function() {        window.addEventListener('resize', () => this.handleResize());
+
+      dropdowns.forEach(function(dropdown) {
+
+        dropdown.classList.remove('active');        // Click outside to close sidebar on mobile
+
+      });        document.addEventListener('click', (e) => this.handleOutsideClick(e));
+
+    });    }
+
+  }
 
     initializeComponents() {
-        // Initialize charts
-        this.initCharts();
-        
-        // Initialize counters
-        this.animateCounters();
-        
-        // Start real-time updates
-        this.startRealTimeUpdates();
-    }
 
-    toggleSidebar() {
-        const sidebar = document.querySelector('.sidebar');
-        this.sidebarCollapsed = !this.sidebarCollapsed;
-        
-        if (sidebar) {
-            sidebar.classList.toggle('active', !this.sidebarCollapsed);
-        }
-    }
+  /**        // Initialize charts
 
-    showPage(pageId) {
-        // Hide all pages
-        const allPages = document.querySelectorAll('.page-content');
-        allPages.forEach(page => page.classList.remove('active'));
+   * Initialize Visitors Analytics Chart        this.initCharts();
 
-        // Show selected page
-        const targetPage = document.getElementById(pageId);
-        if (targetPage) {
-            targetPage.classList.add('active');
-            this.currentPage = pageId;
+   */        
+
+  function initVisitorsChart() {        // Initialize counters
+
+    const canvas = document.getElementById('visitorsChart');        this.animateCounters();
+
             
-            // Update charts if showing overview
-            if (pageId === 'overview') {
-                setTimeout(() => this.updateCharts(), 100);
+
+    if (!canvas || typeof Chart === 'undefined') {        // Start real-time updates
+
+      console.warn('Chart.js not loaded or canvas not found');        this.startRealTimeUpdates();
+
+      return;    }
+
+    }
+
+        toggleSidebar() {
+
+    const ctx = canvas.getContext('2d');        const sidebar = document.querySelector('.sidebar');
+
+            this.sidebarCollapsed = !this.sidebarCollapsed;
+
+    // Chart data matching Figma design        
+
+    const data = {        if (sidebar) {
+
+      labels: ['Desktop', 'Mobile', 'Tablet', 'Unknown'],            sidebar.classList.toggle('active', !this.sidebarCollapsed);
+
+      datasets: [{        }
+
+        data: [65, 45, 34, 12],    }
+
+        backgroundColor: [
+
+          '#00A39D', // Desktop - Teal    showPage(pageId) {
+
+          '#6C757D', // Mobile - Gray        // Hide all pages
+
+          '#00A39D', // Tablet - Teal        const allPages = document.querySelectorAll('.page-content');
+
+          '#6C757D'  // Unknown - Gray        allPages.forEach(page => page.classList.remove('active'));
+
+        ],
+
+        borderWidth: 0,        // Show selected page
+
+        cutout: '70%'        const targetPage = document.getElementById(pageId);
+
+      }]        if (targetPage) {
+
+    };            targetPage.classList.add('active');
+
+                this.currentPage = pageId;
+
+    const config = {            
+
+      type: 'doughnut',            // Update charts if showing overview
+
+      data: data,            if (pageId === 'overview') {
+
+      options: {                setTimeout(() => this.updateCharts(), 100);
+
+        responsive: true,            }
+
+        maintainAspectRatio: true,        }
+
+        plugins: {    }
+
+          legend: {
+
+            display: false    setActiveNavLink(activeLink) {
+
+          },        // Remove active class from all links
+
+          tooltip: {        const navLinks = document.querySelectorAll('.nav-link');
+
+            enabled: true,        navLinks.forEach(link => link.classList.remove('active'));
+
+            backgroundColor: '#FFFFFF',
+
+            titleColor: '#2C3E50',        // Add active class to clicked link
+
+            bodyColor: '#7F8C8D',        activeLink.classList.add('active');
+
+            borderColor: '#E9ECEF',    }
+
+            borderWidth: 1,
+
+            padding: 12,    handleSearch(query) {
+
+            displayColors: true,        // Search functionality
+
+            callbacks: {        console.log('Searching for:', query);
+
+              label: function(context) {        // Implement search logic here
+
+                return context.label + ': ' + context.parsed + '%';        this.performSearch(query);
+
+              }    }
+
             }
-        }
-    }
 
-    setActiveNavLink(activeLink) {
-        // Remove active class from all links
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => link.classList.remove('active'));
+          }    performSearch(query) {
 
-        // Add active class to clicked link
-        activeLink.classList.add('active');
-    }
+        }        // Simulate search results
 
-    handleSearch(query) {
-        // Search functionality
-        console.log('Searching for:', query);
-        // Implement search logic here
-        this.performSearch(query);
-    }
+      }        if (query.length < 2) return;
 
-    performSearch(query) {
-        // Simulate search results
-        if (query.length < 2) return;
+    };
 
-        // You can implement actual search logic here
-        const searchResults = [
-            { type: 'product', name: 'Tas Rajut Handmade', category: 'Fashion' },
+            // You can implement actual search logic here
+
+    new Chart(ctx, config);        const searchResults = [
+
+  }            { type: 'product', name: 'Tas Rajut Handmade', category: 'Fashion' },
+
             { type: 'customer', name: 'Siti Nurhaliza', email: 'siti@email.com' },
-            { type: 'order', id: '#ORD-2024-001', status: 'Completed' }
-        ].filter(item => 
-            item.name?.toLowerCase().includes(query.toLowerCase()) ||
-            item.id?.toLowerCase().includes(query.toLowerCase())
-        );
 
-        console.log('Search results:', searchResults);
-    }
+  /**            { type: 'order', id: '#ORD-2024-001', status: 'Completed' }
 
-    initCharts() {
-        // Revenue Chart
-        this.initRevenueChart();
-        
-        // Traffic Sources Chart
-        this.initTrafficChart();
-        
-        // Mini charts for stat cards
-        this.initMiniCharts();
-    }
+   * Initialize scroll animations        ].filter(item => 
 
-    initRevenueChart() {
-        const ctx = document.getElementById('revenueChart');
-        if (!ctx) return;
+   */            item.name?.toLowerCase().includes(query.toLowerCase()) ||
 
-        // Sample data - replace with real data
-        const revenueData = {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-            datasets: [{
-                label: 'Pendapatan',
-                data: [12500000, 19200000, 15800000, 22400000, 18900000, 25600000],
+  function initAnimations() {            item.id?.toLowerCase().includes(query.toLowerCase())
+
+    const animatedElements = document.querySelectorAll('[data-animate]');        );
+
+    
+
+    if (!animatedElements.length) return;        console.log('Search results:', searchResults);
+
+        }
+
+    const observer = new IntersectionObserver(function(entries) {
+
+      entries.forEach(function(entry) {    initCharts() {
+
+        if (entry.isIntersecting) {        // Revenue Chart
+
+          const delay = entry.target.dataset.delay || 0;        this.initRevenueChart();
+
+          setTimeout(function() {        
+
+            entry.target.style.opacity = '1';        // Traffic Sources Chart
+
+            entry.target.style.transform = 'translateY(0)';        this.initTrafficChart();
+
+          }, delay);        
+
+          observer.unobserve(entry.target);        // Mini charts for stat cards
+
+        }        this.initMiniCharts();
+
+      });    }
+
+    }, {
+
+      threshold: 0.1    initRevenueChart() {
+
+    });        const ctx = document.getElementById('revenueChart');
+
+            if (!ctx) return;
+
+    animatedElements.forEach(function(element) {
+
+      element.style.opacity = '0';        // Sample data - replace with real data
+
+      element.style.transform = 'translateY(20px)';        const revenueData = {
+
+      element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+
+      observer.observe(element);            datasets: [{
+
+    });                label: 'Pendapatan',
+
+  }                data: [12500000, 19200000, 15800000, 22400000, 18900000, 25600000],
+
                 borderColor: '#00A651',
-                backgroundColor: 'rgba(0, 166, 81, 0.1)',
+
+})();                backgroundColor: 'rgba(0, 166, 81, 0.1)',
+
                 tension: 0.4,
                 fill: true
             }]

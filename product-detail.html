@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Produk - Fresh Brew Coffee | BSI UMKM Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Brand Colors - Standardized */
+            --primary: #00A39D;
+            --secondary: #F8AD3C;
+            --success: #04C8BC;
+            --warning: #F9BD50;
+            
+            /* Legacy support */
+            --primer: #00A39D;
+            --sekunder: #F8AD3C;
+            --teks: #333333;
+            --hitam: #222222;
+            --abu: #808080;
+            --putih: #FFFFFF;
+            
+            /* Neutral Colors */
+            --white: #FFFFFF;
+            --black: #222222;
+            --gray-50: #F8F9FA;
+            --gray-100: #E9ECEF;
+            --gray-500: #6C757D;
+            --gray-900: #212529;
+            
+            /* Text Colors */
+            --text-primary: #2C3E50;
+            --text-secondary: #7F8C8D;
+            --text-muted: #6C757D;
+            
+            /* Layout */
+            --container-max-width: 1200px;
+            --container-padding: 24px;
+            --border-radius: 8px;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            
+            /* Typography */
+            --font-family: 'Lato', sans-serif;
+            --font-size-xs: 12px;
+            --font-size-sm: 14px;
+            --font-size-base: 16px;
+            --font-size-lg: 18px;
+            --font-size-xl: 20px;
+            --font-size-2xl: 24px;
+            --font-size-3xl: 32px;
+            --font-size-4xl: 48px;
+            
+            /* Z-Index Management */
+            --z-background: -1;
+            --z-base: 1;
+            --z-dropdown: 10;
+            --z-sticky: 20;
+            --z-fixed: 30;
+            --z-modal: 40;
+            --z-popover: 50;
+            --z-tooltip: 60;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Container System */
+        .container {
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+        }
+        
+        /* Grid System */
+        .grid {
+            display: grid;
+            gap: 24px;
+        }
+        
+        .grid-1 { grid-template-columns: 1fr; }
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+        
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .grid-3, .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f5f5f5;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Background Pattern System */
+        .bg-pattern {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bg-pattern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: var(--pattern-url);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.4;
+            z-index: var(--z-background);
+            pointer-events: none;
+        }
+        
+        /* Background Patterns */
+        .background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: var(--z-background);
+            pointer-events: none;
+        }
+
+        .break-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: url('./assets/images/Break Without Ring.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center top;
+            background-attachment: scroll;
+            opacity: 0.4;
+            z-index: var(--z-background);
+        }
+
+        .mask-pattern {
+            position: absolute;
+            bottom: -100px;
+            left: 0;
+            width: 1444px;
+            height: 819px;
+            background-image: url('./assets/images/Mask Group.svg');
+            background-size: 1444px 819px;
+            background-repeat: no-repeat;
+            background-position: left bottom;
+            background-attachment: scroll;
+            opacity: 1;
+            z-index: var(--z-background);
+        }
+
+        /* Header */
+        header {
+            background: white;
+            padding: 20px 36px;
+            box-shadow: 0px 2px 12px rgba(20, 20, 43, 0.08);
+            position: relative;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            height: 51px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .nav-link {
+            padding: 10px;
+            text-decoration: none;
+            color: var(--primer);
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--sekunder);
+        }
+
+        .login-btn {
+            background: var(--primer);
+            color: white;
+            padding: 14px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            min-width: 150px;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #008a81;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 64px 0;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--primer);
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        /* Product Detail Card */
+        .product-detail-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0px 14px 42px rgba(20, 20, 43, 0.14);
+            padding: 42px 37px;
+            margin-bottom: 36px;
+        }
+
+        .product-main {
+            display: flex;
+            gap: 49px;
+            align-items: flex-start;
+        }
+
+        .product-images {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 452px;
+        }
+
+        .image-row {
+            display: flex;
+            gap: 14px;
+        }
+
+        .product-image {
+            width: 219px;
+            height: 219px;
+            border-radius: 8px;
+        }
+
+        .image-primary {
+            background: var(--sekunder);
+        }
+
+        .image-secondary {
+            background: var(--primer);
+        }
+
+        .product-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 49px;
+        }
+
+        .product-header h1 {
+            font-size: 36px;
+            font-weight: 600;
+            color: var(--teks);
+            margin-bottom: 14px;
+        }
+
+        .product-price {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--abu);
+        }
+
+        .product-description {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--abu);
+            line-height: 26px;
+            max-width: 529px;
+        }
+
+        .quantity-section {
+            display: flex;
+            gap: 49px;
+            align-items: center;
+        }
+
+        .quantity-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--teks);
+        }
+
+        .quantity-controls {
+            display: flex;
+            border: 1px solid var(--teks);
+            border-radius: 4px;
+        }
+
+        .quantity-btn, .quantity-display {
+            padding: 5px;
+            border: none;
+            background: none;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--teks);
+            width: 36px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .quantity-display {
+            width: 50px;
+            border-left: 1px solid var(--teks);
+            border-right: 1px solid var(--teks);
+        }
+
+        .buy-btn {
+            background: var(--primer);
+            color: white;
+            padding: 23px 26px;
+            border-radius: 12px;
+            border: none;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .buy-btn:hover {
+            background: #008a81;
+        }
+
+        /* Specifications Card */
+        .specs-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0px 14px 42px rgba(20, 20, 43, 0.14);
+            padding: 30px;
+            margin-bottom: 36px;
+        }
+
+        .specs-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--teks);
+            margin-bottom: 24px;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 81px;
+            max-width: 465px;
+            margin-bottom: 30px;
+        }
+
+        .specs-labels, .specs-values {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .specs-labels {
+            color: var(--abu);
+        }
+
+        .specs-values {
+            color: var(--hitam);
+        }
+
+        .specs-labels div, .specs-values div {
+            font-size: 16px;
+            line-height: 26px;
+        }
+
+        .description-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--teks);
+            margin-bottom: 20px;
+        }
+
+        .description-text {
+            font-size: 16px;
+            line-height: 26px;
+            color: var(--teks);
+            text-align: justify;
+        }
+
+        /* Related Products */
+        .related-products {
+            margin-bottom: 36px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0px 14px 42px rgba(20, 20, 43, 0.14);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .product-category {
+            font-size: 11px;
+            color: var(--abu);
+            margin-bottom: 4px;
+        }
+
+        .product-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--hitam);
+            margin-bottom: 8px;
+        }
+
+        .product-price-small {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primer);
+            margin-bottom: 12px;
+        }
+
+        .product-btn {
+            background: var(--primer);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        .product-btn:hover {
+            background: #008a81;
+        }
+
+        .more-products-btn {
+            background: white;
+            border: 2px solid var(--primer);
+            color: var(--primer);
+            padding: 10px 42px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .more-products-btn:hover {
+            background: var(--primer);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: transparent;
+            color: white;
+            padding: 60px 0;
+            position: relative;
+            margin-top: 100px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 36px;
+        }
+
+        .footer-left {
+            display: flex;
+            gap: 34px;
+            align-items: center;
+        }
+
+        .footer-logo {
+            height: 144px;
+        }
+
+        .footer-divider {
+            width: 2px;
+            height: 112px;
+            background: white;
+        }
+
+        .footer-contact {
+            max-width: 369px;
+        }
+
+        .footer-address {
+            font-size: 16px;
+            line-height: 26px;
+            margin-bottom: 8px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .footer-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .footer-right {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin-bottom: 12px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .contact-btn {
+            background: white;
+            border: 2px solid var(--primer);
+            color: var(--primer);
+            padding: 10px 42px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .contact-btn:hover {
+            background: var(--sekunder);
+            border-color: var(--sekunder);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .product-main {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .product-images {
+                width: 100%;
+            }
+
+            .image-row {
+                justify-content: center;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .specs-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 32px 16px;
+            }
+
+            .page-title {
+                font-size: 32px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-images {
+                width: 100%;
+            }
+
+            .image-row {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .product-image {
+                width: 280px;
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Patterns -->
+    <div class="background-container">
+        <div class="break-pattern"></div>
+        <div class="mask-pattern"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html">
+                <img src="./assets/images/Logo BSI UMKM Centre.svg" alt="BSI UMKM Center" class="logo">
+            </a>
+            
+            <div class="nav-links">
+                <a href="landing page.html#tentang" class="nav-link">Tentang Kami</a>
+                <a href="katalog.html" class="nav-link">Produk</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+            </div>
+            
+            <a href="login.html" class="login-btn">Login</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <h1 class="page-title">Detail Produk</h1>
+
+        <!-- Product Detail Card -->
+        <div class="product-detail-card">
+            <div class="product-main">
+                <!-- Product Images -->
+                <div class="product-images">
+                    <div class="image-row">
+                        <div class="product-image image-primary"></div>
+                        <div class="product-image image-secondary"></div>
+                    </div>
+                    <div class="image-row">
+                        <div class="product-image image-primary"></div>
+                        <div class="product-image image-secondary"></div>
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="product-info">
+                    <div class="product-header">
+                        <h1>Fresh Brew Coffee</h1>
+                        <div class="product-price">Rp 100.000</div>
+                    </div>
+
+                    <div class="product-description">
+                        Fresh Brew Coffee adalah minuman kopi premium yang diracik dari biji kopi pilihan 100% arabika, dipanggang dengan tingkat medium roast untuk menghasilkan rasa seimbang antara manis, asam, dan pahit.
+                    </div>
+
+                    <div class="quantity-section">
+                        <span class="quantity-label">Kuantitas</span>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+                            <div class="quantity-display" id="quantity">1</div>
+                            <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                        </div>
+                    </div>
+
+                    <button class="buy-btn" onclick="buyProduct()">Beli</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Specifications Card -->
+        <div class="specs-card">
+            <h2 class="specs-title">Spesifikasi</h2>
+            
+            <div class="specs-grid">
+                <div class="specs-labels">
+                    <div>Kategori</div>
+                    <div>Merek</div>
+                    <div>Tanggal Kadaluwarsa</div>
+                    <div>No. Izin Edar (BPOM, PIRT)</div>
+                </div>
+                <div class="specs-values">
+                    <div>Minuman</div>
+                    <div>Fresh Brew Coffee</div>
+                    <div>01-12-2025</div>
+                    <div>PIRT-123456789</div>
+                </div>
+            </div>
+
+            <h3 class="description-title">Deskripsi Produk</h3>
+            <p class="description-text">
+                Fresh Brew Coffee adalah minuman kopi premium yang diracik dari biji kopi pilihan 100% arabika, dipanggang dengan tingkat medium roast untuk menghasilkan rasa seimbang antara manis, asam, dan pahit. Setiap cangkir diseduh menggunakan metode manual brew untuk menjaga kesegaran aroma dan keaslian rasa. Minuman ini cocok untuk dinikmati kapan saja, baik di pagi hari untuk memulai aktivitas dengan semangat, maupun di sore hari sebagai teman bersantai. Fresh Brew Coffee tersedia dalam dua varian: hot dan iced, sehingga dapat disesuaikan dengan selera dan suasana hati Anda. Produk ini dikemas dalam cup ramah lingkungan yang aman untuk digunakan dan menjaga suhu minuman tetap stabil lebih lama. Dengan cita rasa yang kaya dan konsisten, Fresh Brew Coffee menjadi pilihan tepat bagi pecinta kopi yang mengutamakan kualitas dan pengalaman minum kopi yang autentik setiap hari.
+            </p>
+        </div>
+
+        <!-- Related Products -->
+        <div class="related-products">
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <img src="./assets/images/Frame 3.png" alt="Product">
+                    <div class="product-category">MAKANAN DAN MINUMAN</div>
+                    <div class="product-name">Product lorem ipsum dolor sit amet</div>
+                    <div class="product-price-small">Rp 100.000</div>
+                    <button class="product-btn" onclick="viewProduct()">Beli</button>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <img src="./assets/images/Frame 3.png" alt="Product">
+                    <div class="product-category">MAKANAN DAN MINUMAN</div>
+                    <div class="product-name">Product lorem ipsum dolor sit amet</div>
+                    <div class="product-price-small">Rp 100.000</div>
+                    <button class="product-btn" onclick="viewProduct()">Beli</button>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <img src="./assets/images/Frame 3.png" alt="Product">
+                    <div class="product-category">MAKANAN DAN MINUMAN</div>
+                    <div class="product-name">Product lorem ipsum dolor sit amet</div>
+                    <div class="product-price-small">Rp 100.000</div>
+                    <button class="product-btn" onclick="viewProduct()">Beli</button>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <img src="./assets/images/Frame 3.png" alt="Product">
+                    <div class="product-category">MAKANAN DAN MINUMAN</div>
+                    <div class="product-name">Product lorem ipsum dolor sit amet</div>
+                    <div class="product-price-small">Rp 100.000</div>
+                    <button class="product-btn" onclick="viewProduct()">Beli</button>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card">
+                    <img src="./assets/images/Frame 3.png" alt="Product">
+                    <div class="product-category">MAKANAN DAN MINUMAN</div>
+                    <div class="product-name">Product lorem ipsum dolor sit amet</div>
+                    <div class="product-price-small">Rp 100.000</div>
+                    <button class="product-btn" onclick="viewProduct()">Beli</button>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card">
+                    <img src="./assets/images/Frame 3.png" alt="Product">
+                    <div class="product-category">MAKANAN DAN MINUMAN</div>
+                    <div class="product-name">Product lorem ipsum dolor sit amet</div>
+                    <div class="product-price-small">Rp 100.000</div>
+                    <button class="product-btn" onclick="viewProduct()">Beli</button>
+                </div>
+
+                <!-- Product 7 -->
+                <div class="product-card">
+                    <img src="./assets/images/Frame 3.png" alt="Product">
+                    <div class="product-category">MAKANAN DAN MINUMAN</div>
+                    <div class="product-name">Product lorem ipsum dolor sit amet</div>
+                    <div class="product-price-small">Rp 100.000</div>
+                    <button class="product-btn" onclick="viewProduct()">Beli</button>
+                </div>
+
+                <!-- Product 8 -->
+                <div class="product-card">
+                    <img src="./assets/images/Frame 3.png" alt="Product">
+                    <div class="product-category">MAKANAN DAN MINUMAN</div>
+                    <div class="product-name">Product lorem ipsum dolor sit amet</div>
+                    <div class="product-price-small">Rp 100.000</div>
+                    <button class="product-btn" onclick="viewProduct()">Beli</button>
+                </div>
+            </div>
+
+            <a href="katalog.html" class="more-products-btn">Jelajahi Produk lainnya...</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <img src="./assets/images/Logo BSI UMKM Centre.svg" alt="BSI UMKM Center" class="footer-logo">
+                <div class="footer-divider"></div>
+                <div class="footer-contact">
+                    <p class="footer-address">
+                        Jl. Doktor Sutomo No.8, Baciro, Kec. Gondokusuman, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55225
+                    </p>
+                    <div class="footer-contact-item">
+                        <svg class="footer-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                        </svg>
+                        <span>081234567890</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <svg class="footer-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                        <span>bsiumkmyk@blabla.com</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-right">
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <svg class="footer-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>
+                        </svg>
+                        <span>@bsi.umkmcenter.yogyakarta</span>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg class="footer-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/>
+                        </svg>
+                        <span>@bsi.umkmcenter.yogyakarta</span>
+                    </a>
+                    <a href="#" class="social-link">
+                        <svg class="footer-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/>
+                        </svg>
+                        <span>bsi.umkmcenter.yogyakarta</span>
+                    </a>
+                </div>
+                <a href="#" class="contact-btn">Ada pertanyaan? klik disini!!!</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Quantity controls
+        let quantity = 1;
+
+        function increaseQuantity() {
+            quantity++;
+            document.getElementById('quantity').textContent = quantity;
+        }
+
+        function decreaseQuantity() {
+            if (quantity > 1) {
+                quantity--;
+                document.getElementById('quantity').textContent = quantity;
+            }
+        }
+
+        // Buy product
+        function buyProduct() {
+            alert(`Anda akan membeli ${quantity} Fresh Brew Coffee dengan total harga Rp ${(100000 * quantity).toLocaleString('id-ID')}`);
+        }
+
+        // View product
+        function viewProduct() {
+            // Navigate to product detail page
+            window.location.href = 'product-detail.html';
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add click handlers for product cards to navigate to this page
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (!e.target.classList.contains('product-btn')) {
+                    window.location.href = 'product-detail.html';
+                }
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.3s ease-in-out';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

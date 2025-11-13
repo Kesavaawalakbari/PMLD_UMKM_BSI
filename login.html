@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - BSI UMKM Center Yogyakarta</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Brand Colors - Standardized */
+      --primary: #00A39D;
+      --secondary: #F8AD3C;
+      --success: #04C8BC;
+      --warning: #F9BD50;
+      
+      /* Legacy support */
+      --primer: #00A39D;
+      --sekunder: #F8AD3C;
+      --green-50: #EFFEFC;
+      --green-500: #04C8BC;
+      --green-600: #00A39D;
+      --yellow-300: #F9BD50;
+      --yellow-400: #F8AD3C;
+      
+      /* Neutral Colors */
+      --white: #FFFFFF;
+      --black: #222222;
+      --gray-50: #F8F9FA;
+      --gray-100: #E9ECEF;
+      --gray-500: #6C757D;
+      --gray-900: #212529;
+      --neutral-100: #FFFFFF;
+      
+      /* Text Colors */
+      --text-primary: #2C3E50;
+      --text-secondary: #7F8C8D;
+      --text-muted: #6C757D;
+      --text-dark: #2C3E50;
+      --text-light: #7F8C8D;
+      
+      /* Layout */
+      --container-max-width: 1200px;
+      --container-padding: 24px;
+      --border-radius: 8px;
+      --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      --max-width: 1200px;
+      
+      /* Typography */
+      --font-family: 'Lato', sans-serif;
+      --font-size-xs: 12px;
+      --font-size-sm: 14px;
+      --font-size-base: 16px;
+      --font-size-lg: 18px;
+      --font-size-xl: 20px;
+      --font-size-2xl: 24px;
+      --font-size-3xl: 32px;
+      --font-size-4xl: 48px;
+      
+      /* Z-Index Management */
+      --z-background: -1;
+      --z-base: 1;
+      --z-dropdown: 10;
+      --z-sticky: 20;
+      --z-fixed: 30;
+      --z-modal: 40;
+      --z-popover: 50;
+      --z-tooltip: 60;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Lato', sans-serif;
+      background-color: var(--neutral-100);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* Typography */
+    .h1 {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 48px;
+      line-height: 58px;
+    }
+
+    .h2 {
+      font-family: 'Lato', sans-serif;
+      font-weight: 600;
+      font-size: 32px;
+      line-height: 40px;
+    }
+
+    .paragraph {
+      font-family: 'Lato', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 26px;
+    }
+
+    .button-text {
+      font-family: 'Lato', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    /* Container */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    header {
+      background: var(--neutral-100);
+      border-bottom: 1px solid #E8F4F3;
+      padding: 16px 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-container {
+      display: grid;
+      grid-template-columns: max-content;
+      grid-template-rows: max-content;
+      align-items: start;
+      justify-items: start;
+      position: relative;
+    }
+
+    .logo-icon-svg {
+      grid-column: 1;
+      grid-row: 1;
+      height: 86px;
+      width: auto;
+      margin-left: 1.435%;
+    }
+
+    nav {
+      display: flex;
+      gap: 32px;
+    }
+
+    nav a {
+      color: var(--primer);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--green-500);
+    }
+
+    .btn-login {
+      background: var(--primer);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn-login:hover {
+      background: var(--green-500);
+    }
+
+    /* Main Login Section */
+    .login-section {
+      height: 100vh;
+      background: url("assets/images/Background Gelombang.svg") no-repeat left center;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      overflow: hidden;
+      padding-top: 88px;
+    }
+
+    .login-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 24px;
+      padding-left: 200px;
+    }
+
+    /* Left side - BSI Logo */
+    .login-brand {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .brand-logo {
+      background: white;
+      padding: 60px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 163, 157, 0.15);
+      text-align: center;
+    }
+
+    .brand-logo-container {
+      display: grid;
+      grid-template-columns: max-content;
+      grid-template-rows: max-content;
+      align-items: start;
+      justify-items: start;
+      position: relative;
+      transform: scale(1.2);
+    }
+
+    .brand-logo-icon {
+      grid-column: 1;
+      grid-row: 1;
+      height: 86px;
+      width: auto;
+      margin-left: 1.435%;
+    }
+
+    .brand-logo-text {
+      grid-column: 1;
+      grid-row: 1;
+      height: 47px;
+      width: 174px;
+      margin-top: 96px;
+    }
+
+    /* Right side - Login Form */
+    .login-form-container {
+      background: transparent;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: none;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .login-form h2 {
+      color: var(--sekunder);
+      margin-bottom: 12px;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .login-form p {
+      color: var(--text-light);
+      margin-bottom: 32px;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text-dark);
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #E8F4F3;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: 'Lato', sans-serif;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primer);
+    }
+
+    .form-input::placeholder {
+      color: #A0AEC0;
+    }
+
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .checkbox-container input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+    }
+
+    .checkbox-container label {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    .forgot-password {
+      color: var(--primer);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .forgot-password:hover {
+      color: var(--green-500);
+    }
+
+    .btn-login-primary {
+      width: 100%;
+      background: var(--sekunder);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 12px;
+    }
+
+    .btn-login-primary:hover {
+      background: var(--yellow-300);
+      transform: translateY(-2px);
+    }
+
+    .btn-register {
+      width: 100%;
+      background: var(--primer);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn-register:hover {
+      background: var(--green-500);
+      transform: translateY(-2px);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .login-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+      }
+
+      .login-brand {
+        order: 2;
+      }
+
+      .login-form-container {
+        order: 1;
+        padding: 40px;
+      }
+
+      .brand-logo {
+        padding: 40px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 16px;
+      }
+
+      .header-content {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      nav {
+        gap: 24px;
+      }
+
+      .login-container {
+        padding: 40px 16px;
+      }
+
+      .login-form-container {
+        padding: 30px;
+      }
+
+      .login-form h2 {
+        font-size: 28px;
+      }
+
+      .brand-logo {
+        padding: 30px;
+      }
+
+      .brand-logo-container {
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .login-form-container {
+        padding: 20px;
+      }
+
+      .brand-logo {
+        padding: 20px;
+      }
+
+      .form-options {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <nav>
+          <a href="landing page.html#tentang">Tentang Kami</a>
+          <a href="landing page.html#produk">Produk</a>
+          <a href="faq.html">FAQ</a>
+        </nav>
+        <button class="btn-login" onclick="window.location.href='landing page.html'">Kembali</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Login Section -->
+  <section class="login-section">
+    <div class="login-container">
+      <!-- Left side - BSI Logo -->
+      <div class="login-brand">
+      </div>
+
+      <!-- Right side - Login Form -->
+      <div class="login-form-container">
+        <form class="login-form">
+          <h2>Selamat Datang...</h2>
+          <p>Assalamualaikum warahmatullahi wabarakatuh,<br>
+          Selamat datang di BSI UMKM Centre cabang Yogyakarta.</p>
+
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              class="form-input" 
+              placeholder="Masukkan Email anda..."
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="password" class="form-label">Kata sandi</label>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              class="form-input" 
+              placeholder="Masukkan Kata sandi anda..."
+              required
+            >
+          </div>
+
+          <div class="form-options">
+            <div class="checkbox-container">
+              <input type="checkbox" id="remember" name="remember">
+              <label for="remember">Ingat saya</label>
+            </div>
+            <a href="#" class="forgot-password">Lupa Password?</a>
+          </div>
+
+          <button type="submit" class="btn-login-primary button-text">Login sekarang!</button>
+          <a href="regist.html" class="btn-register button-text">Belum punya akun? Registrasi akun baru</a>
+        </form>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
