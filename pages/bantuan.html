@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bantuan - BSI UMKM Center Yogyakarta</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* RESET */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* VARIABLES */
+        :root {
+            --primary-teal: #00A39D;
+            --secondary-orange: #F8AD3C;
+            --text-primary: #2C3E50;
+            --text-secondary: #7F8C8D;
+            --text-muted: #6C757D;
+            --gray-50: #F8F9FA;
+            --gray-100: #E9ECEF;
+            --gray-200: #DEE2E6;
+            --white: #FFFFFF;
+            --error: #E74C3C;
+            --dashboard-bg: #F5F6FA;
+            --green: #10B981;
+        }
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--dashboard-bg);
+            color: var(--text-primary);
+        }
+        
+        /* LAYOUT */
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            grid-template-rows: 70px 1fr;
+            grid-template-areas: "sidebar header" "sidebar main";
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .dashboard-sidebar {
+            grid-area: sidebar;
+            background: var(--primary-teal);
+            overflow-y: auto;
+            height: 100vh;
+        }
+        
+        .dashboard-header {
+            grid-area: header;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .dashboard-main {
+            grid-area: main;
+            padding: 20px;
+            overflow-y: auto;
+            height: calc(100vh - 70px);
+        }
+        
+        /* SIDEBAR */
+        .sidebar {
+            padding: 24px 0;
+        }
+        
+        .sidebar__logo {
+            padding: 40px 24px 40px 24px;
+            margin-bottom: 32px;
+            background: var(--primary-teal);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0;
+            position: relative;
+        }
+        
+        .logo-text {
+            color: white;
+            text-align: left;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .logo-text__brand {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -1px;
+            position: relative;
+        }
+        
+        .logo-text__subtitle {
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 2.5px;
+            line-height: 1.5;
+            white-space: nowrap;
+        }
+        
+        .logo-star {
+            color: var(--secondary-orange);
+            width: 28px;
+            height: 28px;
+            position: absolute;
+            top: -18px;
+            left: 60px;
+        }
+        
+        .nav-list {
+            list-style: none;
+            padding: 0 20px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
+        
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+        
+        .nav-item--active .nav-link {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .nav-icon {
+            width: 20px;
+            font-size: 20px;
+        }
+        
+        /* SUBMENU STYLES */
+        .nav-item-has-submenu {
+            position: relative;
+        }
+        
+        .nav-item-has-submenu > .nav-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+        
+        .submenu-arrow {
+            font-size: 12px;
+            transition: transform 0.3s ease;
+            margin-left: auto;
+        }
+        
+        .nav-item-has-submenu.submenu-open .submenu-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .nav-submenu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-item-has-submenu.submenu-open .nav-submenu {
+            max-height: 300px;
+        }
+        
+        .nav-submenu-item {
+            margin: 0;
+        }
+        
+        .nav-submenu-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px 12px 60px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-submenu-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .nav-submenu-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-weight: 600;
+        }
+        
+        /* HEADER */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            padding: 0 32px;
+            position: relative;
+        }
+        
+        .header__toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+        
+        .header__search {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+        }
+        
+        .search-input {
+            border: none;
+            outline: none;
+            font-size: 14px;
+            font-family: 'Lato', sans-serif;
+            background: transparent;
+            flex: 1;
+        }
+        
+        .search-decoration {
+            position: absolute;
+            left: -50px;
+            bottom: -20px;
+            width: 85px;
+            height: 80px;
+            opacity: 0.3;
+        }
+        
+        .header__actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+        }
+        
+        .header-decoration-right {
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            width: 85px;
+            height: 80px;
+            opacity: 0.3;
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .action-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--error);
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        
+        .user-profile__toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .user-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+        }
+        
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .user-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .user-role {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        /* BREADCRUMB */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+        
+        .breadcrumb__title {
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .breadcrumb__nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .breadcrumb__nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+        
+        .breadcrumb__nav a:hover {
+            color: var(--primary-teal);
+        }
+        
+        .breadcrumb__nav .active {
+            color: var(--primary-teal);
+            font-weight: 600;
+        }
+        
+        /* HELP CONTENT */
+        .help-container {
+            display: flex;
+            gap: 0;
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            overflow: hidden;
+            height: calc(100vh - 180px);
+        }
+        
+        .help-sidebar {
+            width: 211px;
+            background: white;
+            border-right: 1px solid var(--gray-200);
+            display: flex;
+            flex-direction: column;
+            padding-top: 8px;
+            flex-shrink: 0;
+        }
+        
+        .help-category {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 22px;
+            background: var(--primary-teal);
+            color: white;
+            font-size: 16px;
+            font-family: 'Lato', sans-serif;
+            font-weight: 500;
+            border-radius: 3px;
+            margin: 0 8px 8px 8px;
+        }
+        
+        .help-tabs-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .help-tab {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 22px;
+            border: none;
+            background: white;
+            color: var(--text-muted);
+            font-size: 16px;
+            font-family: 'Lato', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .help-tab i {
+            font-size: 20px;
+            width: 20px;
+        }
+        
+        .help-tab:hover {
+            background: rgba(48, 86, 211, 0.04);
+        }
+        
+        .help-tab.active {
+            background: rgba(48, 86, 211, 0.04);
+            color: var(--primary-teal);
+            font-weight: 600;
+        }
+        
+        .help-tab.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--primary-teal);
+        }
+        
+        .help-content {
+            flex: 1;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .help-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 0 18px;
+            flex-shrink: 0;
+        }
+        
+        .help-header h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #212B36;
+        }
+        
+        .btn-ask-question {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: var(--green);
+            color: white;
+            border: none;
+            border-radius: 34px;
+            font-size: 16px;
+            font-weight: 500;
+            font-family: 'Lato', sans-serif;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        
+        .btn-ask-question:hover {
+            background: #0ea574;
+        }
+        
+        .btn-ask-question i {
+            font-size: 20px;
+        }
+        
+        .help-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .help-table-wrapper {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+        
+        .help-table thead {
+            border-bottom: 1px solid var(--gray-200);
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1;
+        }
+        
+        .help-table th {
+            padding: 12px 18px;
+            text-align: left;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+        
+        .help-table th:last-child {
+            text-align: right;
+            width: 80px;
+        }
+        
+        .help-table tbody tr {
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .help-table tbody tr:hover {
+            background: rgba(0, 163, 157, 0.02);
+        }
+        
+        .help-table td {
+            padding: 14px 18px;
+            font-size: 16px;
+            color: var(--text-muted);
+        }
+        
+        .help-table td:first-child {
+            color: var(--text-muted);
+        }
+        
+        .help-table td:nth-child(2) {
+            text-align: center;
+            width: 120px;
+        }
+        
+        .help-table td:last-child {
+            text-align: right;
+            width: 80px;
+        }
+        
+        .help-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .action-icon {
+            color: var(--text-muted);
+            font-size: 16px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        .action-icon:hover {
+            color: var(--primary-teal);
+        }
+        
+        .help-pagination {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 18px;
+            border-top: 1px solid var(--gray-200);
+            background: white;
+            flex-shrink: 0;
+        }
+        
+        .pagination-info {
+            font-size: 16px;
+            color: #1C2434;
+        }
+        
+        .pagination-controls {
+            display: flex;
+            gap: 6px;
+        }
+        
+        .pagination-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--gray-200);
+            background: #FAFBFF;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        
+        .pagination-btn:hover:not(.disabled) {
+            border-color: var(--primary-teal);
+        }
+        
+        .pagination-btn.active {
+            background: var(--primary-teal);
+            border-color: var(--primary-teal);
+        }
+        
+        .pagination-btn i {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        
+        .pagination-btn.active i {
+            color: white;
+        }
+        
+        .pagination-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* USER PROFILE DROPDOWN */
+        .user-profile-dropdown {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .user-profile__toggle.active + .user-profile-dropdown,
+        .user-profile-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .profile-menu {
+            list-style: none;
+            padding: 8px 0;
+            margin: 0;
+        }
+        
+        .profile-menu-item {
+            margin: 0;
+        }
+        
+        .profile-menu-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: #4B5563;
+            text-decoration: none;
+            font-size: 15px;
+            transition: all 0.2s ease;
+        }
+        
+        .profile-menu-link:hover {
+            background: var(--gray-50);
+            color: var(--text-primary);
+        }
+        
+        .profile-menu-link i {
+            font-size: 18px;
+            width: 20px;
+            color: #6B7280;
+        }
+        
+        .profile-menu-link:hover i {
+            color: var(--primary-teal);
+        }
+        
+        /* TAB CONTENT */
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .faq-item {
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: white;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        
+        .faq-question:hover {
+            background: var(--gray-50);
+        }
+        
+        .faq-question h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .faq-question i {
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.open .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: var(--gray-50);
+        }
+        
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+        }
+        
+        .faq-answer p {
+            padding: 16px 20px;
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+                grid-template-areas: "header" "main";
+            }
+            
+            .dashboard-sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                height: 100vh;
+                z-index: 1000;
+                transition: left 0.3s ease;
+            }
+            
+            .dashboard-sidebar.open {
+                left: 0;
+            }
+            
+            .header__toggle {
+                display: block;
+            }
+            
+            .help-container {
+                flex-direction: column;
+            }
+            
+            .help-sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--gray-200);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .breadcrumb__nav {
+                display: none;
+            }
+            
+            .search-decoration,
+            .header-decoration-right {
+                display: none;
+            }
+            
+            .help-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+            
+            .help-table {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- SIDEBAR -->
+        <aside class="dashboard-sidebar" id="sidebar">
+            <div class="sidebar">
+                <div class="sidebar__logo">
+                    <div class="logo-text">
+                        <span class="logo-text__brand">BSI</span>
+                        <div>
+                            <div class="logo-text__subtitle">UMKM CENTER</div>
+                            <div class="logo-text__subtitle">YOGYAKARTA</div>
+                        </div>
+                        <svg class="logo-star" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <nav>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="dashboard-inline.html" class="nav-link">
+                                <i class="nav-icon fas fa-th-large"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="kelola-produk.html" class="nav-link">
+                                <i class="nav-icon fas fa-box"></i>
+                                <span>Kelola Produk</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="kelola-keuangan.html" class="nav-link">
+                                <i class="nav-icon fas fa-wallet"></i>
+                                <span>Kelola Keuangan</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="kelola-umkm.html" class="nav-link">
+                                <i class="nav-icon fas fa-store"></i>
+                                <span>Kelola UMKM</span>
+                            </a>
+                        </li>
+                        <li class="nav-item nav-item-has-submenu">
+                            <a href="#" class="nav-link" id="kelolaPenggunaToggle">
+                                <i class="nav-icon fas fa-users"></i>
+                                <span>Kelola Pengguna</span>
+                                <i class="submenu-arrow fas fa-chevron-up"></i>
+                            </a>
+                            <ul class="nav-submenu" id="kelolaPenggunaSubmenu">
+                                <li class="nav-submenu-item">
+                                    <a href="kelola-pengguna.html" class="nav-submenu-link">Kelola Pengguna</a>
+                                </li>
+                                <li class="nav-submenu-item">
+                                    <a href="pesanan.html" class="nav-submenu-link">Pesanan</a>
+                                </li>
+                                <li class="nav-submenu-item">
+                                    <a href="pengiriman.html" class="nav-submenu-link">Pengiriman</a>
+                                </li>
+                                <li class="nav-submenu-item">
+                                    <a href="penjualan.html" class="nav-submenu-link">Penjualan</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item nav-item--active">
+                            <a href="bantuan.html" class="nav-link">
+                                <i class="nav-icon fas fa-question-circle"></i>
+                                <span>Bantuan</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        
+        <!-- HEADER -->
+        <header class="dashboard-header">
+            <div class="header">
+                <button class="header__toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header__search">
+                    <i class="fas fa-search" style="color: #6C757D;"></i>
+                    <input type="text" class="search-input" placeholder="Type to search...">
+                    <img src="../assets/images/Shape Left Down.webp" alt="" class="search-decoration">
+                </div>
+                <div class="header__actions">
+                    <img src="../assets/images/Shape Right Up.webp" alt="" class="header-decoration-right">
+                    <button class="action-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="action-badge">3</span>
+                    </button>
+                    <button class="action-btn">
+                        <i class="fas fa-comment-alt"></i>
+                        <span class="action-badge">5</span>
+                    </button>
+                    <div style="position: relative;">
+                        <button class="user-profile__toggle" id="profileToggle">
+                            <img src="https://ui-avatars.com/api/?name=Thomas+Anree&background=00A39D&color=fff" class="user-avatar">
+                            <div class="user-info">
+                                <span class="user-name">Thomas Anree</span>
+                                <span class="user-role">Administrator</span>
+                            </div>
+                            <i class="fas fa-chevron-down" style="color: #6C757D; font-size: 14px; margin-left: 8px;"></i>
+                        </button>
+                        <div class="user-profile-dropdown" id="profileDropdown">
+                            <ul class="profile-menu">
+                                <li class="profile-menu-item">
+                                    <a href="#" class="profile-menu-link">
+                                        <i class="fas fa-user-edit"></i>
+                                        <span>Profile</span>
+                                    </a>
+                                </li>
+                                <li class="profile-menu-item">
+                                    <a href="#" class="profile-menu-link">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        <span>Keluar</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- MAIN CONTENT -->
+        <main class="dashboard-main">
+            <!-- BREADCRUMB -->
+            <div class="breadcrumb">
+                <h1 class="breadcrumb__title">Bantuan</h1>
+                <div class="breadcrumb__nav">
+                    <a href="dashboard-inline.html">Dashboard</a>
+                    <span>/</span>
+                    <a href="#" class="active">Bantuan</a>
+                </div>
+            </div>
+            
+            <!-- HELP CONTAINER -->
+            <div class="help-container">
+                <!-- HELP SIDEBAR -->
+                <div class="help-sidebar">
+                    <div class="help-category">
+                        <span>Bantuan Pengguna</span>
+                    </div>
+                    <div class="help-tabs-wrapper">
+                        <button class="help-tab active" data-tab="questions">
+                            <i class="fas fa-download"></i>
+                            <span>Pertanyaan</span>
+                        </button>
+                        <button class="help-tab" data-tab="answers">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Jawaban</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- HELP CONTENT -->
+                <div class="help-content">
+                    <!-- TAB: QUESTIONS -->
+                    <div class="tab-content active" id="questions-tab">
+                        <div class="help-header">
+                            <h2>Riwayat Pertanyaan</h2>
+                            <button class="btn-ask-question" id="askQuestionBtn">
+                                <i class="fas fa-user-plus"></i>
+                                <span>Ajukan Pertanyaan</span>
+                            </button>
+                        </div>
+                        
+                        <div class="help-table-wrapper">
+                            <table class="help-table">
+                                <thead>
+                                    <tr>
+                                        <th>Subject</th>
+                                        <th>Date</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>available alteration in some Ipsum</td>
+                                        <td>25 Nov, 2024</td>
+                                        <td>
+                                            <div class="help-actions">
+                                                <i class="action-icon fas fa-eye" title="Lihat detail"></i>
+                                                <i class="action-icon fas fa-trash-alt" title="Hapus"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bagaimana cara mengelola produk UMKM?</td>
+                                        <td>24 Nov, 2024</td>
+                                        <td>
+                                            <div class="help-actions">
+                                                <i class="action-icon fas fa-eye" title="Lihat detail"></i>
+                                                <i class="action-icon fas fa-trash-alt" title="Hapus"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kendala dalam proses pembayaran</td>
+                                        <td>23 Nov, 2024</td>
+                                        <td>
+                                            <div class="help-actions">
+                                                <i class="action-icon fas fa-eye" title="Lihat detail"></i>
+                                                <i class="action-icon fas fa-trash-alt" title="Hapus"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cara mengatur profil UMKM saya</td>
+                                        <td>22 Nov, 2024</td>
+                                        <td>
+                                            <div class="help-actions">
+                                                <i class="action-icon fas fa-eye" title="Lihat detail"></i>
+                                                <i class="action-icon fas fa-trash-alt" title="Hapus"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pertanyaan tentang laporan keuangan</td>
+                                        <td>21 Nov, 2024</td>
+                                        <td>
+                                            <div class="help-actions">
+                                                <i class="action-icon fas fa-eye" title="Lihat detail"></i>
+                                                <i class="action-icon fas fa-trash-alt" title="Hapus"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="help-pagination">
+                            <span class="pagination-info">1-5 of 29</span>
+                            <div class="pagination-controls">
+                                <button class="pagination-btn disabled">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button class="pagination-btn active">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- TAB: ANSWERS -->
+                    <div class="tab-content" id="answers-tab">
+                        <div class="help-header">
+                            <h2>Jawaban dari Admin</h2>
+                        </div>
+                        
+                        <div class="faq-list">
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <h3>Bagaimana cara mengelola produk UMKM?</h3>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>Untuk mengelola produk UMKM, Anda dapat mengakses menu "Kelola Produk" di sidebar. Di sana Anda dapat menambah, mengedit, atau menghapus produk. Pastikan untuk mengisi semua informasi produk dengan lengkap termasuk nama, kategori, harga, dan stok.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <h3>Kendala dalam proses pembayaran</h3>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>Jika Anda mengalami kendala dalam proses pembayaran, silakan pastikan: 1) Saldo Midtrans Anda mencukupi, 2) Rekening bank telah terdaftar dengan benar, 3) Koneksi internet stabil. Jika masalah berlanjut, hubungi tim support kami.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <h3>Cara mengatur profil UMKM saya</h3>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>Profil UMKM dapat diatur melalui menu "Kelola UMKM". Klik tombol edit pada UMKM yang ingin diubah, kemudian update informasi seperti nama UMKM, kontak, alamat, dan informasi rekening bank.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <div class="faq-question">
+                                    <h3>Pertanyaan tentang laporan keuangan</h3>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer">
+                                    <p>Laporan keuangan dapat diakses melalui menu "Kelola Keuangan". Anda dapat melihat riwayat transaksi, penarikan saldo, dan total pendapatan. Data dapat difilter berdasarkan periode waktu tertentu.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        // Sidebar Toggle
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        if (sidebarToggle && sidebar) {
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+            });
+            
+            // Close sidebar when clicking outside
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth <= 1024) {
+                    if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+                        sidebar.classList.remove('open');
+                    }
+                }
+            });
+        }
+        
+        // Submenu Toggle Functionality
+        const kelolaPenggunaToggle = document.getElementById('kelolaPenggunaToggle');
+        const kelolaPenggunaSubmenu = document.getElementById('kelolaPenggunaSubmenu');
+        
+        if (kelolaPenggunaToggle) {
+            kelolaPenggunaToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                const parentItem = this.closest('.nav-item-has-submenu');
+                parentItem.classList.toggle('submenu-open');
+            });
+        }
+        
+        // Tab Switching
+        const helpTabs = document.querySelectorAll('.help-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        helpTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const targetTab = this.dataset.tab;
+                
+                // Remove active class from all tabs
+                helpTabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Hide all tab contents
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Show target tab content
+                document.getElementById(`${targetTab}-tab`).classList.add('active');
+            });
+        });
+        
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', function() {
+                const isOpen = item.classList.contains('open');
+                
+                // Close all items
+                faqItems.forEach(i => i.classList.remove('open'));
+                
+                // Open clicked item if it was closed
+                if (!isOpen) {
+                    item.classList.add('open');
+                }
+            });
+        });
+        
+        // Ask Question Button
+        const askQuestionBtn = document.getElementById('askQuestionBtn');
+        
+        if (askQuestionBtn) {
+            askQuestionBtn.addEventListener('click', function() {
+                alert('Fitur ajukan pertanyaan akan segera hadir!');
+            });
+        }
+        
+        // Profile Dropdown Toggle
+        const profileToggle = document.getElementById('profileToggle');
+        const profileDropdown = document.getElementById('profileDropdown');
+        
+        if (profileToggle && profileDropdown) {
+            profileToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                profileDropdown.classList.toggle('show');
+                profileToggle.classList.toggle('active');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!profileToggle.contains(e.target) && !profileDropdown.contains(e.target)) {
+                    profileDropdown.classList.remove('show');
+                    profileToggle.classList.remove('active');
+                }
+            });
+            
+            // Prevent dropdown from closing when clicking inside it
+            profileDropdown.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        }
+    </script>
+</body>
+</html>

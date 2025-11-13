@@ -852,13 +852,11 @@
                                 <span>Kelola UMKM</span>
                             </a>
                         </li>
-                        <li class="nav-item nav-item-has-submenu">
-                            <a href="#" class="nav-link-with-submenu" id="kelolaPenggunaToggle">
-                                <div class="nav-link-content">
-                                    <i class="fas fa-users"></i>
-                                    <span>Kelola Pengguna</span>
-                                </div>
-                                <i class="fas fa-chevron-down submenu-icon"></i>
+                        <li class="nav-item nav-item-has-submenu submenu-open">
+                            <a href="#" class="nav-link" id="kelolaPenggunaToggle">
+                                <i class="nav-icon fas fa-users"></i>
+                                <span>Kelola Pengguna</span>
+                                <i class="submenu-arrow fas fa-chevron-up"></i>
                             </a>
                             <ul class="nav-submenu" id="kelolaPenggunaSubmenu">
                                 <li class="nav-submenu-item">
@@ -1011,12 +1009,9 @@
         const kelolaPenggunaSubmenu = document.getElementById('kelolaPenggunaSubmenu');
         
         if (kelolaPenggunaToggle) {
-            // Auto-open submenu since we're on Pengiriman page
-            const parentItem = kelolaPenggunaToggle.closest('.nav-item-has-submenu');
-            parentItem.classList.add('submenu-open');
-            
             kelolaPenggunaToggle.addEventListener('click', function(e) {
                 e.preventDefault();
+                const parentItem = this.closest('.nav-item-has-submenu');
                 parentItem.classList.toggle('submenu-open');
             });
         }
