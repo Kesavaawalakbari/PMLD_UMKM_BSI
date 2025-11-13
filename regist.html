@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Login - BSI UMKM Center Yogyakarta</title>
+  <title>Daftar Akun - BSI UMKM Center Yogyakarta</title>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -189,8 +189,8 @@
       background: var(--green-500);
     }
 
-    /* Main Login Section */
-    .login-section {
+    /* Main Registration Section */
+    .registration-section {
       height: 100vh;
       background: url("assets/images/Background Gelombang.svg") no-repeat left center;
       background-size: cover;
@@ -204,7 +204,7 @@
       padding-top: 88px;
     }
 
-    .login-container {
+    .registration-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 80px;
@@ -217,7 +217,7 @@
     }
 
     /* Left side - BSI Logo */
-    .login-brand {
+    .registration-brand {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -257,50 +257,51 @@
       margin-top: 96px;
     }
 
-    /* Right side - Login Form */
-    .login-form-container {
+    /* Right side - Registration Form */
+    .registration-form-container {
       background: transparent;
-      padding: 40px;
+      padding: 20px;
       border-radius: 20px;
       box-shadow: none;
-      max-width: 400px;
+      max-width: 350px;
       width: 100%;
     }
 
-    .login-form h2 {
+    .registration-form h2 {
       color: var(--sekunder);
-      margin-bottom: 12px;
-      font-size: 28px;
+      margin-bottom: 8px;
+      font-size: 24px;
       font-weight: 700;
     }
 
-    .login-form p {
+    .registration-form p {
       color: var(--text-light);
-      margin-bottom: 32px;
-      line-height: 1.5;
-      font-size: 14px;
+      margin-bottom: 20px;
+      line-height: 1.4;
+      font-size: 12px;
     }
 
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 12px;
     }
 
     .form-label {
       display: block;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       color: var(--text-dark);
       font-weight: 600;
-      font-size: 14px;
+      font-size: 12px;
     }
 
     .form-input {
       width: 100%;
-      padding: 12px 16px;
+      padding: 8px 12px;
       border: 2px solid #E8F4F3;
-      border-radius: 8px;
-      font-size: 14px;
+      border-radius: 6px;
+      font-size: 12px;
       font-family: 'Lato', sans-serif;
       transition: border-color 0.3s ease;
+      background: white;
     }
 
     .form-input:focus {
@@ -316,29 +317,29 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
 
     .checkbox-container {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
     }
 
     .checkbox-container input[type="checkbox"] {
-      width: 14px;
-      height: 14px;
+      width: 12px;
+      height: 12px;
     }
 
     .checkbox-container label {
-      font-size: 12px;
+      font-size: 10px;
       color: var(--text-light);
     }
 
     .forgot-password {
       color: var(--primer);
       text-decoration: none;
-      font-size: 12px;
+      font-size: 10px;
       font-weight: 600;
     }
 
@@ -346,34 +347,34 @@
       color: var(--green-500);
     }
 
-    .btn-login-primary {
+    .btn-register-primary {
       width: 100%;
       background: var(--sekunder);
       color: white;
-      padding: 12px 24px;
-      border-radius: 8px;
+      padding: 10px 20px;
+      border-radius: 6px;
       border: none;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 12px;
       cursor: pointer;
       transition: all 0.3s ease;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
-    .btn-login-primary:hover {
+    .btn-register-primary:hover {
       background: var(--yellow-300);
       transform: translateY(-2px);
     }
 
-    .btn-register {
+    .btn-login-link {
       width: 100%;
       background: var(--primer);
       color: white;
-      padding: 12px 24px;
-      border-radius: 8px;
+      padding: 10px 20px;
+      border-radius: 6px;
       border: none;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 12px;
       cursor: pointer;
       transition: all 0.3s ease;
       text-decoration: none;
@@ -381,30 +382,35 @@
       text-align: center;
     }
 
-    .btn-register:hover {
+    .btn-login-link:hover {
       background: var(--green-500);
       transform: translateY(-2px);
     }
 
     /* Responsive Design */
     @media (max-width: 1024px) {
-      .login-container {
+      .registration-container {
         grid-template-columns: 1fr;
         gap: 40px;
         text-align: center;
+        padding-left: 24px;
       }
 
-      .login-brand {
+      .registration-brand {
         order: 2;
       }
 
-      .login-form-container {
+      .registration-form-container {
         order: 1;
         padding: 40px;
       }
 
       .brand-logo {
         padding: 40px;
+      }
+
+      .registration-section {
+        background-size: cover;
       }
     }
 
@@ -422,16 +428,17 @@
         gap: 24px;
       }
 
-      .login-container {
+      .registration-container {
         padding: 40px 16px;
+        padding-left: 16px;
       }
 
-      .login-form-container {
+      .registration-form-container {
         padding: 30px;
       }
 
-      .login-form h2 {
-        font-size: 28px;
+      .registration-form h2 {
+        font-size: 24px;
       }
 
       .brand-logo {
@@ -444,7 +451,7 @@
     }
 
     @media (max-width: 480px) {
-      .login-form-container {
+      .registration-form-container {
         padding: 20px;
       }
 
@@ -470,22 +477,22 @@
           <a href="landing page.html#produk">Produk</a>
           <a href="faq.html">FAQ</a>
         </nav>
-        <button class="btn-login" onclick="window.location.href='landing page.html'">Kembali</button>
+        <button class="btn-login" onclick="window.location.href='login.html'">Login</button>
       </div>
     </div>
   </header>
 
-  <!-- Login Section -->
-  <section class="login-section">
-    <div class="login-container">
+  <!-- Registration Section -->
+  <section class="registration-section">
+    <div class="registration-container">
       <!-- Left side - BSI Logo -->
-      <div class="login-brand">
+      <div class="registration-brand">
       </div>
 
-      <!-- Right side - Login Form -->
-      <div class="login-form-container">
-        <form class="login-form">
-          <h2>Selamat Datang...</h2>
+      <!-- Right side - Registration Form -->
+      <div class="registration-form-container">
+        <form class="registration-form">
+          <h2>Daftar Akun...</h2>
           <p>Assalamualaikum warahmatullahi wabarakatuh,<br>
           Selamat datang di BSI UMKM Centre cabang Yogyakarta.</p>
 
@@ -502,13 +509,37 @@
           </div>
 
           <div class="form-group">
-            <label for="password" class="form-label">Kata sandi</label>
+            <label for="nama" class="form-label">Nama</label>
             <input 
-              type="password" 
-              id="password" 
-              name="password" 
+              type="text" 
+              id="nama" 
+              name="nama" 
               class="form-input" 
               placeholder="Masukkan Kata sandi anda..."
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="blar1" class="form-label">Blar blar</label>
+            <input 
+              type="text" 
+              id="blar1" 
+              name="blar1" 
+              class="form-input" 
+              placeholder="Masukkan Blar blar anda..."
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="blar2" class="form-label">Blar blar</label>
+            <input 
+              type="text" 
+              id="blar2" 
+              name="blar2" 
+              class="form-input" 
+              placeholder="Masukkan Blar blar anda..."
               required
             >
           </div>
@@ -521,8 +552,8 @@
             <a href="#" class="forgot-password">Lupa Password?</a>
           </div>
 
-          <button type="submit" class="btn-login-primary button-text">Login sekarang!</button>
-          <a href="regist.html" class="btn-register button-text">Belum punya akun? Registrasi akun baru</a>
+          <button type="submit" class="btn-register-primary button-text">Daftarkan akun sekarang!</button>
+          <a href="login.html" class="btn-login-link button-text">Saya sudah memiliki akun</a>
         </form>
       </div>
     </div>

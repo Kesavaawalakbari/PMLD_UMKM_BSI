@@ -1,189 +1,850 @@
-﻿<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - BSI UMKM Centre</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/faq.css">
-    <link rel="icon" type="image/svg+xml" href="assets/images/logo-bsi-umkm-centre.svg">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FAQ - BSI UMKM Center Yogyakarta</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Brand Colors - Standardized */
+      --primary: #00A39D;
+      --secondary: #F8AD3C;
+      --success: #04C8BC;
+      --warning: #F9BD50;
+      
+      /* Legacy support */
+      --primer: #00A39D;
+      --sekunder: #F8AD3C;
+      --green-50: #EFFEFC;
+      --green-500: #04C8BC;
+      --green-600: #00A39D;
+      --yellow-300: #F9BD50;
+      --yellow-400: #F8AD3C;
+      
+      /* Neutral Colors */
+      --white: #FFFFFF;
+      --black: #222222;
+      --gray-50: #F8F9FA;
+      --gray-100: #E9ECEF;
+      --gray-500: #6C757D;
+      --gray-900: #212529;
+      --neutral-100: #FFFFFF;
+      
+      /* Text Colors */
+      --text-primary: #2C3E50;
+      --text-secondary: #7F8C8D;
+      --text-muted: #6C757D;
+      --text-dark: #2C3E50;
+      --text-light: #7F8C8D;
+      
+      /* Layout */
+      --container-max-width: 1200px;
+      --container-padding: 24px;
+      --border-radius: 8px;
+      --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      --max-width: 1200px;
+      
+      /* Typography */
+      --font-family: 'Lato', sans-serif;
+      --font-size-xs: 12px;
+      --font-size-sm: 14px;
+      --font-size-base: 16px;
+      --font-size-lg: 18px;
+      --font-size-xl: 20px;
+      --font-size-2xl: 24px;
+      --font-size-3xl: 32px;
+      --font-size-4xl: 48px;
+      
+      /* Z-Index Management */
+      --z-background: -1;
+      --z-base: 1;
+      --z-dropdown: 10;
+      --z-sticky: 20;
+      --z-fixed: 30;
+      --z-modal: 40;
+      --z-popover: 50;
+      --z-tooltip: 60;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    /* Container System */
+    .container {
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+      padding: 0 var(--container-padding);
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 16px;
+      }
+      
+      .faq-header h1 {
+        font-size: 32px;
+      }
+      
+      .faq-question {
+        font-size: 16px;
+        padding: 16px;
+      }
+      
+      .faq-answer {
+        padding: 16px;
+        font-size: 14px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .faq-header h1 {
+        font-size: 28px;
+      }
+      
+      .faq-item {
+        margin-bottom: 12px;
+      }
+      
+      .faq-question {
+        font-size: 14px;
+        padding: 12px;
+      }
+      
+      .faq-answer {
+        padding: 12px;
+        font-size: 13px;
+      }
+    }
+    
+    /* Grid System */
+    .grid {
+      display: grid;
+      gap: 24px;
+    }
+    
+    .grid-1 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+    
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 1024px) {
+      .grid-3, .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Lato', sans-serif;
+      background-color: var(--neutral-100);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* Typography */
+    .h1 {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 48px;
+      line-height: 58px;
+    }
+
+    .h2 {
+      font-family: 'Lato', sans-serif;
+      font-weight: 600;
+      font-size: 32px;
+      line-height: 40px;
+    }
+
+    .paragraph {
+      font-family: 'Lato', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 26px;
+    }
+
+    .button-text {
+      font-family: 'Lato', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    /* Container */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    header {
+      background: var(--neutral-100);
+      border-bottom: 1px solid #E8F4F3;
+      padding: 16px 0;
+      position: relative;
+      z-index: 100;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-container {
+      display: grid;
+      grid-template-columns: max-content;
+      grid-template-rows: max-content;
+      align-items: start;
+      justify-items: start;
+      position: relative;
+    }
+
+    .logo-icon-svg {
+      grid-column: 1;
+      grid-row: 1;
+      height: 86px;
+      width: auto;
+      margin-left: 1.435%;
+    }
+
+    nav {
+      display: flex;
+      gap: 32px;
+    }
+
+    nav a {
+      color: var(--primer);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--green-500);
+    }
+
+    nav a.active {
+      color: var(--sekunder);
+    }
+
+    .btn-login {
+      background: var(--primer);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn-login:hover {
+      background: var(--green-500);
+    }
+
+    /* Main Content */
+    .main-content {
+      position: relative;
+      background: transparent;
+    }
+
+    /* Break Without Ring background - top section */
+    .main-content::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 655px;
+      background: url("assets/images/Break Without Ring.svg") no-repeat center top;
+      background-size: 1441px 655px;
+      opacity: 1;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Footer background container */
+    .footer-background {
+      position: relative;
+      background: transparent;
+    }
+
+    .footer-background::before {
+      content: "";
+      position: absolute;
+      bottom: -274px;
+      left: 0;
+      width: 1444px;
+      height: 819px;
+      background: url("assets/images/Mask Group.svg") no-repeat left bottom;
+      background-size: 1444px 819px;
+      opacity: 1;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      padding: 60px 0;
+      background: transparent;
+      position: relative;
+      z-index: 2;
+    }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .faq-header h1 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .faq-header h1 .highlight {
+      color: var(--sekunder);
+    }
+
+    .faq-header h1 .primer {
+      color: var(--primer);
+    }
+
+    .faq-header p {
+      color: var(--text-light);
+      font-size: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .faq-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    /* FAQ Questions */
+    .faq-questions {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .faq-item {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 163, 157, 0.1);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+      box-shadow: 0 8px 30px rgba(0, 163, 157, 0.15);
+    }
+
+    .faq-question {
+      padding: 20px 24px;
+      background: white;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-dark);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .faq-question:hover {
+      background: var(--green-50);
+    }
+
+    .faq-icon {
+      width: 24px;
+      height: 24px;
+      background: var(--primer);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+
+    .faq-answer {
+      padding: 0 24px 20px;
+      color: var(--text-light);
+      line-height: 1.6;
+      display: none;
+    }
+
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+
+    .faq-item.active .faq-icon {
+      background: var(--sekunder);
+      transform: rotate(45deg);
+    }
+
+    /* Contact Section */
+    .contact-section {
+      text-align: center;
+    }
+
+    .contact-icon {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .contact-section h2 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+
+    .contact-section p {
+      color: var(--text-light);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .contact-form {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 16px 20px;
+      border: 2px solid #E8F4F3;
+      border-radius: 8px;
+      font-size: 16px;
+      font-family: 'Lato', sans-serif;
+      margin-bottom: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primer);
+    }
+
+    .form-input::placeholder {
+      color: #A0AEC0;
+    }
+
+    .contact-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn-email {
+      flex: 1;
+      background: var(--primer);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-email:hover {
+      background: var(--green-500);
+    }
+
+    .btn-whatsapp {
+      flex: 1;
+      background: var(--sekunder);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-whatsapp:hover {
+      background: var(--yellow-300);
+    }
+
+    /* Footer */
+    footer {
+      background: transparent;
+      padding: 60px 0 40px;
+      color: white;
+      position: relative;
+      z-index: 2;
+      margin-top: 100px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .footer-info {
+      display: flex;
+      gap: 40px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .footer-logo-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--sekunder), var(--yellow-300));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    .footer-contact {
+      color: white;
+      line-height: 1.6;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .contact-icon-svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+
+    .footer-social {
+      text-align: center;
+    }
+
+    .social-links {
+      margin-bottom: 24px;
+    }
+
+    .social-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding: 8px 0;
+    }
+
+    .social-icon {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+
+    .footer-cta {
+      background: white;
+      color: var(--primer);
+      padding: 16px 32px;
+      border-radius: 50px;
+      border: 2px solid var(--primer);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .footer-cta:hover {
+      background: var(--primer);
+      color: white;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .faq-content {
+        grid-template-columns: 1fr;
+        gap: 60px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .background-container::before {
+        background-size: cover;
+      }
+
+      .background-container::after {
+        background-size: cover;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 16px;
+      }
+
+      .header-content {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      nav {
+        gap: 24px;
+      }
+
+      .faq-header h1 {
+        font-size: 28px;
+      }
+
+      .contact-buttons {
+        flex-direction: column;
+      }
+
+      .footer-info {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 <body>
-    
-<div class="navbar-wrapper">
-    <svg class="shape-right-up" width="77" height="78" viewBox="0 0 77 78" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M77 77.2465V0H0.43588C58.2201 0 77 21.2145 77 77.2465Z" fill="#00A39D"/>
-    </svg>
-    <svg class="shape-left-down" xmlns="http://www.w3.org/2000/svg" width="91" height="91" viewBox="0 0 91 91" fill="none">
-        <path d="M91 90.2465V0H0.43588C58.2201 0 91 31.2145 91 90.2465Z" fill="#F8AD3C"/>
-    </svg>
-
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="landingpage.html">
-                    <img src="assets/images/logo-bsi-umkm-centre.svg" alt="BSI UMKM Centre Logo" class="logo">
-                </a>
-            </div>
-            
-            <div class="nav-menu">
-                <a href="landingpage.html#tentang" class="nav-btn">Tentang Kami</a>
-                <a href="katalog.html" class="nav-btn">Produk</a>
-                <a href="faq.html" class="nav-btn active">FAQ</a>
-            </div>
-            
-            <a href="login.html" class="btn-login-nav">Login</a>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <div class="logo-container">
+            <img src="assets/images/Frame 3.svg" alt="BSI Logo" class="logo-icon-svg">
+          </div>
         </div>
-    </nav>
-</div> 
-
-    <main class="main-content">
-        <div class="container">
-            <section class="faq-section">
-                <div class="faq-header">
-                    <h1>Frequently <span class="highlight-questions">Ask Questions</span></h1>
-                    <p>Jika anda memiliki pertanyaan, coba cari jawaban disini. jika anda memiliki pertanyaan lain, ayo hubungi kami langsung</p>
-                </div>
-
-                <div class="faq-content">
-                    <div class="faq-list">
-                        <div class="faq-item">
-                            <button class="faq-question">
-                                <span>Apa itu BSI UMKM Centre?</span>
-                                <div class="faq-icon">+</div>
-                            </button>
-                            <div class="faq-answer">
-                                <p>BSI UMKM Centre adalah platform digital yang membantu usaha mikro, kecil, dan menengah (UMKM) untuk mengakses berbagai layanan perbankan dan non-perbankan dari Bank Syariah Indonesia secara mudah dan terintegrasi.</p>
-                            </div>
-                        </div>
-                        <div class="faq-item">
-                            <button class="faq-question">
-                                <span>Bagaimana cara mendaftar di BSI UMKM Centre?</span>
-                                <div class="faq-icon">+</div>
-                            </button>
-                            <div class="faq-answer">
-                                <p>Anda dapat mendaftar melalui website resmi BSI UMKM Centre dengan mengklik tombol "Daftar", lalu mengisi formulir pendaftaran dengan data yang lengkap dan valid. Proses verifikasi akan dilakukan dalam 1-2 hari kerja.</p>
-                            </div>
-                        </div>
-                        <div class="faq-item">
-                            <button class="faq-question">
-                                <span>Apa saja layanan yang tersedia di BSI UMKM Centre?</span>
-                                <div class="faq-icon">+</div>
-                            </button>
-                            <div class="faq-answer">
-                                <p>Layanan yang tersedia meliputi: pembukaan rekening, kredit UMKM, asuransi bisnis, pelatihan bisnis, konsultasi keuangan, dan akses ke marketplace digital untuk memperluas jangkauan bisnis Anda.</p>
-                            </div>
-                        </div>
-                        <div class="faq-item">
-                            <button class="faq-question">
-                                <span>Apakah ada biaya untuk menggunakan BSI UMKM Centre?</span>
-                                <div class="faq-icon">+</div>
-                            </button>
-                            <div class="faq-answer">
-                                <p>Pendaftaran dan akses ke platform BSI UMKM Centre gratis. Biaya hanya dikenakan untuk layanan perbankan tertentu sesuai dengan ketentuan yang berlaku di Bank Syariah Indonesia.</p>
-                            </div>
-                        </div>
-                        <div class="faq-item">
-                            <button class="faq-question">
-                                <span>Bagaimana cara mengajukan kredit UMKM?</span>
-                                <div class="faq-icon">+</div>
-                            </button>
-                            <div class="faq-answer">
-                                <p>Setelah login ke akun Anda, pilih menu "Kredit UMKM", lengkapi formulir pengajuan dengan dokumen yang diperlukan (KTP, NPWP, laporan keuangan, dll.), kemudian submit aplikasi. Tim kami akan menghubungi Anda untuk proses selanjutnya.</p>
-                            </div>
-                        </div>
-                        <div class="faq-item">
-                            <button class="faq-question">
-                                <span>Berapa lama proses persetujuan kredit UMKM?</span>
-                                <div class="faq-icon">+</div>
-                            </button>
-                            <div class="faq-answer">
-                                <p>Proses persetujuan kredit UMKM membutuhkan waktu 3-7 hari kerja setelah dokumen lengkap diterima dan diverifikasi. Waktu dapat bervariasi tergantung kelengkapan dokumen dan hasil survey lokasi usaha.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="contact-section">
-                        <div class="contact-illustration-svg-wrapper">
-                            <img src="assets/images/Pallet.svg" alt="Ilustrasi Tanda Tanya Bantuan">
-                            <span class="question-mark-container">?</span> 
-                        </div>
-                        
-                        <h2>Ada Pertanyaan lagi?</h2>
-                        <p>Jika anda masih memiliki pertanyaan, ayo tanyakan langsung kepada kami!</p>
-                        
-                        <input type="text" class="contact-input-field" placeholder="Ketik pertanyaan anda!" />
-                        
-                        <div class="contact-buttons">
-                            <a href="mailto:support@bsiumkm.co.id" class="btn-email-new">
-                                Kirim melalui Email
-                            </a>
-                            <a href="https://wa.me/621500789" class="btn-whatsapp-new">
-                                Kirim melalui Whatsapp
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <div class="footer-background">
-        <footer>
-            <div class="footer-content-wrapper"> 
-                <div class="footer-content">
-                    
-                    <div class="footer-left-content">
-                        <div class="footer-logo">
-                            <a href="landingpage.html">
-                                <img src="assets/images/logo-bsi-dua.svg" alt="BSI UMKM Centre Yogyakarta">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="footer-contact-info">
-                        <div class="footer-contact">
-                            <p class="footer-address">Jl. Doktor Sutomo No.8, Baciro, Kec. Gondokusuman, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55225</p>
-                            <div class="contact-item">
-                                <svg class="contact-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.34 1.02-.18C16.89 15.11 17 17.5 17 19h2c0-3.31-2.69-6-6-6h-2c-3.31 0-6 2.69-6 6h2c0-1.66 1.34-3 3-3zM21 0H3C1.9 0 1 .9 1 2v20c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2zm-1 20H4V4h16v16z"/></svg>
-                                <span>081234567890</span>
-                            </div>
-                            <div class="contact-item">
-                                <svg class="contact-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                                <span>bsiumkmyk@blabla.com</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="footer-social-section">
-                        <div class="social-links-list">
-                            <div class="social-item">
-                                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                                <span>@bsi.umkmcenter.yogyakarta</span>
-                            </div>
-                            <div class="social-item">
-                                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/></svg>
-                                <span>@bsi.umkmcenter.yogyakarta</span>
-                            </div>
-                            <div class="social-item">
-                                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                                <span>bsi.umkmcenter.yogyakarta</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="footer-cta-col"> 
-                        <a href="landingpage.html" class="footer-cta-button-new">Kembali ke Beranda</a>
-                    </div> 
-
-                </div> 
-            </div>
-        </footer>
+        <nav>
+          <a href="landing page.html#tentang">Tentang Kami</a>
+          <a href="katalog.html">Produk</a>
+          <a href="faq.html" class="active">FAQ</a>
+        </nav>
+        <button class="btn-login" onclick="window.location.href='login.html'">Login</button>
+      </div>
     </div>
+  </header>
 
-    <script src="assets/js/faq.js"></script>
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="container">
+        <div class="faq-header">
+          <h1>Frequently <span class="highlight">Ask</span> <span class="primer">Questions</span></h1>
+          <p>Jika anda memiliki pertanyaan, coba cari jawaban anda disini. Jika anda memiliki pertanyaan lain, ayo hubungi kami langsung</p>
+        </div>
+
+        <div class="faq-content">
+          <!-- FAQ Questions -->
+          <div class="faq-questions">
+            <div class="faq-item">
+              <button class="faq-question" onclick="toggleFAQ(this)">
+                Lorem ipsum blar blar Lorem ipsum blar blar
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" onclick="toggleFAQ(this)">
+                Lorem ipsum blar blar Lorem ipsum blar blar
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" onclick="toggleFAQ(this)">
+                Lorem ipsum blar blar Lorem ipsum blar blar
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" onclick="toggleFAQ(this)">
+                Lorem ipsum blar blar Lorem ipsum blar blar
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question" onclick="toggleFAQ(this)">
+                Lorem ipsum blar blar Lorem ipsum blar blar
+                <span class="faq-icon">+</span>
+              </button>
+              <div class="faq-answer">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Section -->
+          <div class="contact-section">
+            <div class="contact-icon">
+              <img src="assets/images/Pallet.svg" alt="Question Icon">
+            </div>
+            <h2>Ada Pertanyaan lagi?</h2>
+            <p>Jika anda masih memiliki pertanyaan, ayo tanyakan langsung kepada kami!</p>
+            
+            <div class="contact-form">
+              <input type="text" class="form-input" placeholder="Ketik pertanyaan anda!">
+              <div class="contact-buttons">
+                <button class="btn-email">Kirim melalui Email</button>
+                <button class="btn-whatsapp">Kirim melalui Whatsapp</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <div class="footer-background">
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-info">
+            <div>
+              <div class="footer-logo">
+                <div class="footer-logo-icon" style="background: white; border-radius: 4px; padding: 8px; display: flex; align-items: center; justify-content: center;">
+                  <img src="assets/images/Logo BSI UMKM Centre.svg" alt="BSI" style="height: 60px; width: auto;">
+                </div>
+              </div>
+              <div class="footer-contact">
+                <div class="contact-item">
+                  <svg class="contact-icon-svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  </svg>
+                  <div>
+                    <p>Jl. Doktor Sutomo No.8, Baciro, Kec. Gondokusuman,</p>
+                    <p>Kota Yogyakarta, Daerah Istimewa Yogyakarta 55225</p>
+                  </div>
+                </div>
+                <div class="contact-item">
+                  <svg class="contact-icon-svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                  </svg>
+                  <span>081234567890</span>
+                </div>
+                <div class="contact-item">
+                  <svg class="contact-icon-svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                  </svg>
+                  <span>bsiumkmyk@blabla.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="footer-social">
+            <div class="social-links">
+              <div class="social-item">
+                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>
+                </svg>
+                <span>@bsi.umkmcenter.yogyakarta</span>
+              </div>
+              <div class="social-item">
+                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/>
+                </svg>
+                <span>@bsi.umkmcenter.yogyakarta</span>
+              </div>
+              <div class="social-item">
+                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                <span>bsi.umkmcenter.yogyakarta</span>
+              </div>
+            </div>
+            <a href="#" class="footer-cta button-text">Ada pertanyaan? klik disini!!!</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function toggleFAQ(button) {
+      const faqItem = button.parentElement;
+      const isActive = faqItem.classList.contains('active');
+      
+      // Close all FAQ items
+      document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      
+      // If this item wasn't active, open it
+      if (!isActive) {
+        faqItem.classList.add('active');
+      }
+    }
+  </script>
 </body>
 </html>
