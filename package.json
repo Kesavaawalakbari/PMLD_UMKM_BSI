@@ -1,0 +1,76 @@
+{
+  "name": "pmld-umkm-bsi",
+  "version": "1.0.0",
+  "description": "Platform Manajemen dan Layanan Digital untuk UMKM Bank Syariah Indonesia",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server . -p 3000 -o",
+    "dev": "npx live-server --port=3000 --open=/",
+    "build": "echo 'Building project...' && npm run minify",
+    "minify": "npm run minify-css && npm run minify-js",
+    "minify-css": "npx clean-css-cli -o assets/css/styles.min.css assets/css/styles.css && npx clean-css-cli -o assets/css/animations.min.css assets/css/animations.css && npx clean-css-cli -o assets/css/dashboard.min.css assets/css/dashboard.css",
+    "minify-js": "npx terser assets/js/main.js -o assets/js/main.min.js && npx terser assets/js/animations.js -o assets/js/animations.min.js && npx terser assets/js/dashboard.js -o assets/js/dashboard.min.js",
+    "lint": "npx eslint assets/js/*.js",
+    "format": "npx prettier --write \"**/*.{html,css,js,json,md}\"",
+    "validate-html": "npx html-validate *.html pages/*.html",
+    "optimize-images": "npx imagemin assets/images/* --out-dir=assets/images/optimized",
+    "test": "echo 'Running tests...' && npm run validate-html",
+    "serve": "npm start"
+  },
+  "keywords": [
+    "umkm",
+    "bank-syariah-indonesia",
+    "bsi",
+    "digital-platform",
+    "business-management",
+    "dashboard",
+    "responsive-design",
+    "pmld"
+  ],
+  "author": {
+    "name": "PMLD BSI Team",
+    "email": "contact@pmld-bsi.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pmld-bsi/umkm-platform.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pmld-bsi/umkm-platform/issues"
+  },
+  "homepage": "https://pmld-bsi.github.io/umkm-platform/",
+  "devDependencies": {
+    "clean-css-cli": "^5.6.2",
+    "eslint": "^8.52.0",
+    "html-validate": "^8.7.0",
+    "http-server": "^14.1.1",
+    "imagemin": "^8.0.1",
+    "imagemin-cli": "^7.0.0",
+    "live-server": "^1.2.2",
+    "prettier": "^3.0.3",
+    "terser": "^5.22.0"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "files": [
+    "index.html",
+    "pages/",
+    "assets/",
+    "README.md"
+  ],
+  "config": {
+    "port": 3000,
+    "host": "localhost"
+  }
+}

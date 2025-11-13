@@ -1,0 +1,261 @@
+/**
+ * BSI UMKM Center - Design Tokens
+ * CSS Custom Properties (Variables)
+ * 
+ * @description Core design system tokens for consistent styling
+ * @version 1.0.0
+ * @date November 4, 2025
+ */
+
+:root {
+  /* ==================== COLORS ==================== */
+  
+  /* Primary Colors */
+  --primary: #00A39D;
+  --primary-teal: #00A39D;
+  --primary-teal-dark: #008E84;
+  --primary-teal-light: #04C8BC;
+  
+  /* Secondary Colors */
+  --secondary: #F8AD3C;
+  --secondary-orange: #F8AD3C;
+  --secondary-orange-light: #F9BD50;
+  --secondary-yellow: #F9BD50;
+  
+  /* Legacy Support (for backward compatibility) */
+  --primer: #00A39D;
+  --sekunder: #F8AD3C;
+  --green-50: #EFFEFC;
+  --green-500: #04C8BC;
+  --green-600: #00A39D;
+  --yellow-300: #F9BD50;
+  --yellow-400: #F8AD3C;
+  
+  /* Status Colors */
+  --success: #04C8BC;
+  --warning: #F9BD50;
+  --error: #E74C3C;
+  --info: #3498DB;
+  
+  /* Neutral Colors */
+  --white: #FFFFFF;
+  --black: #222222;
+  --gray-50: #F8F9FA;
+  --gray-100: #E9ECEF;
+  --gray-200: #DEE2E6;
+  --gray-300: #CED4DA;
+  --gray-400: #ADB5BD;
+  --gray-500: #6C757D;
+  --gray-600: #495057;
+  --gray-700: #343A40;
+  --gray-800: #212529;
+  --gray-900: #0F1419;
+  
+  /* Text Colors */
+  --text-primary: #2C3E50;
+  --text-secondary: #7F8C8D;
+  --text-muted: #6C757D;
+  --text-light: #95A5A6;
+  --text-dark: #2C3E50;
+  --text-gray: #666666;
+  
+  /* Background Colors */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8F9FA;
+  --bg-tertiary: #E8F4F3;
+  --bg-teal-light: #EFFEFC;
+  --neutral-100: #FFFFFF;
+  
+  /* Dashboard Specific */
+  --dashboard-bg: #F5F6FA;
+  --card-bg: #FFFFFF;
+  --sidebar-bg: #00A39D;
+  
+  /* ==================== TYPOGRAPHY ==================== */
+  
+  /* Font Families */
+  --font-family-primary: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-family-mono: 'Monaco', 'Courier New', 'Consolas', monospace;
+  --font-family: var(--font-family-primary);
+  
+  /* Font Sizes */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 32px;
+  --font-size-4xl: 48px;
+  --font-size-5xl: 54px;
+  
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.6;
+  --line-height-loose: 2;
+  
+  /* ==================== SPACING ==================== */
+  
+  /* Base spacing unit: 4px */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-14: 56px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  
+  /* ==================== LAYOUT ==================== */
+  
+  /* Container Widths */
+  --container-xs: 480px;
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1200px;
+  --container-2xl: 1440px;
+  --container-max-width: 1200px;
+  --container-padding: 24px;
+  --max-width: 1200px;
+  
+  /* Dashboard Layout */
+  --sidebar-width: 312px;
+  --sidebar-width-collapsed: 80px;
+  --topbar-height: 80px;
+  --content-max-width: 1348px;
+  
+  /* ==================== BORDER RADIUS ==================== */
+  
+  --radius-sm: 4px;
+  --radius-base: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+  --border-radius: 8px;
+  
+  /* ==================== SHADOWS ==================== */
+  
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-base: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+  --shadow-2xl: 0 30px 60px rgba(0, 163, 157, 0.15);
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  
+  /* Component Shadows */
+  --card-shadow: var(--shadow-base);
+  --dropdown-shadow: var(--shadow-md);
+  --modal-shadow: var(--shadow-2xl);
+  
+  /* ==================== TRANSITIONS ==================== */
+  
+  --transition-fast: 150ms ease;
+  --transition-base: 300ms ease;
+  --transition-slow: 500ms ease;
+  --transition-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* ==================== Z-INDEX ==================== */
+  
+  --z-background: -1;
+  --z-base: 0;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-fixed: 30;
+  --z-modal-backdrop: 40;
+  --z-modal: 50;
+  --z-popover: 60;
+  --z-tooltip: 70;
+  
+  /* ==================== COMPONENT TOKENS ==================== */
+  
+  /* Buttons */
+  --btn-height-sm: 32px;
+  --btn-height-base: 40px;
+  --btn-height-lg: 48px;
+  --btn-padding-x-sm: 12px;
+  --btn-padding-x-base: 20px;
+  --btn-padding-x-lg: 32px;
+  --btn-radius: var(--radius-base);
+  
+  /* Inputs */
+  --input-height-sm: 32px;
+  --input-height-base: 40px;
+  --input-height-lg: 48px;
+  --input-padding-x: 16px;
+  --input-border-width: 2px;
+  --input-border-color: var(--gray-100);
+  --input-focus-border: var(--primary);
+  --input-radius: var(--radius-base);
+  
+  /* Cards */
+  --card-padding: 24px;
+  --card-padding-sm: 16px;
+  --card-padding-lg: 32px;
+  --card-radius: var(--radius-md);
+  --card-border: 1px solid var(--gray-100);
+  
+  /* Navigation */
+  --nav-height: 80px;
+  --nav-item-padding: 12px 16px;
+  --nav-gap: 32px;
+  
+  /* Sidebar */
+  --sidebar-item-height: 40px;
+  --sidebar-item-padding: 8px 15px;
+  --sidebar-icon-size: 18px;
+  
+  /* ==================== CHART COLORS ==================== */
+  
+  --chart-primary: #00A39D;
+  --chart-secondary: #1E3A5F;
+  --chart-tertiary: #F39C12;
+  --chart-quaternary: #E74C3C;
+  --chart-success: #04C8BC;
+  --chart-warning: #F9BD50;
+  
+  /* ==================== ACCESSIBILITY ==================== */
+  
+  --focus-ring: 0 0 0 3px rgba(0, 163, 157, 0.3);
+  --focus-ring-offset: 2px;
+  --focus-visible-outline: 2px solid var(--primary);
+}
+
+/* ==================== DARK MODE (Future Implementation) ==================== */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Will be implemented when dark mode is needed */
+  }
+}
+
+/* ==================== RESPONSIVE BREAKPOINTS ==================== */
+
+:root {
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1440px;
+}
