@@ -3,7 +3,14 @@
   "version": "1.0.0",
   "description": "Frontend application for PMLD UMKM BSI project",
   "scripts": {
-    "build": "echo 'Static HTML - no build needed'",
-    "start": "echo 'Serving static files'"
+    "build": "echo 'Static HTML - no build needed' && exit 0",
+    "start": "npx serve public -p 3000",
+    "dev": "npx serve public -p 3000",
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "test:ui": "npx playwright test --ui"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0"
   }
 }

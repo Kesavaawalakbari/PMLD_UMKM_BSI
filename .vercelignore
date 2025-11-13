@@ -1,0 +1,58 @@
+# Vercel deployment
+.vercel
+
+# Backend files (not needed for frontend deployment)
+backend/
+
+# Frontend subdirectory (we're using root level)
+frontend/
+
+# Development files
+node_modules/
+package-lock.json
+npm-debug.log*
+
+# Documentation (not needed in production)
+docs/
+*.md
+CHANGELOG.md
+CHECKLIST.md
+IMPLEMENTATION_STATUS.md
+QUICKSTART.md
+README.md
+RELEASE_NOTES.md
+SUMMARY.md
+FRONTEND_COMPARISON_ANALYSIS.md
+FIGMA_IMPLEMENTATION_COMPLETE.md
+IMPLEMENTATION_SUMMARY.md
+GIT_BRANCHING_STRATEGY.md
+FINAL_IMPLEMENTATION_REPORT.md
+
+# Git files
+.git/
+.gitignore
+.gitattributes
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Scripts
+scripts/
+
+# Tests
+tests/
+
+# Archive/backup
+super-refference/
+archive/
+
+# Environment files
+.env
+.env.local
+.env.*.local
