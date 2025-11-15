@@ -437,15 +437,16 @@
         }
         
         th {
-            padding: 16px 12px;
+            padding: 10px 8px;
             text-align: left;
-            font-size: 14px;
+            font-size: 11px;
             font-weight: 600;
             color: var(--text-primary);
+            background-color: var(--gray-50);
         }
         
         tbody tr {
-            border-bottom: 1px solid var(--gray-200);
+            border-bottom: 0.5px solid var(--gray-200);
         }
         
         tbody tr:last-child {
@@ -457,8 +458,8 @@
         }
         
         td {
-            padding: 16px 12px;
-            font-size: 14px;
+            padding: 10px 8px;
+            font-size: 11px;
         }
         
         .action-icons {
@@ -469,7 +470,7 @@
         .action-icon {
             color: var(--text-secondary);
             cursor: pointer;
-            font-size: 18px;
+            font-size: 14px;
         }
         
         .action-icon:hover {
@@ -485,9 +486,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 24px;
+            padding: 20px 0;
             font-size: 14px;
             color: var(--text-secondary);
+            background-color: var(--gray-50);
+            border-top: 0.5px solid var(--gray-200);
         }
         
         .pagination-controls {
@@ -496,8 +499,8 @@
         }
         
         .pagination-btn {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border: 1px solid var(--gray-200);
             border-radius: 6px;
             background: white;
@@ -1030,6 +1033,62 @@
                 padding: 12px 32px;
             }
         }
+        
+        @media (max-width: 480px) {
+            .header__search {
+                display: none;
+            }
+            
+            .breadcrumb-title {
+                font-size: 18px;
+            }
+            
+            .table-card {
+                padding: 12px;
+            }
+            
+            .table-header {
+                padding: 12px;
+                gap: 8px;
+            }
+            
+            .search-box {
+                font-size: 12px;
+            }
+            
+            .btn-add {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            
+            table {
+                font-size: 10px;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+                font-size: 10px;
+            }
+            
+            .action-icons {
+                gap: 12px;
+            }
+            
+            .action-icon {
+                font-size: 12px;
+            }
+            
+            .table-pagination {
+                padding: 12px 0;
+                font-size: 12px;
+            }
+            
+            .pagination-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1120,14 +1179,6 @@
                 </div>
                 <div class="header__actions">
                     <img src="../assets/images/Shape Right Up.webp" alt="" class="header-decoration-right">
-                    <button class="action-btn">
-                        <i class="fas fa-bell"></i>
-                        <span class="action-badge">3</span>
-                    </button>
-                    <button class="action-btn">
-                        <i class="fas fa-comment-alt"></i>
-                        <span class="action-badge">5</span>
-                    </button>
                     <button class="user-profile__toggle">
                         <img src="https://ui-avatars.com/api/?name=Thomas+Anree&background=00A39D&color=fff" class="user-avatar">
                         <div class="user-info">
@@ -1166,11 +1217,11 @@
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 100px;">ID Pengguna</th>
-                            <th style="width: 300px;">Nama</th>
-                            <th style="width: 200px;">Email</th>
-                            <th style="width: 100px;">Kontak</th>
-                            <th style="width: 100px;">Aksi</th>
+                            <th style="width: 70px;">ID Pengguna</th>
+                            <th style="width: 200px;">Nama</th>
+                            <th style="width: 180px;">Email</th>
+                            <th style="width: 90px;">Kontak</th>
+                            <th style="width: 60px; text-align: center;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -1350,8 +1401,10 @@
         if (kelolaPenggunaToggle) {
             kelolaPenggunaToggle.addEventListener('click', function(e) {
                 e.preventDefault();
+                e.stopPropagation();
                 const parentItem = this.closest('.nav-item-has-submenu');
                 parentItem.classList.toggle('submenu-open');
+                return false;
             });
         }
         

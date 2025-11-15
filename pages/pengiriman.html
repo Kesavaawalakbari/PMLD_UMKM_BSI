@@ -6,7 +6,7 @@
     <title>Pengiriman - BSI UMKM Center Yogyakarta</title>
     
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -25,6 +25,9 @@
             --gray-200: #DEE2E6;
             --white: #FFFFFF;
             --error: #E74C3C;
+            --success: #27AE60;
+            --warning: #F39C12;
+            --info: #3498DB;
             --dashboard-bg: #F5F6FA;
         }
         
@@ -62,7 +65,7 @@
             padding: 20px;
             overflow-y: auto;
             height: calc(100vh - 70px);
-            position: relative;
+            background: var(--dashboard-bg);
         }
         
         /* SIDEBAR */
@@ -108,92 +111,66 @@
         
         .logo-star {
             color: var(--secondary-orange);
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             position: absolute;
             top: -18px;
             left: 60px;
         }
         
-        .nav-menu {
+        .nav-list {
             list-style: none;
-            padding: 0 16px;
-        }
-        
-        .nav-item {
-            margin-bottom: 8px;
+            padding: 0 20px;
         }
         
         .nav-link {
             display: flex;
             align-items: center;
+            gap: 12px;
             padding: 12px 16px;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255,255,255,0.8);
             text-decoration: none;
             border-radius: 8px;
-            transition: all 0.3s;
+            margin-bottom: 6px;
             font-size: 15px;
-            font-weight: 400;
+            transition: all 0.2s ease;
         }
         
         .nav-link:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255,255,255,0.1);
             color: white;
         }
         
-        .nav-link.active {
-            background: rgba(255, 255, 255, 0.15);
+        .nav-item--active .nav-link {
+            background: rgba(255,255,255,0.15);
             color: white;
-            font-weight: 500;
+            font-weight: 600;
         }
         
-        .nav-link i {
+        .nav-icon {
             width: 20px;
-            margin-right: 12px;
-            font-size: 16px;
+            font-size: 20px;
         }
         
-        /* Submenu Styles */
+        /* SUBMENU STYLES */
         .nav-item-has-submenu {
             position: relative;
         }
         
-        .nav-link-with-submenu {
+        .nav-item-has-submenu > .nav-link {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 16px;
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s;
-            font-size: 15px;
-            font-weight: 400;
-            cursor: pointer;
+            position: relative;
         }
         
-        .nav-link-with-submenu:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-        
-        .nav-link-with-submenu.active {
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            font-weight: 500;
-        }
-        
-        .nav-link-content {
-            display: flex;
-            align-items: center;
-        }
-        
-        .submenu-icon {
+        .submenu-arrow {
+            font-size: 12px;
             transition: transform 0.3s ease;
-            font-size: 14px;
+            margin-left: auto;
         }
         
-        .nav-item-has-submenu.submenu-open .submenu-icon {
+        .nav-item-has-submenu.submenu-open .submenu-arrow {
             transform: rotate(180deg);
         }
         
@@ -204,11 +181,11 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease;
+            background: rgba(0, 0, 0, 0.1);
         }
         
         .nav-item-has-submenu.submenu-open .nav-submenu {
             max-height: 300px;
-            margin-top: 4px;
         }
         
         .nav-submenu-item {
@@ -241,43 +218,42 @@
         .header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 0 32px;
-            height: 70px;
+            gap: 20px;
+            padding: 0 24px;
+            height: 100%;
         }
         
         .header__toggle {
             display: none;
-            font-size: 24px;
-            color: var(--primary-teal);
+            width: 40px;
+            height: 40px;
             background: none;
             border: none;
+            color: var(--primary-teal);
+            font-size: 20px;
             cursor: pointer;
+            border-radius: 8px;
+        }
+        
+        .header__toggle:hover {
+            background: var(--gray-50);
         }
         
         .header__search {
-            position: relative;
             display: flex;
             align-items: center;
-            background: transparent;
-            padding: 8px 16px;
-            border-radius: 0;
-            width: 280px;
-        }
-        
-        .search-icon {
-            color: var(--text-muted);
-            font-size: 16px;
-            margin-right: 10px;
+            gap: 12px;
+            flex: 1;
+            max-width: 400px;
             position: relative;
             z-index: 10;
         }
         
         .search-decoration {
             position: absolute;
-            top: -30px;
-            left: -15px;
-            width: 100px;
+            top: -24px;
+            left: -24px;
+            width: 80px;
             height: auto;
             pointer-events: none;
             z-index: 0;
@@ -285,19 +261,13 @@
         
         .search-input {
             flex: 1;
-            padding: 8px 0 8px 0;
+            padding: 8px 0;
             border: none;
-            border-bottom: 1px solid var(--gray-200);
             outline: none;
             font-size: 14px;
             background: transparent;
             position: relative;
             z-index: 10;
-            color: var(--text-primary);
-        }
-        
-        .search-input::placeholder {
-            color: var(--text-muted);
         }
         
         .header__actions {
@@ -325,226 +295,449 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background: none;
             border: none;
-            background: var(--gray-50);
-            border-radius: 50%;
+            color: var(--text-muted);
+            font-size: 20px;
             cursor: pointer;
-            transition: all 0.3s;
+            border-radius: 8px;
+            z-index: 10;
+            transition: background 0.2s ease;
         }
         
         .action-btn:hover {
-            background: var(--gray-100);
-        }
-        
-        .action-btn i {
-            color: var(--text-secondary);
-            font-size: 16px;
+            background: var(--gray-50);
         }
         
         .action-badge {
             position: absolute;
-            top: -2px;
-            right: -2px;
+            top: 6px;
+            right: 6px;
+            min-width: 18px;
+            height: 18px;
             background: var(--error);
             color: white;
-            font-size: 10px;
-            padding: 2px 5px;
-            border-radius: 10px;
-            min-width: 18px;
-            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .user-profile__toggle {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 6px;
+            background: none;
             border: none;
-            background: transparent;
             cursor: pointer;
-            transition: all 0.3s;
             position: relative;
             z-index: 10;
         }
         
         .user-avatar {
-            width: 40px;
-            height: 40px;
+            width: 46px;
+            height: 46px;
             border-radius: 50%;
         }
         
         .user-info {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            text-align: left;
         }
         
         .user-name {
+            display: block;
             font-size: 14px;
             font-weight: 600;
-            color: var(--text-primary);
         }
         
         .user-role {
-            font-size: 11px;
-            color: var(--text-muted);
+            display: block;
+            font-size: 12px;
+            color: var(--text-secondary);
         }
         
         /* BREADCRUMB */
-        .breadcrumb-container {
-            margin-bottom: 24px;
+        .breadcrumb {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            margin-bottom: 20px;
         }
         
-        .page-title {
-            font-size: 32px;
+        .breadcrumb-title {
+            font-size: 24px;
             font-weight: 600;
-            color: var(--text-primary);
         }
         
-        .breadcrumb {
+        .breadcrumb-nav {
             display: flex;
             align-items: center;
             gap: 8px;
             font-size: 14px;
+            color: var(--text-secondary);
         }
         
-        .breadcrumb-item {
-            color: var(--text-muted);
+        .breadcrumb-nav a {
+            color: var(--text-secondary);
             text-decoration: none;
         }
         
-        .breadcrumb-item:hover {
+        .breadcrumb-nav a:hover {
             color: var(--primary-teal);
         }
         
-        .breadcrumb-separator {
-            color: var(--text-muted);
+        .breadcrumb-nav span {
+            color: var(--text-primary);
+            font-weight: 600;
         }
         
-        /* TABLE CONTAINER */
-        .table-container {
+        /* PAGE CONTENT */
+        .page-container {
             background: white;
             border-radius: 10px;
-            padding: 24px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
         
-        .table-header {
+        .content-header {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
+            padding: 24px 32px 16px;
+            gap: 20px;
         }
         
-        .search-bar {
+        .header-actions {
             display: flex;
             align-items: center;
-            background: var(--gray-50);
-            padding: 8px 16px;
-            border-radius: 8px;
-            width: 280px;
+            gap: 20px;
         }
         
-        .search-bar i {
-            color: var(--text-muted);
-            margin-right: 10px;
-        }
-        
-        .search-bar input {
+        .btn-add-manual {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            background: var(--success);
+            color: white;
             border: none;
-            outline: none;
-            background: transparent;
-            font-size: 14px;
-            width: 100%;
-        }
-        
-        /* TABLE */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        thead {
-            background: var(--gray-50);
-            border-radius: 8px;
-        }
-        
-        th {
-            padding: 16px;
-            text-align: left;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-primary);
-            border-top: 1px solid var(--gray-200);
-            border-bottom: 1px solid var(--gray-200);
-        }
-        
-        th:first-child {
-            border-left: 1px solid var(--gray-200);
-            border-top-left-radius: 8px;
-        }
-        
-        th:last-child {
-            border-right: 1px solid var(--gray-200);
-            border-top-right-radius: 8px;
-        }
-        
-        td {
-            padding: 16px;
-            font-size: 14px;
-            color: var(--text-secondary);
-            border-bottom: 1px solid var(--gray-200);
-        }
-        
-        tbody tr:hover {
-            background: var(--gray-50);
-        }
-        
-        /* BUTTONS */
-        .btn {
-            padding: 8px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
+            border-radius: 24px;
+            font-size: 13px;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        
+        .btn-add-manual:hover {
+            background: #0ea571;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+        
+        .btn-add-manual i {
+            font-size: 12px;
+        }
+        
+        .content-title-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .content-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .filter-dropdown {
+            position: relative;
             display: inline-block;
         }
         
-        .btn-primary {
-            background: var(--primary-teal);
+        .filter-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 200px;
+            justify-content: space-between;
+        }
+        
+        .filter-btn:hover {
+            background: var(--gray-100);
+            border-color: var(--gray-300);
+        }
+        
+        .filter-btn i {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        
+        /* TABLE STYLES */
+        .table-container {
+            overflow-x: auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .finance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            min-width: 750px;
+        }
+        
+        /* Specific column widths to optimize space */
+        .finance-table th:nth-child(1), /* ID Pencairan */
+        .finance-table td:nth-child(1) {
+            min-width: 60px;
+            max-width: 70px;
+        }
+        
+        .finance-table th:nth-child(2), /* UMKM */
+        .finance-table td:nth-child(2) {
+            min-width: 140px;
+            max-width: 160px;
+        }
+        
+        .finance-table th:nth-child(3), /* Total Produk */
+        .finance-table td:nth-child(3) {
+            min-width: 50px;
+            max-width: 60px;
+            text-align: center;
+        }
+        
+        .finance-table th:nth-child(4), /* Saldo */
+        .finance-table td:nth-child(4) {
+            min-width: 80px;
+            max-width: 90px;
+        }
+        
+        .finance-table th:nth-child(5), /* Pencairan */
+        .finance-table td:nth-child(5) {
+            min-width: 80px;
+            max-width: 90px;
+        }
+        
+        .finance-table th:nth-child(6), /* Bank */
+        .finance-table td:nth-child(6) {
+            min-width: 65px;
+            max-width: 75px;
+        }
+        
+        .finance-table th:nth-child(7), /* Rekening */
+        .finance-table td:nth-child(7) {
+            min-width: 90px;
+            max-width: 100px;
+        }
+        
+        .finance-table th:nth-child(8), /* Tanggal */
+        .finance-table td:nth-child(8) {
+            min-width: 75px;
+            max-width: 85px;
+        }
+        
+        .finance-table th:nth-child(9), /* Aksi */
+        .finance-table td:nth-child(9) {
+            min-width: 70px;
+            max-width: 80px;
+            text-align: center;
+        }
+        
+        .finance-table th {
+            background: var(--gray-50);
+            padding: 10px 8px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-primary);
+            border-bottom: 0.5px solid var(--gray-200);
+            white-space: nowrap;
+            font-size: 11px;
+        }
+        
+        .finance-table th:nth-child(3),
+        .finance-table th:nth-child(4),
+        .finance-table th:nth-child(5) {
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+        
+        .finance-table td {
+            padding: 10px 8px;
+            border-bottom: 0.5px solid var(--gray-200);
+            vertical-align: middle;
+            font-size: 11px;
+            line-height: 1.3;
+        }
+        
+        .finance-table td:nth-child(3),
+        .finance-table td:nth-child(4),
+        .finance-table td:nth-child(5) {
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+        
+        .finance-table tr:hover {
+            background: var(--gray-50);
+        }
+        
+        .withdrawal-id {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: var(--primary-teal);
+            font-size: 10px;
+        }
+        
+        .umkm-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            max-width: 120px;
+            word-wrap: break-word;
+            line-height: 1.3;
+            font-size: 11px;
+        }
+        
+        .product-count {
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-align: center;
+            min-width: 40px;
+            font-size: 11px;
+        }
+        
+        .bank-name,
+        .account-number {
+            font-size: 10px;
+            color: var(--text-primary);
+            white-space: nowrap;
+        }
+        
+        .transaction-date {
+            font-size: 10px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            min-width: 70px;
+        }
+        
+        .balance-amount,
+        .withdrawal-amount {
+            font-weight: 600;
+            color: var(--success);
+            white-space: nowrap;
+            min-width: 100px;
+            display: inline-block;
+        }
+        
+        .currency-amount {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1px;
+        }
+        
+        .currency-amount .currency-symbol {
+            font-size: 9px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .currency-amount .amount-number {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--success);
+        }
+        
+        .action-btn-approve {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 14px;
+            background: var(--success);
             color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 110px;
+            white-space: nowrap;
         }
         
-        .btn-primary:hover {
-            background: #008f8a;
+        .action-btn-approve:hover {
+            background: #0ea571;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
         }
         
-        .btn-success {
-            background: var(--primary-teal);
+        .bank-name {
+            font-weight: 600;
+            color: var(--primary-teal);
+        }
+        
+        .account-number {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+        }
+        
+        .transaction-date {
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+        
+        .action-btn-table {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background: var(--success);
             color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
         }
         
-        .btn-success:hover {
-            background: #008f8a;
+        .action-btn-table:hover {
+            background: #229954;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
         }
         
-        /* PAGINATION */
-        .pagination-container {
+        .action-btn-table i {
+            font-size: 12px;
+        }
+        
+        /* TABLE FOOTER */
+        .table-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 24px;
+            padding: 20px 32px;
+            background: var(--gray-50);
+            border-top: 1px solid var(--gray-200);
         }
         
-        .pagination-info {
+        .table-info {
             font-size: 14px;
-            color: var(--text-muted);
+            color: var(--text-secondary);
         }
         
         .pagination-controls {
@@ -553,179 +746,32 @@
         }
         
         .pagination-btn {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--gray-200);
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            color: var(--text-secondary);
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid var(--gray-200);
-            background: white;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s ease;
         }
         
         .pagination-btn:hover {
-            background: var(--primary-teal);
-            border-color: var(--primary-teal);
-            color: white;
+            background: var(--gray-50);
+            border-color: var(--gray-300);
         }
         
-        .pagination-btn.active {
-            background: var(--secondary-orange);
-            border-color: var(--secondary-orange);
-            color: white;
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
         
-        /* MODAL STYLES */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 10000;
-            backdrop-filter: blur(4px);
-        }
-
-        .modal-overlay.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Modal Konfirmasi Selesai */
-        .modal-confirm-complete {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        .pagination-btn:disabled:hover {
             background: white;
-            border-radius: 20px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
-            max-width: 680px;
-            width: 90%;
-            padding: 50px 60px;
-            z-index: 10001;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 24px;
-            right: 24px;
-            background: none;
-            border: none;
-            font-size: 28px;
-            color: var(--text-muted);
-            cursor: pointer;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: color 0.2s;
-        }
-
-        .modal-close:hover {
-            color: var(--text-primary);
-        }
-
-        .modal-confirm-title {
-            font-size: 32px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 24px;
-            line-height: 1.3;
-        }
-
-        .modal-confirm-text {
-            font-size: 18px;
-            color: var(--text-secondary);
-            margin-bottom: 36px;
-            line-height: 1.6;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 16px;
-            justify-content: flex-end;
-        }
-
-        .btn-modal {
-            padding: 14px 50px;
-            font-size: 18px;
-            font-weight: 500;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-cancel {
-            background: #6c757d;
-            color: white;
-        }
-
-        .btn-cancel:hover {
-            background: #5a6268;
-        }
-
-        .btn-confirm {
-            background: var(--primary-teal);
-            color: white;
-        }
-
-        .btn-confirm:hover {
-            background: #008f8a;
-        }
-
-        /* Modal Success */
-        .modal-success-complete {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
-            max-width: 550px;
-            width: 90%;
-            padding: 50px 60px;
-            text-align: center;
-            z-index: 10002;
-        }
-
-        .modal-success-title {
-            font-size: 30px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 20px;
-            line-height: 1.3;
-        }
-
-        .modal-success-text {
-            font-size: 18px;
-            color: var(--text-secondary);
-            margin-bottom: 36px;
-            line-height: 1.6;
-        }
-
-        .btn-okay {
-            padding: 14px 70px;
-            font-size: 18px;
-            font-weight: 500;
-            background: var(--primary-teal);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-okay:hover {
-            background: #008f8a;
+            border-color: var(--gray-200);
         }
         
         /* RESPONSIVE */
@@ -757,8 +803,10 @@
                 box-shadow: 2px 0 10px rgba(0,0,0,0.3);
             }
             
-            .user-info {
-                display: none;
+            .content-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 16px;
             }
         }
         
@@ -767,42 +815,131 @@
                 padding: 12px;
             }
             
-            .header {
-                padding: 0 12px;
+            .breadcrumb {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                margin-bottom: 16px;
             }
             
+            .breadcrumb-title {
+                font-size: 20px;
+            }
+            
+            .content-header {
+                padding: 16px 20px 12px;
+            }
+            
+            .content-title {
+                font-size: 18px;
+            }
+            
+            .table-footer {
+                padding: 16px 20px;
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .user-info {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .finance-table {
+                font-size: 10px;
+            }
+            
+            .finance-table th,
+            .finance-table td {
+                padding: 8px 6px;
+            }
+            
+            .umkm-name {
+                max-width: 110px;
+                font-size: 10px;
+            }
+            
+            .currency-amount .currency-symbol {
+                font-size: 8px;
+            }
+            
+            .currency-amount .amount-number {
+                font-size: 9px;
+            }
+            
+            .action-btn-approve {
+                padding: 3px 10px;
+                font-size: 9px;
+                min-width: 50px;
+            }
+            
+            .btn-add-manual {
+                padding: 6px 14px;
+                font-size: 12px;
+                gap: 4px;
+            }
+            
+            .btn-add-manual i {
+                font-size: 11px;
+            }
+        }
+        
+        @media (max-width: 480px) {
             .header__search {
                 display: none;
             }
             
-            .page-title {
-                font-size: 24px;
+            .finance-table {
+                font-size: 9px;
             }
             
-            .breadcrumb-container {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 12px;
+            .finance-table th,
+            .finance-table td {
+                padding: 6px 4px;
             }
             
-            .table-header {
-                flex-direction: column;
-                align-items: flex-start;
+            .umkm-name {
+                max-width: 100px;
+                font-size: 9px;
             }
             
-            table {
-                font-size: 12px;
-                display: block;
-                overflow-x: auto;
+            .currency-amount .currency-symbol {
+                font-size: 8px;
             }
             
-            th, td {
-                padding: 12px 8px;
-                font-size: 12px;
+            .currency-amount .amount-number {
+                font-size: 9px;
             }
             
-            .search-decoration,
-            .header-decoration-right {
+            .action-btn-approve {
+                padding: 3px 8px;
+                font-size: 8px;
+                min-width: 45px;
+            }
+            
+            .withdrawal-id {
+                font-size: 8px;
+            }
+            
+            .bank-name,
+            .account-number,
+            .transaction-date {
+                font-size: 8px;
+            }
+            
+            .btn-add-manual {
+                padding: 5px 12px;
+                font-size: 11px;
+                gap: 3px;
+                border-radius: 18px;
+            }
+            
+            .btn-add-manual i {
+                font-size: 10px;
+            }
+            
+            .btn-add-manual span {
                 display: none;
             }
         }
@@ -825,30 +962,29 @@
                         </svg>
                     </div>
                 </div>
-                
                 <nav>
-                    <ul class="nav-menu">
+                    <ul class="nav-list">
                         <li class="nav-item">
                             <a href="dashboard-inline.html" class="nav-link">
-                                <i class="fas fa-th-large"></i>
+                                <i class="nav-icon fas fa-th-large"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="kelola-produk.html" class="nav-link">
-                                <i class="fas fa-box"></i>
+                                <i class="nav-icon fas fa-box"></i>
                                 <span>Kelola Produk</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="kelola-keuangan.html" class="nav-link">
-                                <i class="fas fa-wallet"></i>
+                                <i class="nav-icon fas fa-wallet"></i>
                                 <span>Kelola Keuangan</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="kelola-umkm.html" class="nav-link">
-                                <i class="fas fa-store"></i>
+                                <i class="nav-icon fas fa-store"></i>
                                 <span>Kelola UMKM</span>
                             </a>
                         </li>
@@ -875,7 +1011,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="bantuan.html" class="nav-link">
-                                <i class="fas fa-question-circle"></i>
+                                <i class="nav-icon fas fa-question-circle"></i>
                                 <span>Bantuan</span>
                             </a>
                         </li>
@@ -890,22 +1026,13 @@
                 <button class="header__toggle" id="sidebarToggle">
                     <i class="fas fa-bars"></i>
                 </button>
-                
                 <div class="header__search">
+                    <i class="fas fa-search" style="color: #6C757D;"></i>
+                    <input type="text" class="search-input" placeholder="Type to search...">
                     <img src="../assets/images/Shape Left Down.webp" alt="" class="search-decoration">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" placeholder="Type to search..." class="search-input">
                 </div>
                 <div class="header__actions">
                     <img src="../assets/images/Shape Right Up.webp" alt="" class="header-decoration-right">
-                    <button class="action-btn">
-                        <i class="fas fa-bell"></i>
-                        <span class="action-badge">3</span>
-                    </button>
-                    <button class="action-btn">
-                        <i class="fas fa-comment-alt"></i>
-                        <span class="action-badge">5</span>
-                    </button>
                     <button class="user-profile__toggle">
                         <img src="https://ui-avatars.com/api/?name=Thomas+Anree&background=00A39D&color=fff" class="user-avatar">
                         <div class="user-info">
@@ -921,61 +1048,138 @@
         <!-- MAIN CONTENT -->
         <main class="dashboard-main">
             <!-- BREADCRUMB -->
-            <div class="breadcrumb-container">
-                <h1 class="page-title">Pengiriman</h1>
-                <nav class="breadcrumb">
-                    <a href="dashboard-inline.html" class="breadcrumb-item">Dashboard</a>
-                    <span class="breadcrumb-separator">/</span>
-                    <span class="breadcrumb-item">Kelola Pengguna</span>
-                </nav>
+            <div class="breadcrumb">
+                <h1 class="breadcrumb-title">Pengiriman</h1>
+                <div class="breadcrumb-nav">
+                    <a href="dashboard-inline.html">Dashboard</a>
+                    <span>/</span>
+                    <span>Kelola Pengguna</span>
+                </div>
             </div>
             
-            <!-- TABLE -->
-            <div class="table-container">
-                <div class="table-header">
-                    <div class="search-bar">
-                        <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Cari Pesanan">
+            <div class="page-container">
+                <!-- CONTENT HEADER -->
+                <div class="content-header">
+                    <div class="content-title-section">
+                        <div class="header__search" style="max-width: 300px;">
+                            <i class="fas fa-search" style="color: #64748B;"></i>
+                            <input type="text" class="search-input" placeholder="Cari Pesanan" id="searchOrder">
+                        </div>
                     </div>
                 </div>
                 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID Pesanan</th>
-                            <th>Nama Pengguna</th>
-                            <th>Produk</th>
-                            <th>Tanggal<br>Pengiriman</th>
-                            <th>Nomor Resi</th>
-                            <th>Cek Resi</th>
-                            <th>Selesaikan Pesanan<br>Manual</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>E001</td>
-                            <td>Mamat guncop el rumi</td>
-                            <td>2</td>
-                            <td>20/12/2025</td>
-                            <td>IDX987423849692364978</td>
-                            <td>
-                                <button class="btn btn-primary">Cek Manual Resi</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-success">Selesai</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <!-- TABLE CONTAINER -->
+                <div class="table-container">
+                    <table class="finance-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 70px;">ID Pesanan</th>
+                                <th style="width: 140px;">Nama Pengguna</th>
+                                <th style="width: 50px; text-align: center;">Produk</th>
+                                <th style="width: 90px; text-align: center;">Tanggal<br>Penggiriman</th>
+                                <th style="width: 160px; text-align: center;">Nomor Resi</th>
+                                <th style="width: 140px; text-align: center;">Cek Resi</th>
+                                <th style="width: 140px; text-align: center;">Selesaikan<br>Pesanan Manual</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="withdrawal-id">E001</span></td>
+                                <td><span class="umkm-name">Mamat guncop el rumi</span></td>
+                                <td style="text-align: center;"><span class="product-count">2</span></td>
+                                <td style="text-align: center;"><span class="transaction-date">20/12/2025</span></td>
+                                <td style="text-align: center;"><span class="account-number">IDX987423849692364978</span></td>
+                                <td style="text-align: center;">
+                                    <button class="action-btn-approve" onclick="checkResi('E001')" title="Cek Manual Resi">
+                                        <span>Cek Manual Resi</span>
+                                    </button>
+                                </td>
+                                <td style="text-align: center;">
+                                    <button class="action-btn-approve" onclick="completeOrder('E001')" title="Selesaikan Pesanan">
+                                        <span>Selesai</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="withdrawal-id">E002</span></td>
+                                <td><span class="umkm-name">Siti Nurhaliza</span></td>
+                                <td style="text-align: center;"><span class="product-count">1</span></td>
+                                <td style="text-align: center;"><span class="transaction-date">19/12/2025</span></td>
+                                <td style="text-align: center;"><span class="account-number">IDX123456789012345678</span></td>
+                                <td style="text-align: center;">
+                                    <button class="action-btn-approve" onclick="checkResi('E002')" title="Cek Manual Resi">
+                                        <span>Cek Manual Resi</span>
+                                    </button>
+                                </td>
+                                <td style="text-align: center;">
+                                    <button class="action-btn-approve" onclick="completeOrder('E002')" title="Selesaikan Pesanan">
+                                        <span>Selesai</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="withdrawal-id">E003</span></td>
+                                <td><span class="umkm-name">Budi Santoso</span></td>
+                                <td style="text-align: center;"><span class="product-count">5</span></td>
+                                <td style="text-align: center;"><span class="transaction-date">18/12/2025</span></td>
+                                <td style="text-align: center;"><span class="account-number">IDX567890123456789012</span></td>
+                                <td style="text-align: center;">
+                                    <button class="action-btn-approve" onclick="checkResi('E003')" title="Cek Manual Resi">
+                                        <span>Cek Manual Resi</span>
+                                    </button>
+                                </td>
+                                <td style="text-align: center;">
+                                    <button class="action-btn-approve" onclick="completeOrder('E003')" title="Selesaikan Pesanan">
+                                        <span>Selesai</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="withdrawal-id">E004</span></td>
+                                <td><span class="umkm-name">Ahmad Hidayat</span></td>
+                                <td style="text-align: center;"><span class="product-count">3</span></td>
+                                <td style="text-align: center;"><span class="transaction-date">17/12/2025</span></td>
+                                <td style="text-align: center;"><span class="account-number">IDX890123456789012345</span></td>
+                                <td style="text-align: center;">
+                                    <button class="action-btn-approve" onclick="checkResi('E004')" title="Cek Manual Resi">
+                                        <span>Cek Manual Resi</span>
+                                    </button>
+                                </td>
+                                <td style="text-align: center;">
+                                    <button class="action-btn-approve" onclick="completeOrder('E004')" title="Selesaikan Pesanan">
+                                        <span>Selesai</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="withdrawal-id">E005</span></td>
+                                <td><span class="umkm-name">Rina Wijaya</span></td>
+                                <td style="text-align: center;"><span class="product-count">4</span></td>
+                                <td style="text-align: center;"><span class="transaction-date">16/12/2025</span></td>
+                                <td style="text-align: center;"><span class="account-number">IDX234567890123456789</span></td>
+                                <td style="text-align: center;">
+                                    <button class="action-btn-approve" onclick="checkResi('E005')" title="Cek Manual Resi">
+                                        <span>Cek Manual Resi</span>
+                                    </button>
+                                </td>
+                                <td style="text-align: center;">
+                                    <button class="action-btn-approve" onclick="completeOrder('E005')" title="Selesaikan Pesanan">
+                                        <span>Selesai</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 
-                <!-- PAGINATION -->
-                <div class="pagination-container">
-                    <div class="pagination-info">1-5 of 29</div>
+                <!-- TABLE FOOTER -->
+                <div class="table-footer">
+                    <div class="table-info">1-6 of 29</div>
                     <div class="pagination-controls">
-                        <button class="pagination-btn">
+                        <button class="pagination-btn" onclick="previousPage()" title="Previous Page">
                             <i class="fas fa-chevron-left"></i>
                         </button>
-                        <button class="pagination-btn active">
+                        <button class="pagination-btn" onclick="nextPage()" title="Next Page">
                             <i class="fas fa-chevron-right"></i>
                         </button>
                     </div>
@@ -1011,103 +1215,123 @@
         if (kelolaPenggunaToggle) {
             kelolaPenggunaToggle.addEventListener('click', function(e) {
                 e.preventDefault();
+                e.stopPropagation();
                 const parentItem = this.closest('.nav-item-has-submenu');
                 parentItem.classList.toggle('submenu-open');
+                return false;
             });
         }
-    </script>
-
-    <!-- Modal Konfirmasi Selesai -->
-    <div id="confirmCompleteModal" class="modal-overlay">
-        <div class="modal-confirm-complete">
-            <button class="modal-close" id="closeConfirmComplete">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-body">
-                <h2 class="modal-confirm-title">Kamu yakin ingin menandai pesanan ini sebagai Sudah Sampai 🏠?</h2>
-                <p class="modal-confirm-text">
-                    Tindakan ini akan mengubah status pesanan menjadi Selesai dan tidak dapat diubah kembali. 
-                    Pastikan barang benar-benar telah diterima oleh pelanggan sebelum melanjutkan ya. Jika kamu masih ingin 
-                    mengecek detailnya, tekan Batal, tapi kalau pesanan memang sudah diterima tekan Konfirmasi untuk 
-                    menyelesaikan transaksi ✨
-                </p>
-                <div class="modal-actions">
-                    <button class="btn-modal btn-cancel" id="btnCancelComplete">Batal</button>
-                    <button class="btn-modal btn-confirm" id="btnConfirmComplete">Konfirmasi</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Success -->
-    <div id="successCompleteModal" class="modal-overlay">
-        <div class="modal-success-complete">
-            <button class="modal-close" id="closeSuccessComplete">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-body">
-                <h2 class="modal-success-title">Data Kamu telah berhasil disimpan! 💾✨</h2>
-                <p class="modal-success-text">
-                    Semua perubahan telah disimpan dan aman.<br>
-                    Kamu bisa melanjutkan pekerjaan tanpa khawatir. 👍
-                </p>
-                <button class="btn-okay" id="btnOkayComplete">Okay</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Modal Konfirmasi dan Success untuk Button Selesai
-        const btnSelesaiList = document.querySelectorAll('.btn-success');
-        const confirmCompleteModal = document.getElementById('confirmCompleteModal');
-        const successCompleteModal = document.getElementById('successCompleteModal');
-        const closeConfirmComplete = document.getElementById('closeConfirmComplete');
-        const closeSuccessComplete = document.getElementById('closeSuccessComplete');
-        const btnCancelComplete = document.getElementById('btnCancelComplete');
-        const btnConfirmComplete = document.getElementById('btnConfirmComplete');
-        const btnOkayComplete = document.getElementById('btnOkayComplete');
-
-        // Open confirm modal when clicking any "Selesai" button
-        btnSelesaiList.forEach(btn => {
-            btn.addEventListener('click', function() {
-                confirmCompleteModal.classList.add('active');
+        
+        // Filter functionality
+        function toggleFilter() {
+            alert('Filter dropdown akan segera tersedia!');
+        }
+        
+        // Search functionality for orders
+        function searchOrders() {
+            const searchTerm = document.getElementById('searchOrder').value.toLowerCase();
+            const tableRows = document.querySelectorAll('.finance-table tbody tr');
+            
+            tableRows.forEach(row => {
+                const orderId = row.querySelector('.withdrawal-id').textContent.toLowerCase();
+                const userName = row.querySelector('.umkm-name').textContent.toLowerCase();
+                const resiNumber = row.querySelector('.account-number').textContent.toLowerCase();
+                
+                if (orderId.includes(searchTerm) || 
+                    userName.includes(searchTerm) || 
+                    resiNumber.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
             });
-        });
+        }
 
-        // Close confirm modal
-        closeConfirmComplete.addEventListener('click', function() {
-            confirmCompleteModal.classList.remove('active');
-        });
+        function checkResi(orderId) {
+            // Implementation for manual resi checking
+            console.log('Checking resi for order:', orderId);
+            const resiNumber = event.target.closest('tr').querySelector('.account-number').textContent;
+            window.open(`https://cekresi.com/?noresi=${resiNumber}`, '_blank');
+        }
 
-        btnCancelComplete.addEventListener('click', function() {
-            confirmCompleteModal.classList.remove('active');
-        });
-
-        // Confirm and show success modal
-        btnConfirmComplete.addEventListener('click', function() {
-            confirmCompleteModal.classList.remove('active');
-            successCompleteModal.classList.add('active');
-        });
-
-        // Close success modal
-        closeSuccessComplete.addEventListener('click', function() {
-            successCompleteModal.classList.remove('active');
-        });
-
-        btnOkayComplete.addEventListener('click', function() {
-            successCompleteModal.classList.remove('active');
-        });
-
-        // Close modal when clicking outside
-        confirmCompleteModal.addEventListener('click', function(e) {
-            if (e.target === confirmCompleteModal) {
-                confirmCompleteModal.classList.remove('active');
+        function completeOrder(orderId) {
+            if (confirm(`Apakah Anda yakin ingin menyelesaikan pesanan ${orderId}?`)) {
+                console.log('Completing order:', orderId);
+                alert(`Pesanan ${orderId} berhasil diselesaikan`);
+                // Here you would update the database and remove the row
             }
-        });
+        }
+        
+        function exportToExcel() {
+            // Implementation for exporting order data to Excel
+            console.log('Exporting order data to Excel...');
+            alert('Export data akan segera tersedia');
+        }
+        
+        // Pagination functions
+        function previousPage() {
+            alert('Navigate to previous page');
+        }
+        
+        function nextPage() {
+            alert('Navigate to next page');
+        }
+        
+        // Sort table functionality (optional)
+        function sortTable(columnIndex) {
+            const table = document.querySelector('.finance-table');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            // Simple sort implementation
+            rows.sort((a, b) => {
+                const aText = a.cells[columnIndex].textContent.trim();
+                const bText = b.cells[columnIndex].textContent.trim();
+                return aText.localeCompare(bText);
+            });
+            
+            // Reorder rows
+            rows.forEach(row => tbody.appendChild(row));
+        }
+        
+        // Search functionality for orders
+        function searchTransactions(searchTerm) {
+            const tableRows = document.querySelectorAll('.finance-table tbody tr');
+            
+            tableRows.forEach(row => {
+                const orderId = row.querySelector('.withdrawal-id').textContent.toLowerCase();
+                const userName = row.querySelector('.umkm-name').textContent.toLowerCase();
+                const resiNumber = row.querySelector('.account-number').textContent.toLowerCase();
+                
+                if (orderId.includes(searchTerm.toLowerCase()) || 
+                    userName.includes(searchTerm.toLowerCase()) || 
+                    resiNumber.includes(searchTerm.toLowerCase())) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
 
-        successCompleteModal.addEventListener('click', function(e) {
-            if (e.target === successCompleteModal) {
-                successCompleteModal.classList.remove('active');
+        // Initialize search input event listener
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchOrder');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        searchOrders();
+                    }
+                });
+                
+                searchInput.addEventListener('input', function() {
+                    if (this.value === '') {
+                        // Show all rows when search is cleared
+                        const tableRows = document.querySelectorAll('.finance-table tbody tr');
+                        tableRows.forEach(row => {
+                            row.style.display = '';
+                        });
+                    }
+                });
             }
         });
     </script>

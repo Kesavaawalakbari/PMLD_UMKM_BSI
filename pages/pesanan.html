@@ -426,15 +426,17 @@
         }
         
         th {
-            padding: 16px 12px;
+            padding: 10px 8px;
             text-align: left;
-            font-size: 14px;
+            font-size: 11px;
             font-weight: 600;
             color: var(--text-primary);
+            background: var(--gray-50);
+            white-space: nowrap;
         }
         
         tbody tr {
-            border-bottom: 1px solid var(--gray-200);
+            border-bottom: 0.5px solid var(--gray-200);
         }
         
         tbody tr:last-child {
@@ -446,8 +448,9 @@
         }
         
         td {
-            padding: 16px 12px;
-            font-size: 14px;
+            padding: 10px 8px;
+            font-size: 11px;
+            line-height: 1.3;
         }
         
         .action-icons {
@@ -459,7 +462,7 @@
         .action-icon {
             color: var(--text-secondary);
             cursor: pointer;
-            font-size: 18px;
+            font-size: 14px;
         }
         
         .action-icon:hover {
@@ -471,9 +474,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 24px;
+            padding: 20px 0;
             font-size: 14px;
             color: var(--text-secondary);
+            background: var(--gray-50);
+            margin-top: 0;
+            border-top: 1px solid var(--gray-200);
         }
         
         .pagination-controls {
@@ -482,8 +488,8 @@
         }
         
         .pagination-btn {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border: 1px solid var(--gray-200);
             border-radius: 6px;
             background: white;
@@ -492,6 +498,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.2s ease;
         }
         
         .pagination-btn:hover {
@@ -1154,6 +1161,65 @@
                 max-width: 100%;
             }
         }
+        
+        @media (max-width: 480px) {
+            .header__search {
+                display: none;
+            }
+            
+            .breadcrumb-title {
+                font-size: 18px;
+            }
+            
+            .table-card {
+                padding: 12px;
+            }
+            
+            .table-header {
+                padding: 12px;
+                gap: 8px;
+            }
+            
+            .search-box {
+                font-size: 12px;
+            }
+            
+            .filter-btn {
+                padding: 6px 10px;
+                font-size: 12px;
+                min-width: 90px;
+            }
+            
+            table {
+                font-size: 10px;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+                font-size: 10px;
+            }
+            
+            .status-badge {
+                padding: 3px 8px;
+                font-size: 9px;
+            }
+            
+            .btn-view {
+                padding: 4px 10px;
+                font-size: 10px;
+            }
+            
+            .table-pagination {
+                padding: 12px 0;
+                font-size: 12px;
+            }
+            
+            .pagination-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1244,14 +1310,6 @@
                 </div>
                 <div class="header__actions">
                     <img src="../assets/images/Shape Right Up.webp" alt="" class="header-decoration-right">
-                    <button class="action-btn">
-                        <i class="fas fa-bell"></i>
-                        <span class="action-badge">3</span>
-                    </button>
-                    <button class="action-btn">
-                        <i class="fas fa-comment-alt"></i>
-                        <span class="action-badge">5</span>
-                    </button>
                     <button class="user-profile__toggle">
                         <img src="https://ui-avatars.com/api/?name=Thomas+Anree&background=00A39D&color=fff" class="user-avatar">
                         <div class="user-info">
@@ -1288,21 +1346,21 @@
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 100px;">ID Pesanan</th>
-                            <th style="width: 180px;">Nama Pengguna</th>
-                            <th style="width: 80px;">Produk</th>
-                            <th style="width: 120px;">Total Harga</th>
-                            <th style="width: 100px;">Tanggal</th>
-                            <th style="width: 200px;">Email</th>
-                            <th style="width: 250px;">Alamat</th>
-                            <th style="width: 80px;">Aksi</th>
+                            <th style="width: 70px;">ID Pesanan</th>
+                            <th style="width: 140px;">Nama Pengguna</th>
+                            <th style="width: 50px; text-align: center;">Produk</th>
+                            <th style="width: 100px;">Total Harga</th>
+                            <th style="width: 90px;">Tanggal</th>
+                            <th style="width: 160px;">Email</th>
+                            <th style="width: 200px;">Alamat</th>
+                            <th style="width: 60px; text-align: center;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>E001</td>
                             <td>Mamat guncop el rumi</td>
-                            <td>2</td>
+                            <td style="text-align: center;">2</td>
                             <td>Rp. 100.000</td>
                             <td>20/12/2025</td>
                             <td>mamat@gun.shop.com</td>
@@ -1316,7 +1374,7 @@
                         <tr>
                             <td>E002</td>
                             <td>Budi Santoso</td>
-                            <td>3</td>
+                            <td style="text-align: center;">3</td>
                             <td>Rp. 250.000</td>
                             <td>21/12/2025</td>
                             <td>budi.santoso@email.com</td>
@@ -1330,7 +1388,7 @@
                         <tr>
                             <td>E003</td>
                             <td>Siti Nurhaliza</td>
-                            <td>1</td>
+                            <td style="text-align: center;">1</td>
                             <td>Rp. 75.000</td>
                             <td>22/12/2025</td>
                             <td>siti.nur@email.com</td>
@@ -1344,7 +1402,7 @@
                         <tr>
                             <td>E004</td>
                             <td>Ahmad Wijaya</td>
-                            <td>4</td>
+                            <td style="text-align: center;">4</td>
                             <td>Rp. 350.000</td>
                             <td>23/12/2025</td>
                             <td>ahmad.wijaya@email.com</td>
@@ -1358,7 +1416,7 @@
                         <tr>
                             <td>E005</td>
                             <td>Rina Kartika</td>
-                            <td>2</td>
+                            <td style="text-align: center;">2</td>
                             <td>Rp. 150.000</td>
                             <td>24/12/2025</td>
                             <td>rina.kartika@email.com</td>
@@ -1593,8 +1651,10 @@
         if (kelolaPenggunaToggle) {
             kelolaPenggunaToggle.addEventListener('click', function(e) {
                 e.preventDefault();
+                e.stopPropagation();
                 const parentItem = this.closest('.nav-item-has-submenu');
                 parentItem.classList.toggle('submenu-open');
+                return false;
             });
         }
         
