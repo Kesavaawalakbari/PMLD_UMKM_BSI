@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Produk - BSI UMKM Center Yogyakarta</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* RESET */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* VARIABLES */
+        :root {
+            --primary-teal: #00A39D;
+            --secondary-orange: #F8AD3C;
+            --text-primary: #2C3E50;
+            --text-secondary: #7F8C8D;
+            --text-muted: #6C757D;
+            --gray-50: #F8F9FA;
+            --gray-100: #E9ECEF;
+            --gray-200: #DEE2E6;
+            --white: #FFFFFF;
+            --error: #E74C3C;
+            --dashboard-bg: #F5F6FA;
+        }
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--dashboard-bg);
+            color: var(--text-primary);
+        }
+        
+        /* LAYOUT */
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            grid-template-rows: 70px 1fr;
+            grid-template-areas: "sidebar header" "sidebar main";
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .dashboard-sidebar {
+            grid-area: sidebar;
+            background: var(--primary-teal);
+            overflow-y: auto;
+            height: 100vh;
+        }
+        
+        .dashboard-header {
+            grid-area: header;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .dashboard-main {
+            grid-area: main;
+            padding: 20px;
+            overflow-y: auto;
+            height: calc(100vh - 70px);
+        }
+        
+        /* SIDEBAR */
+        .sidebar {
+            padding: 24px 0;
+        }
+        
+        .sidebar__logo {
+            padding: 40px 24px 40px 24px;
+            margin-bottom: 32px;
+            background: var(--primary-teal);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0;
+            position: relative;
+        }
+        
+        .logo-text {
+            color: white;
+            text-align: left;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .logo-text__brand {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -1px;
+            position: relative;
+        }
+        
+        .logo-text__subtitle {
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 2.5px;
+            line-height: 1.5;
+            white-space: nowrap;
+        }
+        
+        .logo-star {
+            color: var(--secondary-orange);
+            width: 32px;
+            height: 32px;
+            position: absolute;
+            top: -18px;
+            left: 60px;
+        }
+        
+        .nav-list {
+            list-style: none;
+            padding: 0 20px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            font-size: 15px;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+        
+        .nav-item--active .nav-link {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .nav-icon {
+            width: 20px;
+            font-size: 20px;
+        }
+        
+        /* HEADER */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 0 24px;
+            height: 100%;
+        }
+        
+        .header__toggle {
+            display: none;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            color: var(--primary-teal);
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        
+        .header__toggle:hover {
+            background: var(--gray-50);
+        }
+        
+        .header__search {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            max-width: 400px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header__search i {
+            font-size: 18px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .search-decoration {
+            position: absolute;
+            top: -24px;
+            left: -24px;
+            width: 80px;
+            height: auto;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 8px 0;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            background: transparent;
+            position: relative;
+            z-index: 10;
+            color: var(--text-muted);
+        }
+        
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+        
+        .header__actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-left: auto;
+            position: relative;
+        }
+        
+        .header-decoration-right {
+            position: absolute;
+            top: -12px;
+            right: -24px;
+            width: 70px;
+            height: auto;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .user-profile__toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .user-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+        }
+        
+        .user-info {
+            text-align: left;
+        }
+        
+        .user-name {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .user-role {
+            display: block;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .profile-dropdown {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-left: 8px;
+        }
+        
+        /* BREADCRUMBS */
+        .breadcrumbs {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+        
+        .breadcrumb-item {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .breadcrumb-item:hover {
+            color: var(--primary-teal);
+        }
+        
+        .breadcrumb-item--active {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .breadcrumb-separator {
+            color: var(--text-muted);
+        }
+        
+        /* PAGE HEADER */
+        .page-header {
+            margin-bottom: 32px;
+        }
+        
+        .page-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        /* PRODUCT TABLE CARD */
+        .product-table-card {
+            background: white;
+            border-radius: 10px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .table-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .table-header-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .table-divider {
+            width: 1px;
+            height: 24px;
+            background: var(--gray-200);
+        }
+        
+        .table-search {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+        
+        .table-search-icon {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+        
+        .table-search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+        
+        .table-search-input::placeholder {
+            color: var(--text-muted);
+        }
+        
+        /* PRODUCT TABLE */
+        .product-table-wrapper {
+            overflow-x: auto;
+        }
+        
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .product-table thead {
+            background: transparent;
+        }
+        
+        .product-table th {
+            padding: 14px 12px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--gray-200);
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .product-table th:first-child {
+            width: 100px;
+        }
+        
+        .product-table th:nth-child(2) {
+            width: auto;
+        }
+        
+        .product-table th:nth-child(3) {
+            width: 140px;
+        }
+        
+        .product-table th:nth-child(4) {
+            width: 140px;
+        }
+        
+        .product-table th:nth-child(5) {
+            width: 100px;
+            text-align: center;
+        }
+        
+        .product-table th:nth-child(6) {
+            width: 100px;
+            text-align: center;
+        }
+        
+        .product-table td {
+            padding: 16px 12px;
+            font-size: 13px;
+            border-bottom: 1px solid var(--gray-100);
+            vertical-align: middle;
+            color: var(--text-primary);
+        }
+        
+        .product-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .product-table tbody tr {
+            transition: background 0.2s ease;
+        }
+        
+        .product-table tbody tr:hover {
+            background: var(--gray-50);
+        }
+        
+        .product-id {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        
+        .product-info-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .product-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: 1px solid var(--gray-200);
+        }
+        
+        .product-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        
+        .product-category,
+        .product-price,
+        .product-sold,
+        .product-stock {
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+        
+        .product-table td:nth-child(5),
+        .product-table td:nth-child(6) {
+            text-align: center;
+        }
+        
+        /* TABLE PAGINATION */
+        .table-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            margin-top: 16px;
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        .pagination-info {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .pagination-controls {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .pagination-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 6px;
+            background: var(--gray-100);
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        .pagination-btn:hover:not(:disabled) {
+            background: var(--gray-200);
+            color: var(--text-primary);
+        }
+        
+        .pagination-btn--active {
+            background: var(--secondary-orange);
+            color: white;
+        }
+        
+        .pagination-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        /* RESPONSIVE */
+        /* Laptop & Medium Desktop (1025px - 1440px) */
+        @media (max-width: 90em) and (min-width: 64.0625em) {
+            /* Sidebar tetap 260px untuk konsistensi */
+        }
+        
+        /* Tablet & Small Desktop (768px - 1024px) */
+        @media (max-width: 1024px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+                grid-template-rows: 70px 1fr;
+                grid-template-areas: "header" "main";
+            }
+            
+            .header__toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .dashboard-sidebar {
+                position: fixed;
+                left: -260px;
+                top: 0;
+                width: 260px;
+                height: 100vh;
+                z-index: 1000;
+                transition: left 0.3s ease;
+            }
+            
+            .dashboard-sidebar.open {
+                left: 0;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+            }
+            
+            .user-info {
+                display: none;
+            }
+            
+            .product-table-wrapper {
+                overflow-x: scroll;
+            }
+        }
+        
+        /* Mobile (max-width: 768px) */
+        @media (max-width: 768px) {
+            .dashboard-main {
+                padding: 12px;
+                height: calc(100vh - 70px);
+            }
+            
+            .header {
+                padding: 0 12px;
+                gap: 12px;
+            }
+            
+            .header__search {
+                max-width: 200px;
+            }
+            
+            .search-input {
+                font-size: 12px;
+            }
+            
+            .search-decoration,
+            .header-decoration-right {
+                display: none;
+            }
+            
+            .user-avatar {
+                width: 36px;
+                height: 36px;
+            }
+            
+            .breadcrumbs {
+                font-size: 12px;
+            }
+            
+            .page-title {
+                font-size: 22px;
+            }
+            
+            .product-table-card {
+                padding: 16px;
+            }
+            
+            .table-header {
+                flex-wrap: wrap;
+            }
+            
+            .sidebar__logo {
+                padding: 30px 16px 30px 16px;
+            }
+            
+            .logo-text__brand {
+                font-size: 42px;
+            }
+            
+            .logo-text__subtitle {
+                font-size: 10px;
+                letter-spacing: 2px;
+            }
+            
+            .logo-star {
+                width: 24px;
+                height: 24px;
+                left: 65px;
+                top: -14px;
+            }
+            
+            .nav-link {
+                font-size: 14px;
+                padding: 10px 14px;
+            }
+            
+            .nav-icon {
+                font-size: 18px;
+            }
+        }
+        
+        /* Small Mobile (max-width: 480px) */
+        @media (max-width: 480px) {
+            .header__search {
+                display: none;
+            }
+            
+            .page-title {
+                font-size: 18px;
+            }
+            
+            .table-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            
+            .table-search {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- SIDEBAR -->
+        <aside class="dashboard-sidebar" id="sidebar">
+            <div class="sidebar">
+                <div class="sidebar__logo">
+                    <div class="logo-text">
+                        <span class="logo-text__brand">BSI</span>
+                        <div>
+                            <div class="logo-text__subtitle">UMKM CENTER</div>
+                            <div class="logo-text__subtitle">YOGYAKARTA</div>
+                        </div>
+                        <svg class="logo-star" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                </div>
+                <nav>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="dashboard.html" class="nav-link">
+                                <i class="nav-icon fas fa-th-large"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item nav-item--active">
+                            <a href="kelola-produk.html" class="nav-link">
+                                <i class="nav-icon fas fa-box"></i>
+                                <span>Kelola Produk</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="kelola-keuangan.html" class="nav-link">
+                                <i class="nav-icon fas fa-wallet"></i>
+                                <span>Kelola Keuangan</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="laporan.html" class="nav-link">
+                                <i class="nav-icon fas fa-clipboard-list"></i>
+                                <span>Laporan</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="bantuan.html" class="nav-link">
+                                <i class="nav-icon fas fa-question-circle"></i>
+                                <span>Bantuan</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        
+        <!-- HEADER -->
+        <header class="dashboard-header">
+            <div class="header">
+                <button class="header__toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header__search">
+                    <i class="fas fa-search" style="color: #6C757D;"></i>
+                    <input type="text" class="search-input" placeholder="Type to search...">
+                    <img src="../assets/images/Shape Left Down.webp" alt="" class="search-decoration">
+                </div>
+                <div class="header__actions">
+                    <img src="../assets/images/Shape Right Up.webp" alt="" class="header-decoration-right">
+                    <a href="profil.html" class="user-profile__toggle" style="text-decoration: none; color: inherit;">
+                        <img src="https://ui-avatars.com/api/?name=Thomas+Anree&background=00A39D&color=fff" class="user-avatar">
+                        <div class="user-info">
+                            <span class="user-name">Thomas Anree</span>
+                            <span class="user-role">Admin Basreng Bakar</span>
+                        </div>
+                        <i class="fas fa-chevron-down profile-dropdown"></i>
+                    </a>
+                </div>
+            </div>
+        </header>
+        
+        <!-- MAIN CONTENT -->
+        <main class="dashboard-main">
+            <!-- BREADCRUMBS -->
+            <div class="breadcrumbs">
+                <a href="dashboard.html" class="breadcrumb-item">Dashboard</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-item breadcrumb-item--active">Kelola Produk</span>
+            </div>
+            
+            <!-- PAGE HEADER -->
+            <div class="page-header">
+                <h1 class="page-title">Kelola Produk</h1>
+            </div>
+            
+            <!-- PRODUCT TABLE -->
+            <div class="product-table-card">
+                <div class="table-header">
+                    <h2 class="table-header-title">Semua Produk</h2>
+                    <div class="table-divider"></div>
+                    <div class="table-search">
+                        <i class="fas fa-search table-search-icon"></i>
+                        <input type="text" class="table-search-input" placeholder="Cari produk dari UMKM">
+                    </div>
+                </div>
+                
+                <div class="product-table-wrapper">
+                    <table class="product-table">
+                        <thead>
+                            <tr>
+                                <th>ID Produk</th>
+                                <th>Nama Produk</th>
+                                <th>Kategori</th>
+                                <th>Harga</th>
+                                <th>Terjual</th>
+                                <th>Stok</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="product-id">A001</td>
+                                <td>
+                                    <div class="product-info-cell">
+                                        <img src="https://via.placeholder.com/50" alt="Product" class="product-image">
+                                        <span class="product-name">Basreng Turbo 4 silinder</span>
+                                    </div>
+                                </td>
+                                <td class="product-category">FnB</td>
+                                <td class="product-price">Rp. 100.000</td>
+                                <td class="product-sold">22</td>
+                                <td class="product-stock">100</td>
+                            </tr>
+                            <tr>
+                                <td class="product-id">A002</td>
+                                <td>
+                                    <div class="product-info-cell">
+                                        <img src="https://via.placeholder.com/50" alt="Product" class="product-image">
+                                        <span class="product-name">Basreng Original Level 5</span>
+                                    </div>
+                                </td>
+                                <td class="product-category">FnB</td>
+                                <td class="product-price">Rp. 75.000</td>
+                                <td class="product-sold">45</td>
+                                <td class="product-stock">150</td>
+                            </tr>
+                            <tr>
+                                <td class="product-id">A003</td>
+                                <td>
+                                    <div class="product-info-cell">
+                                        <img src="https://via.placeholder.com/50" alt="Product" class="product-image">
+                                        <span class="product-name">Basreng Spesial Keju</span>
+                                    </div>
+                                </td>
+                                <td class="product-category">FnB</td>
+                                <td class="product-price">Rp. 85.000</td>
+                                <td class="product-sold">33</td>
+                                <td class="product-stock">80</td>
+                            </tr>
+                            <tr>
+                                <td class="product-id">A004</td>
+                                <td>
+                                    <div class="product-info-cell">
+                                        <img src="https://via.placeholder.com/50" alt="Product" class="product-image">
+                                        <span class="product-name">Basreng Balado Mantap</span>
+                                    </div>
+                                </td>
+                                <td class="product-category">FnB</td>
+                                <td class="product-price">Rp. 70.000</td>
+                                <td class="product-sold">28</td>
+                                <td class="product-stock">120</td>
+                            </tr>
+                            <tr>
+                                <td class="product-id">A005</td>
+                                <td>
+                                    <div class="product-info-cell">
+                                        <img src="https://via.placeholder.com/50" alt="Product" class="product-image">
+                                        <span class="product-name">Basreng Manis Gurih</span>
+                                    </div>
+                                </td>
+                                <td class="product-category">FnB</td>
+                                <td class="product-price">Rp. 65.000</td>
+                                <td class="product-sold">19</td>
+                                <td class="product-stock">90</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="table-footer">
+                    <span class="pagination-info">1-5 of 29</span>
+                    <div class="pagination-controls">
+                        <button class="pagination-btn" disabled>
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="pagination-btn pagination-btn--active">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        // Sidebar toggle for mobile
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        if (sidebarToggle && sidebar) {
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+            });
+            
+            // Close sidebar when clicking outside
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth <= 1024) {
+                    if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+                        sidebar.classList.remove('open');
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

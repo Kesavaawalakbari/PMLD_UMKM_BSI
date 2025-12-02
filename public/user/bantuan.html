@@ -1,0 +1,2347 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bantuan - BSI UMKM Center Yogyakarta</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* RESET */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* VARIABLES */
+        :root {
+            --primary-teal: #00A39D;
+            --secondary-orange: #F8AD3C;
+            --text-primary: #2C3E50;
+            --text-secondary: #7F8C8D;
+            --text-muted: #6C757D;
+            --gray-50: #F8F9FA;
+            --gray-100: #E9ECEF;
+            --gray-200: #DEE2E6;
+            --white: #FFFFFF;
+            --error: #E74C3C;
+            --dashboard-bg: #F5F6FA;
+            --success: #10B981;
+        }
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--dashboard-bg);
+            color: var(--text-primary);
+        }
+        
+        /* LAYOUT */
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            grid-template-rows: 70px 1fr;
+            grid-template-areas: "sidebar header" "sidebar main";
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .dashboard-sidebar {
+            grid-area: sidebar;
+            background: var(--primary-teal);
+            overflow-y: auto;
+            height: 100vh;
+        }
+        
+        .dashboard-header {
+            grid-area: header;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .dashboard-main {
+            grid-area: main;
+            padding: 20px;
+            overflow-y: auto;
+            height: calc(100vh - 70px);
+        }
+        
+        /* SIDEBAR */
+        .sidebar {
+            padding: 24px 0;
+        }
+        
+        .sidebar__logo {
+            padding: 40px 24px 40px 24px;
+            margin-bottom: 32px;
+            background: var(--primary-teal);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0;
+            position: relative;
+        }
+        
+        .logo-text {
+            color: white;
+            text-align: left;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .logo-text__brand {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -1px;
+            position: relative;
+        }
+        
+        .logo-text__subtitle {
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 2.5px;
+            line-height: 1.5;
+            white-space: nowrap;
+        }
+        
+        .logo-star {
+            color: var(--secondary-orange);
+            width: 32px;
+            height: 32px;
+            position: absolute;
+            top: -18px;
+            left: 60px;
+        }
+        
+        .nav-list {
+            list-style: none;
+            padding: 0 20px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            font-size: 15px;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+        
+        .nav-item--active .nav-link {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .nav-icon {
+            width: 20px;
+            font-size: 20px;
+        }
+        
+        /* HEADER */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 0 24px;
+            height: 100%;
+        }
+        
+        .header__toggle {
+            display: none;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            color: var(--primary-teal);
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        
+        .header__toggle:hover {
+            background: var(--gray-50);
+        }
+        
+        .header__search {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            max-width: 400px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header__search i {
+            font-size: 18px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .search-decoration {
+            position: absolute;
+            top: -24px;
+            left: -24px;
+            width: 80px;
+            height: auto;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 8px 0;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            background: transparent;
+            position: relative;
+            z-index: 10;
+            color: var(--text-muted);
+        }
+        
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+        
+        .header__actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-left: auto;
+            position: relative;
+        }
+        
+        .header-decoration-right {
+            position: absolute;
+            top: -12px;
+            right: -24px;
+            width: 70px;
+            height: auto;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .user-profile__toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .user-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+        }
+        
+        .user-info {
+            text-align: left;
+        }
+        
+        .user-name {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .user-role {
+            display: block;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .profile-dropdown {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-left: 8px;
+        }
+        
+        /* BREADCRUMBS */
+        .breadcrumbs {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+        
+        .breadcrumb-item {
+            color: var(--text-secondary);
+            font-size: 14px;
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item:hover {
+            color: var(--primary-teal);
+        }
+        
+        .breadcrumb-item--active {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .breadcrumb-separator {
+            color: var(--text-secondary);
+        }
+        
+        /* PAGE TITLE */
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+        }
+        
+        /* SUPPORT CARD */
+        .support-card {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            min-height: 600px;
+        }
+        
+        .support-sidebar {
+            background: var(--gray-50);
+            padding: 20px;
+            border-right: 1px solid var(--gray-200);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .support-sidebar-header {
+            padding: 14px 20px;
+            background: var(--primary-teal);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            cursor: default;
+        }
+        
+        .support-sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .support-sidebar-item {
+            margin: 0;
+        }
+        
+        .support-sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+        
+        .support-sidebar-link i {
+            width: 18px;
+            font-size: 16px;
+        }
+        
+        .support-sidebar-link:hover {
+            background: rgba(0, 163, 157, 0.08);
+            color: var(--primary-teal);
+        }
+        
+        .support-sidebar-item--active .support-sidebar-link {
+            background: white;
+            color: var(--primary-teal);
+            border-left-color: var(--primary-teal);
+            font-weight: 600;
+        }
+        
+        .support-content {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        
+        .support-content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .support-content__title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .support-table-wrapper {
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .btn-ajukan {
+            padding: 8px 16px;
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s ease;
+        }
+        
+        .btn-ajukan:hover {
+            background: #0d9668;
+        }
+        
+        .btn-jawaban {
+            padding: 6px 18px;
+            background: #10B981;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        
+        .btn-jawaban:hover {
+            background: #0d9668;
+        }
+        
+        .support-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .support-table th {
+            padding: 14px 12px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--gray-200);
+            background: transparent;
+        }
+        
+        .support-table th:first-child {
+            width: auto;
+        }
+        
+        .support-table th:nth-child(2) {
+            width: 140px;
+            text-align: left;
+        }
+        
+        .support-table th:nth-child(3) {
+            width: 100px;
+            text-align: center;
+        }
+        
+        .support-table td {
+            padding: 16px 12px;
+            font-size: 13px;
+            border-bottom: 1px solid var(--gray-100);
+            vertical-align: middle;
+            color: var(--text-secondary);
+        }
+        
+        .support-table td:nth-child(2) {
+            text-align: left;
+        }
+        
+        .support-table td:nth-child(3) {
+            text-align: center;
+        }
+        
+        .support-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .support-table tbody tr {
+            transition: background 0.2s ease;
+        }
+        
+        .support-table tbody tr:hover {
+            background: var(--gray-50);
+        }
+        
+        .action-icons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .action-icon {
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+        
+        .action-icon:hover {
+            color: var(--primary-teal);
+            transform: scale(1.1);
+        }
+        
+        .action-icon--delete:hover {
+            color: var(--error);
+        }
+        
+        .table-pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            margin-top: auto;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .pagination-controls {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .pagination-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 6px;
+            background: var(--gray-100);
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        
+        .pagination-btn:hover:not(:disabled) {
+            background: var(--gray-200);
+            color: var(--text-primary);
+        }
+        
+        .pagination-btn--active {
+            background: var(--secondary-orange);
+            color: white;
+        }
+        
+        .pagination-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+                grid-template-rows: 70px 1fr;
+                grid-template-areas: "header" "main";
+            }
+            
+            .header__toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .dashboard-sidebar {
+                position: fixed;
+                left: -260px;
+                top: 0;
+                width: 260px;
+                height: 100vh;
+                z-index: 1000;
+                transition: left 0.3s ease;
+            }
+            
+            .dashboard-sidebar.open {
+                left: 0;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+            }
+            
+            .user-info {
+                display: none;
+            }
+            
+            .support-card {
+                grid-template-columns: 1fr;
+            }
+            
+            .support-sidebar {
+                border-right: none;
+                border-bottom: 1px solid var(--gray-200);
+                padding: 16px;
+            }
+            
+            .support-sidebar-menu {
+                flex-direction: row;
+                gap: 12px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-main {
+                padding: 12px;
+            }
+            
+            .page-title {
+                font-size: 22px;
+            }
+            
+            .support-content {
+                padding: 16px;
+            }
+            
+            .support-content-header {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+            
+            .btn-ajukan {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .support-table {
+                font-size: 11px;
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+        
+        /* MODAL STYLES */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from { 
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+            to { 
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .modal-container {
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0px 4px 14px 0px rgba(38, 43, 67, 0.16);
+            width: 90%;
+            max-width: 554px;
+            max-height: 90vh;
+            overflow: hidden;
+            animation: slideIn 0.3s ease;
+            position: relative;
+        }
+        
+        .modal-header {
+            background: var(--primary-teal);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .modal-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--white);
+            line-height: 30px;
+        }
+        
+        .modal-close-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .modal-close-btn i {
+            color: var(--white);
+            font-size: 14px;
+        }
+        
+        .modal-body {
+            padding: 20px;
+            max-height: calc(90vh - 80px);
+            overflow-y: auto;
+        }
+        
+        .modal-form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .modal-form-label {
+            position: absolute;
+            top: -8px;
+            left: 10px;
+            background: var(--secondary-orange);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 400;
+            color: #333333;
+            z-index: 1;
+        }
+        
+        .modal-form-input,
+        .modal-form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--primary-teal);
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Lato', sans-serif;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        
+        .modal-form-input:focus,
+        .modal-form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 3px rgba(0, 163, 157, 0.1);
+        }
+        
+        .modal-form-input::placeholder,
+        .modal-form-textarea::placeholder {
+            color: rgba(38, 43, 67, 0.7);
+        }
+        
+        .modal-form-textarea {
+            min-height: 108px;
+            resize: vertical;
+        }
+        
+        .modal-submit-btn {
+            width: 100%;
+            padding: 8px 26px;
+            background: var(--secondary-orange);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: 500;
+            text-transform: capitalize;
+            cursor: pointer;
+            box-shadow: 0px 2px 6px 0px rgba(38, 43, 67, 0.14);
+            transition: all 0.3s ease;
+        }
+        
+        .modal-submit-btn:hover {
+            background: #E09B35;
+            box-shadow: 0px 4px 10px 0px rgba(38, 43, 67, 0.2);
+        }
+        
+        .modal-submit-btn:active {
+            transform: scale(0.98);
+        }
+        
+        @media (max-width: 768px) {
+            .modal-container {
+                width: 95%;
+                max-height: 95vh;
+            }
+            
+            .modal-header {
+                padding: 16px;
+            }
+            
+            .modal-title {
+                font-size: 18px;
+            }
+            
+            .modal-body {
+                padding: 16px;
+            }
+            
+            .modal-form-input,
+            .modal-form-textarea {
+                font-size: 14px;
+            }
+        }
+        
+        /* SUCCESS MODAL STYLES */
+        .success-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .success-modal-overlay.active {
+            display: flex;
+        }
+        
+        .success-modal-container {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0px 8px 24px 0px rgba(38, 43, 67, 0.2);
+            width: 90%;
+            max-width: 480px;
+            padding: 40px 32px 32px;
+            text-align: center;
+            animation: slideIn 0.3s ease;
+            position: relative;
+        }
+        
+        .success-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .success-modal-close:hover {
+            background: var(--gray-100);
+        }
+        
+        .success-modal-close i {
+            color: var(--text-muted);
+            font-size: 18px;
+        }
+        
+        .success-modal-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .success-modal-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .success-modal-message {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+        
+        .success-modal-btn {
+            width: 100%;
+            padding: 12px 32px;
+            background: var(--primary-teal);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .success-modal-btn:hover {
+            background: #008C87;
+            box-shadow: 0px 4px 12px 0px rgba(0, 163, 157, 0.3);
+        }
+        
+        .success-modal-btn:active {
+            transform: scale(0.98);
+        }
+        
+        @media (max-width: 768px) {
+            .success-modal-container {
+                width: 90%;
+                padding: 32px 24px 24px;
+            }
+            
+            .success-modal-icon {
+                font-size: 52px;
+            }
+            
+            .success-modal-title {
+                font-size: 18px;
+            }
+            
+            .success-modal-message {
+                font-size: 14px;
+            }
+        }
+        
+        /* ===== JAWABAN MODAL STYLES ===== */
+        .jawaban-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10001;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .jawaban-modal-overlay.active {
+            display: flex;
+        }
+        
+        .jawaban-modal-container {
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0px 4px 14px 0px rgba(38, 43, 67, 0.16);
+            width: 90%;
+            max-width: 554px;
+            max-height: 90vh;
+            overflow: hidden;
+            animation: slideIn 0.3s ease;
+            position: relative;
+        }
+        
+        .jawaban-modal-header {
+            background: var(--primary-teal);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .jawaban-modal-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--white);
+            line-height: 30px;
+        }
+        
+        .jawaban-modal-close-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .jawaban-modal-close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .jawaban-modal-close-btn i {
+            color: var(--white);
+            font-size: 14px;
+        }
+        
+        .jawaban-modal-body {
+            padding: 20px;
+            max-height: calc(90vh - 80px);
+            overflow-y: auto;
+        }
+        
+        .jawaban-modal-form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .jawaban-modal-form-label {
+            position: absolute;
+            top: -8px;
+            left: 12px;
+            background: var(--white);
+            padding: 0 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--secondary-orange);
+            z-index: 1;
+        }
+        
+        .jawaban-modal-form-input,
+        .jawaban-modal-form-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--primary-teal);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Lato', sans-serif;
+            color: var(--text-primary);
+            background: var(--white);
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .jawaban-modal-form-input:focus,
+        .jawaban-modal-form-textarea:focus {
+            outline: none;
+            border-color: var(--secondary-orange);
+            box-shadow: 0 0 0 3px rgba(248, 173, 60, 0.1);
+        }
+        
+        .jawaban-modal-form-input::placeholder,
+        .jawaban-modal-form-textarea::placeholder {
+            color: #999;
+        }
+        
+        .jawaban-modal-form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .jawaban-modal-submit-btn {
+            width: 100%;
+            padding: 14px 32px;
+            background: var(--secondary-orange);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+        }
+        
+        .jawaban-modal-submit-btn:hover {
+            background: #E69A2A;
+            box-shadow: 0px 4px 12px 0px rgba(248, 173, 60, 0.3);
+        }
+        
+        .jawaban-modal-submit-btn:active {
+            transform: scale(0.98);
+        }
+        
+        /* ===== KIRIM PERTANYAAN MODAL STYLES ===== */
+        .kirim-pertanyaan-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10002;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .kirim-pertanyaan-modal-overlay.active {
+            display: flex;
+        }
+        
+        .kirim-pertanyaan-modal-container {
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0px 4px 14px 0px rgba(38, 43, 67, 0.16);
+            width: 90%;
+            max-width: 554px;
+            max-height: 90vh;
+            overflow: hidden;
+            animation: slideIn 0.3s ease;
+            position: relative;
+        }
+        
+        .kirim-pertanyaan-modal-header {
+            background: var(--primary-teal);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .kirim-pertanyaan-modal-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--white);
+            line-height: 30px;
+        }
+        
+        .kirim-pertanyaan-modal-close-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .kirim-pertanyaan-modal-close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .kirim-pertanyaan-modal-close-btn i {
+            color: var(--white);
+            font-size: 14px;
+        }
+        
+        .kirim-pertanyaan-modal-body {
+            padding: 20px;
+            max-height: calc(90vh - 80px);
+            overflow-y: auto;
+        }
+        
+        .kirim-pertanyaan-modal-form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .kirim-pertanyaan-modal-form-label {
+            position: absolute;
+            top: -8px;
+            left: 12px;
+            background: var(--white);
+            padding: 0 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--secondary-orange);
+            z-index: 1;
+        }
+        
+        .kirim-pertanyaan-modal-form-input,
+        .kirim-pertanyaan-modal-form-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--primary-teal);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Lato', sans-serif;
+            color: var(--text-primary);
+            background: var(--white);
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .kirim-pertanyaan-modal-form-input:focus,
+        .kirim-pertanyaan-modal-form-textarea:focus {
+            outline: none;
+            border-color: var(--secondary-orange);
+            box-shadow: 0 0 0 3px rgba(248, 173, 60, 0.1);
+        }
+        
+        .kirim-pertanyaan-modal-form-input::placeholder,
+        .kirim-pertanyaan-modal-form-textarea::placeholder {
+            color: #999;
+        }
+        
+        .kirim-pertanyaan-modal-form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .kirim-pertanyaan-modal-submit-btn {
+            width: 100%;
+            padding: 14px 32px;
+            background: var(--secondary-orange);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+        }
+        
+        .kirim-pertanyaan-modal-submit-btn:hover {
+            background: #E69A2A;
+            box-shadow: 0px 4px 12px 0px rgba(248, 173, 60, 0.3);
+        }
+        
+        .kirim-pertanyaan-modal-submit-btn:active {
+            transform: scale(0.98);
+        }
+        
+        /* MODAL LIHAT PERTANYAAN */
+        .view-pertanyaan-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10003;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .view-pertanyaan-modal-overlay.active {
+            display: flex;
+        }
+        
+        .view-pertanyaan-modal-container {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .view-pertanyaan-modal-header {
+            background: var(--primary-teal);
+            color: white;
+            padding: 20px 24px;
+            border-radius: 16px 16px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .view-pertanyaan-modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .view-pertanyaan-modal-close-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+        
+        .view-pertanyaan-modal-close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .view-pertanyaan-modal-body {
+            padding: 24px;
+        }
+        
+        .view-pertanyaan-field {
+            margin-bottom: 20px;
+        }
+        
+        .view-pertanyaan-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            background: var(--secondary-orange);
+            padding: 4px 12px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        
+        .view-pertanyaan-value {
+            font-size: 14px;
+            color: var(--text-secondary);
+            background: var(--gray-50);
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 2px solid var(--primary-teal);
+            min-height: 48px;
+            display: block;
+        }
+        
+        .view-pertanyaan-value.textarea {
+            min-height: 120px;
+        }
+        
+        /* MODAL DELETE CONFIRMATION */
+        .delete-confirmation-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10004;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .delete-confirmation-modal-overlay.active {
+            display: flex;
+        }
+        
+        .delete-confirmation-modal-container {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            padding: 32px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: relative;
+        }
+        
+        .delete-confirmation-close-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+        
+        .delete-confirmation-close-btn:hover {
+            background: var(--gray-100);
+        }
+        
+        .delete-confirmation-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+        
+        .delete-confirmation-message {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        
+        .delete-confirmation-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+        
+        .delete-btn-batal {
+            padding: 12px 32px;
+            background: var(--gray-200);
+            color: var(--text-primary);
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .delete-btn-batal:hover {
+            background: var(--gray-100);
+        }
+        
+        .delete-btn-hapus {
+            padding: 12px 32px;
+            background: var(--primary-teal);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .delete-btn-hapus:hover {
+            background: #008F8A;
+        }
+        
+        /* MODAL DELETE SUCCESS */
+        .delete-success-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10005;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .delete-success-modal-overlay.active {
+            display: flex;
+        }
+        
+        .delete-success-modal-container {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 420px;
+            padding: 40px 32px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: relative;
+        }
+        
+        .delete-success-close-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+        
+        .delete-success-close-btn:hover {
+            background: var(--gray-100);
+        }
+        
+        .delete-success-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        
+        .delete-success-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        
+        .delete-success-message {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        
+        .delete-success-btn {
+            padding: 12px 48px;
+            background: var(--primary-teal);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .delete-success-btn:hover {
+            background: #008F8A;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- SIDEBAR -->
+        <aside class="dashboard-sidebar" id="sidebar">
+            <div class="sidebar">
+                <div class="sidebar__logo">
+                    <div class="logo-text">
+                        <span class="logo-text__brand">BSI</span>
+                        <div>
+                            <div class="logo-text__subtitle">UMKM CENTER</div>
+                            <div class="logo-text__subtitle">YOGYAKARTA</div>
+                        </div>
+                        <svg class="logo-star" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                </div>
+                <nav>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="dashboard.html" class="nav-link">
+                                <i class="nav-icon fas fa-th-large"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="kelola-produk.html" class="nav-link">
+                                <i class="nav-icon fas fa-box"></i>
+                                <span>Kelola Produk</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="kelola-keuangan.html" class="nav-link">
+                                <i class="nav-icon fas fa-wallet"></i>
+                                <span>Kelola Keuangan</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="laporan.html" class="nav-link">
+                                <i class="nav-icon fas fa-clipboard-list"></i>
+                                <span>Laporan</span>
+                            </a>
+                        </li>
+                        <li class="nav-item nav-item--active">
+                            <a href="bantuan.html" class="nav-link">
+                                <i class="nav-icon fas fa-question-circle"></i>
+                                <span>Bantuan</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        
+        <!-- HEADER -->
+        <header class="dashboard-header">
+            <div class="header">
+                <button class="header__toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header__search">
+                    <i class="fas fa-search" style="color: #6C757D;"></i>
+                    <input type="text" class="search-input" placeholder="Type to search...">
+                    <img src="../assets/images/Shape Left Down.webp" alt="" class="search-decoration">
+                </div>
+                <div class="header__actions">
+                    <img src="../assets/images/Shape Right Up.webp" alt="" class="header-decoration-right">
+                    <a href="profil.html" class="user-profile__toggle" style="text-decoration: none; color: inherit;">
+                        <img src="https://ui-avatars.com/api/?name=Thomas+Anree&background=00A39D&color=fff" class="user-avatar">
+                        <div class="user-info">
+                            <span class="user-name">Thomas Anree</span>
+                            <span class="user-role">Admin Basreng Bakar</span>
+                        </div>
+                        <i class="fas fa-chevron-down profile-dropdown"></i>
+                    </a>
+                </div>
+            </div>
+        </header>
+        
+        <!-- MAIN CONTENT -->
+        <main class="dashboard-main">
+            <!-- BREADCRUMBS -->
+            <div class="breadcrumbs">
+                <a href="dashboard.html" class="breadcrumb-item">Dashboard</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-item">Kelola Pengguna</span>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-item breadcrumb-item--active">Bantuan</span>
+            </div>
+            
+            <!-- PAGE TITLE -->
+            <h1 class="page-title">Bantuan</h1>
+            
+            <!-- SUPPORT SECTION -->
+            <div class="support-card">
+                <!-- SIDEBAR KIRI -->
+                <div class="support-sidebar">
+                    <div class="support-sidebar-header">Bantuan Pengguna</div>
+                    <ul class="support-sidebar-menu">
+                        <li class="support-sidebar-item support-sidebar-item--active" data-tab="pertanyaan">
+                            <a href="#" class="support-sidebar-link">
+                                <i class="fas fa-download"></i>
+                                <span>Pertanyaan</span>
+                            </a>
+                        </li>
+                        <li class="support-sidebar-item" data-tab="jawaban">
+                            <a href="#" class="support-sidebar-link">
+                                <i class="fas fa-paper-plane"></i>
+                                <span>Jawaban</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- CONTENT KANAN - PERTANYAAN -->
+                <div class="support-content" id="content-pertanyaan">
+                    <div class="support-content-header">
+                        <h2 class="support-content__title">Riwayat Pertanyaan</h2>
+                        <button class="btn-ajukan">
+                            <i class="fas fa-user-plus"></i>
+                            <span>Ajukan Pertanyaan</span>
+                        </button>
+                    </div>
+                    <div class="support-table-wrapper">
+                        <table class="support-table">
+                            <thead>
+                                <tr>
+                                    <th>Pertanyaan</th>
+                                    <th>Tanggal</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>available alteration in some Ipsum</td>
+                                    <td>25 Nov, 2024</td>
+                                    <td>
+                                        <div class="action-icons">
+                                            <i class="far fa-eye action-icon" title="Lihat"></i>
+                                            <i class="far fa-trash-alt action-icon action-icon--delete" title="Hapus"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>available alteration in some Ipsum</td>
+                                    <td>25 Nov, 2024</td>
+                                    <td>
+                                        <div class="action-icons">
+                                            <i class="far fa-eye action-icon" title="Lihat"></i>
+                                            <i class="far fa-trash-alt action-icon action-icon--delete" title="Hapus"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>available alteration in some Ipsum</td>
+                                    <td>25 Nov, 2024</td>
+                                    <td>
+                                        <div class="action-icons">
+                                            <i class="far fa-eye action-icon" title="Lihat"></i>
+                                            <i class="far fa-trash-alt action-icon action-icon--delete" title="Hapus"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>available alteration in some Ipsum</td>
+                                    <td>25 Nov, 2024</td>
+                                    <td>
+                                        <div class="action-icons">
+                                            <i class="far fa-eye action-icon" title="Lihat"></i>
+                                            <i class="far fa-trash-alt action-icon action-icon--delete" title="Hapus"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>available alteration in some Ipsum</td>
+                                    <td>25 Nov, 2024</td>
+                                    <td>
+                                        <div class="action-icons">
+                                            <i class="far fa-eye action-icon" title="Lihat"></i>
+                                            <i class="far fa-trash-alt action-icon action-icon--delete" title="Hapus"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>available alteration in some Ipsum</td>
+                                    <td>25 Nov, 2024</td>
+                                    <td>
+                                        <div class="action-icons">
+                                            <i class="far fa-eye action-icon" title="Lihat"></i>
+                                            <i class="far fa-trash-alt action-icon action-icon--delete" title="Hapus"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>available alteration in some Ipsum</td>
+                                    <td>25 Nov, 2024</td>
+                                    <td>
+                                        <div class="action-icons">
+                                            <i class="far fa-eye action-icon" title="Lihat"></i>
+                                            <i class="far fa-trash-alt action-icon action-icon--delete" title="Hapus"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-pagination">
+                        <span>1-5 of 29</span>
+                        <div class="pagination-controls">
+                            <button class="pagination-btn" disabled><i class="fas fa-chevron-left"></i></button>
+                            <button class="pagination-btn pagination-btn--active"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CONTENT KANAN - JAWABAN -->
+                <div class="support-content" id="content-jawaban" style="display: none;">
+                    <div class="support-content-header">
+                        <h2 class="support-content__title">Jawaban Pertanyaan</h2>
+                    </div>
+                    <div class="support-table-wrapper">
+                        <table class="support-table">
+                            <thead>
+                                <tr>
+                                    <th>Pertanyaan</th>
+                                    <th>Tanggal</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>available alteration in some Ipsum</td>
+                                    <td>25 Nov, 2024</td>
+                                    <td>
+                                        <button class="btn-jawaban">Jawaban</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>available alteration in some Ipsum</td>
+                                    <td>25 Nov, 2024</td>
+                                    <td>
+                                        <button class="btn-jawaban">Jawaban</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-pagination">
+                        <span>1-2 of 29</span>
+                        <div class="pagination-controls">
+                            <button class="pagination-btn" disabled><i class="fas fa-chevron-left"></i></button>
+                            <button class="pagination-btn pagination-btn--active"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modal Kirim Pertanyaan -->
+    <div class="modal-overlay" id="modalPertanyaan">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title">Kirim Pertanyaan</h2>
+                <button class="modal-close-btn" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formPertanyaan">
+                    <div class="modal-form-group">
+                        <label class="modal-form-label">UMKM</label>
+                        <input type="text" class="modal-form-input" value="AutoFill" readonly>
+                    </div>
+                    
+                    <div class="modal-form-group">
+                        <label class="modal-form-label">Judul</label>
+                        <input type="text" class="modal-form-input" placeholder="Masukkan Judul Pertanyaan..." required>
+                    </div>
+                    
+                    <div class="modal-form-group">
+                        <label class="modal-form-label">Pertanyaan</label>
+                        <textarea class="modal-form-textarea" placeholder="Masukkan Pertanyaan..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="modal-submit-btn">Kirim Pertanyaan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Modal -->
+    <div class="success-modal-overlay" id="successModal">
+        <div class="success-modal-container">
+            <button class="success-modal-close" id="closeSuccessModal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="success-modal-icon">💾✨</div>
+            <h2 class="success-modal-title">Data Kamu telah berhasil disimpan!</h2>
+            <p class="success-modal-message">Semua perubahan telah disimpan dan aman.<br>Kamu bisa melanjutkan pekerjaan tanpa khawatir. 👍</p>
+            <button class="success-modal-btn" id="okayBtn">Okay</button>
+        </div>
+    </div>
+    
+    <!-- Jawaban Modal -->
+    <div class="jawaban-modal-overlay" id="jawabanModal">
+        <div class="jawaban-modal-container">
+            <div class="jawaban-modal-header">
+                <h2 class="jawaban-modal-title">Jawaban</h2>
+                <button class="jawaban-modal-close-btn" id="closeJawabanModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="jawaban-modal-body">
+                <form id="formJawaban">
+                    <div class="jawaban-modal-form-group">
+                        <label class="jawaban-modal-form-label">Admin</label>
+                        <input type="text" class="jawaban-modal-form-input" value="AutoFill {Admin AF}" readonly>
+                    </div>
+                    <div class="jawaban-modal-form-group">
+                        <label class="jawaban-modal-form-label">Judul</label>
+                        <input type="text" class="jawaban-modal-form-input" placeholder="AutoFill" id="judulJawaban">
+                    </div>
+                    <div class="jawaban-modal-form-group">
+                        <label class="jawaban-modal-form-label">Jawaban</label>
+                        <textarea class="jawaban-modal-form-textarea" placeholder="AutoFill" id="isiJawaban"></textarea>
+                    </div>
+                    <button type="submit" class="jawaban-modal-submit-btn">Jawab</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Kirim Pertanyaan Modal -->
+    <div class="kirim-pertanyaan-modal-overlay" id="kirimPertanyaanModal">
+        <div class="kirim-pertanyaan-modal-container">
+            <div class="kirim-pertanyaan-modal-header">
+                <h2 class="kirim-pertanyaan-modal-title">Kirim Pertanyaan</h2>
+                <button class="kirim-pertanyaan-modal-close-btn" id="closeKirimPertanyaanModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="kirim-pertanyaan-modal-body">
+                <form id="formKirimPertanyaan">
+                    <div class="kirim-pertanyaan-modal-form-group">
+                        <label class="kirim-pertanyaan-modal-form-label">UMKM</label>
+                        <input type="text" class="kirim-pertanyaan-modal-form-input" placeholder="AutoFill" id="umkmKirim">
+                    </div>
+                    <div class="kirim-pertanyaan-modal-form-group">
+                        <label class="kirim-pertanyaan-modal-form-label">Jawaban rujukan</label>
+                        <input type="text" class="kirim-pertanyaan-modal-form-input" placeholder="Autofill" id="jawabanRujukan">
+                    </div>
+                    <div class="kirim-pertanyaan-modal-form-group">
+                        <label class="kirim-pertanyaan-modal-form-label">Judul</label>
+                        <input type="text" class="kirim-pertanyaan-modal-form-input" placeholder="Masukkan Judul Pertanyaan..." id="judulKirim">
+                    </div>
+                    <div class="kirim-pertanyaan-modal-form-group">
+                        <label class="kirim-pertanyaan-modal-form-label">Pertanyaan</label>
+                        <textarea class="kirim-pertanyaan-modal-form-textarea" placeholder="Masukkan Pertanyaan..." id="isiPertanyaanKirim"></textarea>
+                    </div>
+                    <button type="submit" class="kirim-pertanyaan-modal-submit-btn">Kirim Pertanyaan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Lihat Pertanyaan -->
+    <div class="view-pertanyaan-modal-overlay" id="viewPertanyaanModal">
+        <div class="view-pertanyaan-modal-container">
+            <div class="view-pertanyaan-modal-header">
+                <h2 class="view-pertanyaan-modal-title">Pertanyaan</h2>
+                <button class="view-pertanyaan-modal-close-btn" onclick="closeViewPertanyaanModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="view-pertanyaan-modal-body">
+                <div class="view-pertanyaan-field">
+                    <span class="view-pertanyaan-label">Judul</span>
+                    <div class="view-pertanyaan-value" id="viewJudul">AutoFill</div>
+                </div>
+                <div class="view-pertanyaan-field">
+                    <span class="view-pertanyaan-label">Jawaban</span>
+                    <div class="view-pertanyaan-value textarea" id="viewJawaban">AutoFill</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Delete Confirmation -->
+    <div class="delete-confirmation-modal-overlay" id="deleteConfirmationModal">
+        <div class="delete-confirmation-modal-container">
+            <button class="delete-confirmation-close-btn" onclick="closeDeleteConfirmationModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="delete-confirmation-title">Kamu yakin ingin menghapus baris data ini 🗑️ ?</h2>
+            <p class="delete-confirmation-message">
+                Apakah Kamu yakin ingin menghapus baris data ini? 🗑️ Data yang dihapus tidak dapat dikembalikan. Pastikan data yang dipilih benar sebelum melanjutkan. Tekan Hapus untuk mengonfirmasi 🛑 atau Batal jika ingin mempertahankan data ini 😊.
+            </p>
+            <div class="delete-confirmation-buttons">
+                <button class="delete-btn-batal" onclick="closeDeleteConfirmationModal()">Batal</button>
+                <button class="delete-btn-hapus" onclick="confirmDelete()">Hapus</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Delete Success -->
+    <div class="delete-success-modal-overlay" id="deleteSuccessModal">
+        <div class="delete-success-modal-container">
+            <button class="delete-success-close-btn" onclick="closeDeleteSuccessModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="delete-success-icon">🗑️</div>
+            <h2 class="delete-success-title">Data Kamu telah berhasil disimpan!</h2>
+            <p class="delete-success-message">
+                Semua perubahan telah disimpan dan aman.<br>Kamu bisa melanjutkan pekerjaan tanpa khawatir. 👍
+            </p>
+            <button class="delete-success-btn" onclick="closeDeleteSuccessModal()">Okay</button>
+        </div>
+    </div>
+    
+    <script>
+        // Sidebar toggle for mobile
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        
+        if (sidebarToggle && sidebar) {
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+            });
+            
+            // Close sidebar when clicking outside
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth <= 1024) {
+                    if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+                        sidebar.classList.remove('open');
+                    }
+                }
+            });
+        }
+        
+        // Modal functionality
+        const modalOverlay = document.getElementById('modalPertanyaan');
+        const btnAjukan = document.querySelector('.btn-ajukan');
+        const closeModal = document.getElementById('closeModal');
+        const formPertanyaan = document.getElementById('formPertanyaan');
+        
+        // Open modal
+        if (btnAjukan) {
+            btnAjukan.addEventListener('click', function() {
+                modalOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        }
+        
+        // Close modal
+        function closeModalFunc() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+            formPertanyaan.reset();
+        }
+        
+        if (closeModal) {
+            closeModal.addEventListener('click', closeModalFunc);
+        }
+        
+        // Close modal when clicking outside
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target === modalOverlay) {
+                closeModalFunc();
+            }
+        });
+        
+        // Close modal with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                closeModalFunc();
+            }
+        });
+        
+        // Handle form submission
+        if (formPertanyaan) {
+            formPertanyaan.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const judul = formPertanyaan.querySelector('input[placeholder*="Judul"]').value;
+                const pertanyaan = formPertanyaan.querySelector('textarea').value;
+                
+                // Here you can add code to send the data to your backend
+                console.log('Pertanyaan submitted:', { judul, pertanyaan });
+                
+                // Close form modal first
+                closeModalFunc();
+                
+                // Show success modal after a short delay
+                setTimeout(function() {
+                    showSuccessModal();
+                }, 300);
+            });
+        }
+        
+        // Success Modal functionality
+        const successModal = document.getElementById('successModal');
+        const closeSuccessModal = document.getElementById('closeSuccessModal');
+        const okayBtn = document.getElementById('okayBtn');
+        
+        function showSuccessModal() {
+            successModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeSuccessModalFunc() {
+            successModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Close success modal with button
+        if (okayBtn) {
+            okayBtn.addEventListener('click', closeSuccessModalFunc);
+        }
+        
+        if (closeSuccessModal) {
+            closeSuccessModal.addEventListener('click', closeSuccessModalFunc);
+        }
+        
+        // Close success modal when clicking outside
+        successModal.addEventListener('click', function(e) {
+            if (e.target === successModal) {
+                closeSuccessModalFunc();
+            }
+        });
+        
+        // Close success modal with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && successModal.classList.contains('active')) {
+                closeSuccessModalFunc();
+            }
+        });
+        
+        // ===== TAB SWITCHING =====
+        const tabItems = document.querySelectorAll('.support-sidebar-item');
+        const contentPertanyaan = document.getElementById('content-pertanyaan');
+        const contentJawaban = document.getElementById('content-jawaban');
+        
+        tabItems.forEach(function(item) {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Get tab name from data-tab attribute
+                const tabName = this.getAttribute('data-tab');
+                
+                // Remove active class from all tabs
+                tabItems.forEach(function(tab) {
+                    tab.classList.remove('support-sidebar-item--active');
+                });
+                
+                // Add active class to clicked tab
+                this.classList.add('support-sidebar-item--active');
+                
+                // Show/hide content based on clicked tab
+                if (tabName === 'pertanyaan') {
+                    contentPertanyaan.style.display = 'flex';
+                    contentJawaban.style.display = 'none';
+                } else if (tabName === 'jawaban') {
+                    contentPertanyaan.style.display = 'none';
+                    contentJawaban.style.display = 'flex';
+                }
+            });
+        });
+        
+        // ===== JAWABAN MODAL =====
+        const jawabanModal = document.getElementById('jawabanModal');
+        const closeJawabanModal = document.getElementById('closeJawabanModal');
+        const formJawaban = document.getElementById('formJawaban');
+        const btnJawabanList = document.querySelectorAll('.btn-jawaban');
+        
+        // Open Jawaban modal when clicking "Jawaban" button
+        btnJawabanList.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                jawabanModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // Close Jawaban modal function
+        function closeJawabanModalFunc() {
+            jawabanModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close Jawaban modal with X button
+        if (closeJawabanModal) {
+            closeJawabanModal.addEventListener('click', closeJawabanModalFunc);
+        }
+        
+        // Close Jawaban modal when clicking outside
+        jawabanModal.addEventListener('click', function(e) {
+            if (e.target === jawabanModal) {
+                closeJawabanModalFunc();
+            }
+        });
+        
+        // Close Jawaban modal with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && jawabanModal.classList.contains('active')) {
+                closeJawabanModalFunc();
+            }
+        });
+        
+        // Handle form submission - changed to open Kirim Pertanyaan modal
+        if (formJawaban) {
+            formJawaban.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Close Jawaban modal
+                closeJawabanModalFunc();
+                
+                // Open Kirim Pertanyaan modal after delay
+                setTimeout(function() {
+                    kirimPertanyaanModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }, 300);
+                
+                // Reset form
+                formJawaban.reset();
+            });
+        }
+        
+        // ===== KIRIM PERTANYAAN MODAL =====
+        const kirimPertanyaanModal = document.getElementById('kirimPertanyaanModal');
+        const closeKirimPertanyaanModal = document.getElementById('closeKirimPertanyaanModal');
+        const formKirimPertanyaan = document.getElementById('formKirimPertanyaan');
+        
+        // Close Kirim Pertanyaan modal function
+        function closeKirimPertanyaanModalFunc() {
+            kirimPertanyaanModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close Kirim Pertanyaan modal with X button
+        if (closeKirimPertanyaanModal) {
+            closeKirimPertanyaanModal.addEventListener('click', closeKirimPertanyaanModalFunc);
+        }
+        
+        // Close Kirim Pertanyaan modal when clicking outside
+        kirimPertanyaanModal.addEventListener('click', function(e) {
+            if (e.target === kirimPertanyaanModal) {
+                closeKirimPertanyaanModalFunc();
+            }
+        });
+        
+        // Close Kirim Pertanyaan modal with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && kirimPertanyaanModal.classList.contains('active')) {
+                closeKirimPertanyaanModalFunc();
+            }
+        });
+        
+        // Handle Kirim Pertanyaan form submission - show success modal
+        if (formKirimPertanyaan) {
+            formKirimPertanyaan.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Close Kirim Pertanyaan modal
+                closeKirimPertanyaanModalFunc();
+                
+                // Show success modal
+                setTimeout(function() {
+                    showSuccessModal();
+                }, 300);
+                
+                // Reset form
+                formKirimPertanyaan.reset();
+            });
+        }
+        
+        // ===== VIEW PERTANYAAN MODAL =====
+        const viewPertanyaanModal = document.getElementById('viewPertanyaanModal');
+        const viewButtons = document.querySelectorAll('.fa-eye');
+        
+        // Sample data
+        const pertanyaanData = {
+            0: { judul: 'Bagaimana cara mengubah password?', jawaban: 'Untuk mengubah password, silakan masuk ke menu Pengaturan > Keamanan > Ubah Password. Masukkan password lama Anda, kemudian masukkan password baru dan konfirmasi.' },
+            1: { judul: 'Cara menambah produk baru?', jawaban: 'Untuk menambah produk baru, masuk ke menu Kelola Produk, klik tombol "Tambah Produk", lalu isi form yang tersedia dengan lengkap dan klik Simpan.' },
+            2: { judul: 'Bagaimana cara melihat laporan penjualan?', jawaban: 'Laporan penjualan dapat dilihat di menu Laporan > Laporan Penjualan. Anda dapat memfilter berdasarkan tanggal dan melihat detail setiap transaksi.' }
+        };
+        
+        // Open view modal when clicking eye icon
+        viewButtons.forEach(function(btn, index) {
+            btn.addEventListener('click', function() {
+                const row = this.closest('tr');
+                const rowIndex = Array.from(row.parentElement.children).indexOf(row);
+                
+                const data = pertanyaanData[rowIndex] || {
+                    judul: 'available alteration in some Ipsum',
+                    jawaban: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+                };
+                
+                document.getElementById('viewJudul').textContent = data.judul;
+                document.getElementById('viewJawaban').textContent = data.jawaban;
+                
+                viewPertanyaanModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // Close view modal
+        function closeViewPertanyaanModal() {
+            viewPertanyaanModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close view modal when clicking outside
+        viewPertanyaanModal.addEventListener('click', function(e) {
+            if (e.target === viewPertanyaanModal) {
+                closeViewPertanyaanModal();
+            }
+        });
+        
+        // ===== DELETE CONFIRMATION MODAL =====
+        const deleteConfirmationModal = document.getElementById('deleteConfirmationModal');
+        const deleteButtons = document.querySelectorAll('.fa-trash-alt');
+        let currentDeleteRow = null;
+        
+        // Open delete confirmation when clicking trash icon
+        deleteButtons.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                currentDeleteRow = this.closest('tr');
+                deleteConfirmationModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // Close delete confirmation modal
+        function closeDeleteConfirmationModal() {
+            deleteConfirmationModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            currentDeleteRow = null;
+        }
+        
+        // Close delete confirmation when clicking outside
+        deleteConfirmationModal.addEventListener('click', function(e) {
+            if (e.target === deleteConfirmationModal) {
+                closeDeleteConfirmationModal();
+            }
+        });
+        
+        // ===== DELETE SUCCESS MODAL =====
+        const deleteSuccessModal = document.getElementById('deleteSuccessModal');
+        
+        // Confirm delete
+        function confirmDelete() {
+            closeDeleteConfirmationModal();
+            
+            // Remove the row
+            if (currentDeleteRow) {
+                currentDeleteRow.remove();
+            }
+            
+            // Show success modal
+            setTimeout(function() {
+                deleteSuccessModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }, 300);
+        }
+        
+        // Close delete success modal
+        function closeDeleteSuccessModal() {
+            deleteSuccessModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close delete success when clicking outside
+        deleteSuccessModal.addEventListener('click', function(e) {
+            if (e.target === deleteSuccessModal) {
+                closeDeleteSuccessModal();
+            }
+        });
+        
+        // Close all modals with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (viewPertanyaanModal.classList.contains('active')) {
+                    closeViewPertanyaanModal();
+                }
+                if (deleteConfirmationModal.classList.contains('active')) {
+                    closeDeleteConfirmationModal();
+                }
+                if (deleteSuccessModal.classList.contains('active')) {
+                    closeDeleteSuccessModal();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,119 +1,276 @@
-const mongoose = require('mongoose');
+/**
+ * User Model - Supabase Implementation
+ * BSI UMKM Centre
+ * 
+ * This module provides user operations using Supabase as the database.
+ * Authentication is handled by Supabase Auth.
+ */
+
+const { supabaseAdmin } = require('../config/database');
 const bcrypt = require('bcryptjs');
-const validator = require('validator');
 
-const userSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        required: [true, 'Email wajib diisi'],
-        unique: true,
-        lowercase: true,
-        trim: true,
-        validate: {
-            validator: validator.isEmail,
-            message: 'Format email tidak valid'
+/**
+ * User Model Class
+ * Provides static methods for user operations
+ */
+class User {
+    /**
+     * Create a new user
+     * @param {Object} userData - User data (email, nama, password)
+     * @returns {Promise<Object>} Created user
+     */
+    static async create({ email, nama, password }) {
+        try {
+            // Hash password
+            const salt = await bcrypt.genSalt(12);
+            const hashedPassword = await bcrypt.hash(password, salt);
+
+            // First, create auth user in Supabase Auth
+            const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({
+                email: email.toLowerCase(),
+                password: password,
+                email_confirm: true, // Auto-confirm email
+                user_metadata: {
+                    nama: nama
+                }
+            });
+
+            if (authError) {
+                if (authError.message.includes('already registered')) {
+                    const error = new Error('Email sudah terdaftar');
+                    error.code = 11000;
+                    throw error;
+                }
+                throw authError;
+            }
+
+            // Then create user profile in users table
+            const { data: userData, error: dbError } = await supabaseAdmin
+                .from('users')
+                .insert({
+                    id: authData.user.id,
+                    email: email.toLowerCase(),
+                    nama: nama,
+                    password: hashedPassword,
+                    role: 'user',
+                    is_active: true,
+                    registered_at: new Date().toISOString()
+                })
+                .select()
+                .single();
+
+            if (dbError) {
+                // Rollback: delete auth user if profile creation fails
+                await supabaseAdmin.auth.admin.deleteUser(authData.user.id);
+                throw dbError;
+            }
+
+            return new UserInstance(userData);
+        } catch (error) {
+            console.error('Create user error:', error);
+            throw error;
         }
-    },
-    nama: {
-        type: String,
-        required: [true, 'Nama wajib diisi'],
-        trim: true,
-        minlength: [2, 'Nama minimal 2 karakter'],
-        maxlength: [100, 'Nama maksimal 100 karakter']
-    },
-    password: {
-        type: String,
-        required: [true, 'Password wajib diisi'],
-        minlength: [6, 'Password minimal 6 karakter'],
-        select: false // Tidak akan diambil saat query default
-    },
-    role: {
-        type: String,
-        enum: {
-            values: ['user', 'admin'],
-            message: 'Role harus berupa user atau admin'
-        },
-        default: 'user'
-    },
-    isActive: {
-        type: Boolean,
-        default: true
-    },
-    lastLogin: {
-        type: Date
-    },
-    registeredAt: {
-        type: Date,
-        default: Date.now
-    }
-}, {
-    timestamps: true, // Menambahkan createdAt dan updatedAt otomatis
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true }
-});
-
-// Index untuk performance
-userSchema.index({ email: 1 });
-userSchema.index({ createdAt: -1 });
-
-// Middleware: Hash password sebelum save
-userSchema.pre('save', async function(next) {
-    // Hanya hash password jika field password dimodifikasi
-    if (!this.isModified('password')) {
-        return next();
     }
 
-    try {
-        // Generate salt dan hash password
-        const salt = await bcrypt.genSalt(12);
-        this.password = await bcrypt.hash(this.password, salt);
-        next();
-    } catch (error) {
-        next(error);
+    /**
+     * Find user by email
+     * @param {string} email - User email
+     * @returns {Promise<Object|null>} User or null
+     */
+    static async findByEmail(email) {
+        try {
+            const { data, error } = await supabaseAdmin
+                .from('users')
+                .select('*')
+                .eq('email', email.toLowerCase())
+                .single();
+
+            if (error && error.code !== 'PGRST116') {
+                throw error;
+            }
+
+            return data ? new UserInstance(data) : null;
+        } catch (error) {
+            console.error('Find by email error:', error);
+            return null;
+        }
     }
-});
 
-// Instance method: Compare password untuk login
-userSchema.methods.comparePassword = async function(candidatePassword) {
-    try {
-        return await bcrypt.compare(candidatePassword, this.password);
-    } catch (error) {
-        throw new Error('Error comparing passwords');
+    /**
+     * Find user by ID
+     * @param {string} id - User ID
+     * @returns {Promise<Object|null>} User or null
+     */
+    static async findById(id) {
+        try {
+            const { data, error } = await supabaseAdmin
+                .from('users')
+                .select('*')
+                .eq('id', id)
+                .single();
+
+            if (error) {
+                throw error;
+            }
+
+            return data ? new UserInstance(data) : null;
+        } catch (error) {
+            console.error('Find by ID error:', error);
+            return null;
+        }
     }
-};
 
-// Instance method: Update last login
-userSchema.methods.updateLastLogin = async function() {
-    this.lastLogin = new Date();
-    await this.save({ validateBeforeSave: false });
-};
+    /**
+     * Find one user with password (for login)
+     * @param {Object} query - Query object
+     * @returns {Promise<Object|null>} User with password
+     */
+    static async findOne(query) {
+        try {
+            let queryBuilder = supabaseAdmin.from('users').select('*');
 
-// Instance method: Get public profile (tanpa password)
-userSchema.methods.getPublicProfile = function() {
+            if (query.email) {
+                queryBuilder = queryBuilder.eq('email', query.email.toLowerCase());
+            }
+
+            const { data, error } = await queryBuilder.single();
+
+            if (error && error.code !== 'PGRST116') {
+                throw error;
+            }
+
+            return data ? new UserInstance(data) : null;
+        } catch (error) {
+            console.error('Find one error:', error);
+            return null;
+        }
+    }
+}
+
+/**
+ * User Instance Class
+ * Represents a single user with instance methods
+ */
+class UserInstance {
+    constructor(data) {
+        this.id = data.id;
+        this._id = data.id; // Compatibility with existing code
+        this.email = data.email;
+        this.nama = data.nama;
+        this.password = data.password;
+        this.role = data.role || 'user';
+        this.isActive = data.is_active !== false;
+        this.lastLogin = data.last_login;
+        this.registeredAt = data.registered_at || data.created_at;
+        this.createdAt = data.created_at;
+        this.updatedAt = data.updated_at;
+    }
+
+    /**
+     * Compare password for login
+     * @param {string} candidatePassword - Password to compare
+     * @returns {Promise<boolean>} Is password valid
+     */
+    async comparePassword(candidatePassword) {
+        try {
+            return await bcrypt.compare(candidatePassword, this.password);
+        } catch (error) {
+            console.error('Compare password error:', error);
+            return false;
+        }
+    }
+
+    /**
+     * Update last login timestamp
+     */
+    async updateLastLogin() {
+        try {
+            await supabaseAdmin
+                .from('users')
+                .update({ last_login: new Date().toISOString() })
+                .eq('id', this.id);
+        } catch (error) {
+            console.error('Update last login error:', error);
+        }
+    }
+
+    /**
+     * Get public profile (without sensitive data)
+     * @returns {Object} Public profile
+     */
+    getPublicProfile() {
+        return {
+            id: this.id,
+            email: this.email,
+            nama: this.nama,
+            role: this.role,
+            isActive: this.isActive,
+            registeredAt: this.registeredAt,
+            lastLogin: this.lastLogin
+        };
+    }
+
+    /**
+     * Save/update user data
+     * @param {Object} options - Save options
+     */
+    async save(options = {}) {
+        try {
+            const updateData = {
+                nama: this.nama,
+                role: this.role,
+                is_active: this.isActive,
+                updated_at: new Date().toISOString()
+            };
+
+            if (this.lastLogin) {
+                updateData.last_login = this.lastLogin;
+            }
+
+            await supabaseAdmin
+                .from('users')
+                .update(updateData)
+                .eq('id', this.id);
+        } catch (error) {
+            console.error('Save user error:', error);
+            throw error;
+        }
+    }
+}
+
+// Add select method for compatibility
+User.findOne = function(query) {
+    const chainable = {
+        _query: query,
+        async select(fields) {
+            const user = await User.findOne(this._query);
+            return user;
+        }
+    };
+    
+    // Return promise that resolves to user
     return {
-        id: this._id,
-        email: this.email,
-        nama: this.nama,
-        role: this.role,
-        isActive: this.isActive,
-        registeredAt: this.registeredAt,
-        lastLogin: this.lastLogin
+        select: async (fields) => {
+            try {
+                let queryBuilder = supabaseAdmin.from('users').select('*');
+                
+                if (query.email) {
+                    queryBuilder = queryBuilder.eq('email', query.email.toLowerCase());
+                }
+
+                const { data, error } = await queryBuilder.single();
+
+                if (error && error.code !== 'PGRST116') {
+                    throw error;
+                }
+
+                return data ? new UserInstance(data) : null;
+            } catch (error) {
+                console.error('Find one with select error:', error);
+                return null;
+            }
+        }
     };
 };
-
-// Static method: Find by email
-userSchema.statics.findByEmail = function(email) {
-    return this.findOne({ email: email.toLowerCase() });
-};
-
-// Virtual: Account age in days
-userSchema.virtual('accountAge').get(function() {
-    if (!this.registeredAt) return 0;
-    const diffTime = Math.abs(new Date() - this.registeredAt);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
-});
-
-const User = mongoose.model('User', userSchema);
 
 module.exports = User;

@@ -51,6 +51,7 @@ tests/
 # Archive/backup
 super-refference/
 archive/
+PMLD_UMKM_BSI (4)/
 
 # Environment files
 .env

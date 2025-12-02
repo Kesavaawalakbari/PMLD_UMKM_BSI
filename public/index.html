@@ -1,0 +1,1784 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BSI UMKM Center Yogyakarta - Marketplace UMKM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Brand Colors - Standardized */
+      --primary: #00A39D;
+      --secondary: #F8AD3C;
+      --success: #04C8BC;
+      --warning: #F9BD50;
+      
+      /* Legacy support */
+      --primer: #00A39D;
+      --sekunder: #F8AD3C;
+      --green-50: #EFFEFC;
+      --green-500: #04C8BC;
+      --green-600: #00A39D;
+      --yellow-300: #F9BD50;
+      --yellow-400: #F8AD3C;
+      
+      /* Neutral Colors */
+      --white: #FFFFFF;
+      --black: #222222;
+      --gray-50: #F8F9FA;
+      --gray-100: #E9ECEF;
+      --gray-500: #6C757D;
+      --gray-900: #212529;
+      --neutral-100: #FFFFFF;
+      
+      /* Text Colors */
+      --text-primary: #2C3E50;
+      --text-secondary: #7F8C8D;
+      --text-muted: #6C757D;
+      --text-dark: #2C3E50;
+      --text-light: #7F8C8D;
+      --text-gray: #666666;
+      
+      /* Layout */
+      --container-max-width: 1200px;
+      --container-padding: 24px;
+      --border-radius: 8px;
+      --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      --max-width: 1200px;
+      
+      /* Partner Section Variables */
+      --teal: #00a79d;
+      --teal-600: #008e84;
+      --orange: #f4a024;
+      --light-gray: #f8f9fa;
+      --bg: #f5fffd;
+      --ink: #0f3f3b;
+      --ink-2: #1f5e59;
+      --muted: #5f8f89;
+      --card: #ffffff;
+      
+      /* Typography */
+      --font-family: 'Lato', sans-serif;
+      --font-size-xs: 12px;
+      --font-size-sm: 14px;
+      --font-size-base: 16px;
+      --font-size-lg: 18px;
+      --font-size-xl: 20px;
+      --font-size-2xl: 24px;
+      --font-size-3xl: 32px;
+      --font-size-4xl: 48px;
+      
+      /* Z-Index Management */
+      --z-background: -1;
+      --z-base: 1;
+      --z-dropdown: 10;
+      --z-sticky: 20;
+      --z-fixed: 30;
+      --z-modal: 40;
+      --z-popover: 50;
+      --z-tooltip: 60;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Lato', sans-serif;
+      background-color: var(--neutral-100);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* Typography System */
+    .text-xs { font-size: var(--font-size-xs); }
+    .text-sm { font-size: var(--font-size-sm); }
+    .text-base { font-size: var(--font-size-base); }
+    .text-lg { font-size: var(--font-size-lg); }
+    .text-xl { font-size: var(--font-size-xl); }
+    .text-2xl { font-size: var(--font-size-2xl); }
+    .text-3xl { font-size: var(--font-size-3xl); }
+    .text-4xl { font-size: var(--font-size-4xl); }
+    
+    .font-light { font-weight: 300; }
+    .font-normal { font-weight: 400; }
+    .font-medium { font-weight: 500; }
+    .font-semibold { font-weight: 600; }
+    .font-bold { font-weight: 700; }
+    
+    .text-center { text-align: center; }
+    .text-left { text-align: left; }
+    .text-right { text-align: right; }
+    
+    .text-primary { color: var(--primary); }
+    .text-secondary { color: var(--secondary); }
+    .text-muted { color: var(--text-muted); }
+    .text-dark { color: var(--text-primary); }
+    .text-light { color: var(--text-secondary); }
+
+    /* Typography */
+    .h1 {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 48px;
+      line-height: 58px;
+    }
+
+    .h4 {
+      font-family: 'Lato', sans-serif;
+      font-weight: 600;
+      font-size: 22px;
+      line-height: 30px;
+    }
+
+    .paragraph {
+      font-family: 'Lato', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 26px;
+    }
+
+    .button-text {
+      font-family: 'Lato', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 20px;
+    }
+
+    /* Container System */
+    .container {
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+      padding: 0 var(--container-padding);
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 16px;
+      }
+    }
+    
+    /* Grid System */
+    .grid {
+      display: grid;
+      gap: 24px;
+    }
+    
+    .grid-1 { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+    
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 1024px) {
+      .grid-3, .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    /* Spacing Utilities */
+    .gap-sm { gap: 12px; }
+    .gap-md { gap: 24px; }
+    .gap-lg { gap: 40px; }
+    .gap-xl { gap: 60px; }
+    
+    /* Padding Utilities */
+    .p-sm { padding: 12px; }
+    .p-md { padding: 24px; }
+    .p-lg { padding: 40px; }
+    .p-xl { padding: 60px; }
+    
+    .py-sm { padding-top: 12px; padding-bottom: 12px; }
+    .py-md { padding-top: 24px; padding-bottom: 24px; }
+    .py-lg { padding-top: 40px; padding-bottom: 40px; }
+    .py-xl { padding-top: 60px; padding-bottom: 60px; }
+
+    /* Container */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header - Responsive Design */
+    header {
+      background: var(--neutral-100);
+      border-bottom: 1px solid #E8F4F3;
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: var(--z-fixed);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: var(--z-tooltip);
+    }
+
+    .logo-container {
+      display: grid;
+      grid-template-columns: max-content;
+      grid-template-rows: max-content;
+      align-items: start;
+      justify-items: start;
+      position: relative;
+    }
+    
+    .logo-icon-svg {
+      height: 50px;
+      width: auto;
+      transition: height 0.3s ease;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 8px 16px;
+      border-radius: var(--border-radius);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    nav a:hover {
+      background-color: var(--gray-50);
+      color: var(--primary);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    nav a:hover::after {
+      width: 80%;
+    }
+
+    /* Mobile Menu Toggle */
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--primary);
+      cursor: pointer;
+      padding: 8px;
+      border-radius: var(--border-radius);
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu-toggle:hover {
+      background-color: var(--gray-50);
+    }
+
+    .mobile-menu-toggle span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: var(--primary);
+      margin: 5px 0;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+
+    /* Mobile Menu Animation */
+    .mobile-menu-toggle.active span:nth-child(1) {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .mobile-menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(3) {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    /* Login Button */
+    .btn-login {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: var(--border-radius);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .btn-login:hover {
+      background: var(--teal-600);
+      transform: translateY(-2px);
+    }
+
+    .logo-icon-svg {
+      grid-column: 1;
+      grid-row: 1;
+      height: 86px;
+      width: auto;
+      margin-left: 1.435%;
+    }
+
+    .logo-text-svg {
+      grid-column: 1;
+      grid-row: 1;
+      height: 47px;
+      width: 174px;
+      margin-top: 96px;
+    }
+
+    nav {
+      display: flex;
+      gap: 32px;
+    }
+
+    nav a {
+      color: var(--primer);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--green-500);
+    }
+
+    .btn-login {
+      background: var(--primer);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn-login:hover {
+      background: var(--green-500);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: white;
+      padding: 80px 0;
+      position: relative;
+    }
+
+    /* Background Break.svg khusus untuk hero section - Sesuai Figma */
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: url("assets/images/Break.svg") no-repeat center center;
+      background-size: cover;
+      min-width: 100%;
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-text h1 {
+      color: var(--primer);
+      margin-bottom: 24px;
+    }
+
+    .hero-text h1 .highlight {
+      color: var(--sekunder);
+    }
+
+    .hero-text p {
+      color: var(--text-light);
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--primer);
+      color: white;
+      padding: 16px 32px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--green-500);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--primer);
+      padding: 16px 32px;
+      border: 2px solid var(--primer);
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover {
+      background: var(--primer);
+      color: white;
+    }
+
+    /* Typography and Spacing Refinements */
+    .h1 {
+      font-size: clamp(32px, 4vw, 54px);
+      line-height: 1.0;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+      margin-bottom: 0;
+    }
+
+    .paragraph {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+    }
+
+    .button-text {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    /* Enhanced Section Spacing */
+    section {
+      padding: 80px 0;
+    }
+
+    .stats {
+      padding: 60px 0;
+    }
+
+    .partnership {
+      padding: 100px 0;
+      background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%);
+    }
+
+    .hero-image {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-card {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 163, 157, 0.1);
+      text-align: center;
+    }
+
+    .hero-card .logo-large {
+      width: 200px;
+      height: 120px;
+      background: linear-gradient(135deg, var(--green-50), white);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .hero-logo-container {
+      display: grid;
+      grid-template-columns: max-content;
+      grid-template-rows: max-content;
+      align-items: start;
+      justify-items: start;
+      position: relative;
+      transform: scale(0.7);
+    }
+
+    .hero-logo-icon {
+      grid-column: 1;
+      grid-row: 1;
+      height: 86px;
+      width: auto;
+      margin-left: 1.435%;
+    }
+
+    .hero-logo-text {
+      grid-column: 1;
+      grid-row: 1;
+      height: 47px;
+      width: 174px;
+      margin-top: 96px;
+    }
+
+    /* About Section */
+    .about {
+      padding: 80px 0;
+      background: #fff;
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-image {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 163, 157, 0.1);
+    }
+
+    .about-text h2 {
+      color: var(--primer);
+      margin-bottom: 24px;
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    .about-text p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-size: 16px;
+      text-align: justify;
+    }
+
+    /* Video Section */
+    .video-section {
+      background: transparent;
+      padding: 80px 0;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Break Without Ring background for video section */
+    .video-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: url("assets/images/Break Without Ring Green.webp") no-repeat center center;
+      background-size: cover;
+      min-width: 100%;
+      opacity: 100;
+      pointer-events: none;
+    }
+
+    .video-section h2 {
+      color: var(--sekunder);
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .video-section p {
+      color: white;
+      margin-bottom: 40px;
+      font-size: 18px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .video-container {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      aspect-ratio: 16/9;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 163, 157, 0.2);
+      z-index: 2;
+    }
+
+    .video-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .video-placeholder {
+      color: white;
+      font-size: 18px;
+    }
+
+    /* Stats Section */
+    .stats {
+      padding: 80px 0;
+      background: white;
+      position: relative;
+    }
+
+    /* Break Without Ring background for stats section */
+    .stats::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: url("assets/images/Break Without Ring.svg") no-repeat center center;
+      background-size: cover;
+      min-width: 100%;
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 60px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .stat-item h3 {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--primer);
+      margin-bottom: 8px;
+    }
+
+    .stat-item h3 .highlight {
+      color: var(--sekunder);
+    }
+
+    .stat-item p {
+      color: var(--text-light);
+      font-size: 18px;
+    }
+
+    .stats-description {
+      text-align: center;
+      margin-top: 60px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Products Section */
+    .products {
+      padding: 80px 0;
+    }
+
+    .products h2 {
+      text-align: center;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--primer);
+      margin-bottom: 8px;
+    }
+
+    .products h2 .highlight {
+      color: var(--sekunder);
+    }
+
+    .products-subtitle {
+      text-align: center;
+      color: var(--text-light);
+      margin-bottom: 60px;
+      font-size: 18px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 163, 157, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .product-image {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .product-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent, rgba(0, 163, 157, 0.8));
+    }
+
+    .product-info {
+      padding: 24px;
+      text-align: center;
+    }
+
+    .product-category {
+      background: var(--primer);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .view-all-btn {
+      text-align: center;
+    }
+
+    /* Partnership Section - Exact implementation from partner-section.css */
+    .center { 
+      text-align: center; 
+    }
+    
+    .teal-text { 
+      color: var(--teal-600); 
+    }
+    
+    /* Pills & Buttons */
+    .pill { 
+      display: inline-block; 
+      background: var(--orange); 
+      color: #14322f; 
+      border-radius: 999px; 
+      padding: 6px 12px; 
+      box-shadow: var(--shadow); 
+      font-weight: 700; 
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    
+    /* Card Styles */
+    .card { 
+      background: var(--card); 
+      border-radius: 18px; 
+      box-shadow: var(--shadow); 
+      overflow: hidden; 
+    }
+    
+    /* Section Title */
+    .section-title {
+      font-size: 32px;
+      font-weight: 600;
+      margin: 0 0 20px 0;
+      line-height: 1.3;
+    }
+    
+    /* Partner Section Specific Styles */
+    .partner { 
+      position: relative; 
+      overflow: hidden; 
+      background: linear-gradient(180deg, rgba(247,161,42,.08), rgba(38,183,160,.08));
+      padding: 64px 0;
+    }
+    
+    .partner .map { 
+      max-width: 520px; 
+      margin: 0 auto; 
+      background: var(--teal-600); 
+      padding: 14px; 
+      border-radius: 18px; 
+      box-shadow: var(--shadow); 
+      position: relative; 
+      z-index: 1; 
+    }
+    
+    .partner .map iframe { 
+      width: 100%; 
+      height: 260px; 
+      border: 0; 
+      border-radius: 12px; 
+    }
+    
+    .map-caption { 
+      color: #eafff7; 
+      text-align: center; 
+      font-size: 11px; 
+      margin-top: 10px; 
+    }
+    
+    .map-actions { 
+      display: flex; 
+      justify-content: center; 
+      margin-top: 10px; 
+    }
+    
+    .map-actions .btn { 
+      background: var(--orange); 
+      color: #14322f; 
+      border-radius: 10px; 
+      padding: 8px 14px; 
+      box-shadow: var(--shadow); 
+    }
+    
+    /* Swoosh Lines (Orange Lines) */
+    .swoosh { 
+      position: absolute; 
+      left: -10%; 
+      right: -10%; 
+      height: 120px; 
+      background: var(--orange); 
+      opacity: .85; 
+      transform: rotate(-7deg); 
+      box-shadow: var(--shadow); 
+    }
+    
+    .swoosh-top { 
+      top: 10%; 
+    }
+    
+    .swoosh-bottom { 
+      bottom: 8%; 
+      transform: rotate(7deg); 
+    }
+    
+    .swoosh-lines { 
+      position: absolute; 
+      inset: 0; 
+      pointer-events: none; 
+      z-index: 0; 
+    }
+    
+    .swoosh-lines span { 
+      position: absolute; 
+      left: -10%; 
+      right: -10%; 
+      height: 72px; 
+      background: var(--orange); 
+      border-radius: 6px; 
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,.12)); 
+      transform: rotate(-12deg); 
+    }
+    
+    .swoosh-lines span:nth-child(1) { 
+      top: 52%; 
+    }
+    
+    .swoosh-lines span:nth-child(2) { 
+      top: 66%; 
+    }
+
+    .partnership-image {
+      background: var(--primer);
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 450px;
+      position: relative;
+      z-index: 10;
+      border: 3px solid var(--primer);
+    }
+
+    .map-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--primer);
+      color: white;
+      padding: 16px;
+      border-radius: 0 0 8px 8px;
+    }
+
+    .map-info h4 {
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .map-info p {
+      color: white;
+      font-size: 12px;
+      line-height: 1.4;
+      margin-bottom: 12px;
+      opacity: 0.9;
+    }
+
+    .map-button {
+      background: var(--sekunder);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .map-button:hover {
+      background: var(--yellow-300);
+      transform: translateY(-1px);
+    }
+
+    /* FAQ Section */
+    .faq {
+      padding: 80px 0;
+      background: white;
+      position: relative;
+    }
+
+    /* Yellow Line background for FAQ section - REMOVED */
+
+    .faq h2 {
+      color: var(--primer);
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .faq-subtitle {
+      color: var(--primer);
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .faq-cta {
+      text-align: center;
+      position: relative;
+      z-index: 3;
+    }
+
+    /* Partners */
+    .partners {
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .partners h3 {
+      color: var(--text-light);
+      margin-bottom: 40px;
+      font-size: 18px;
+    }
+
+    .partners-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+
+    .partner-logo {
+      height: 100px;
+      max-width: 300px;
+      object-fit: contain;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+
+    .partner-logo:hover {
+      opacity: 1;
+    }
+
+    .partner-logo:hover {
+      opacity: 1;
+    }
+
+    /* Background container for footer */
+    .footer-background {
+      position: relative;
+      background: white;
+    }
+
+    .footer-background::before {
+      content: "";
+      position: absolute;
+      bottom: -274px;
+      left: 0;
+      width: 100%;
+      min-width: 100vw;
+      height: 819px;
+      background: url("assets/images/Mask Group.svg") no-repeat center bottom;
+      background-size: 100% auto;
+      opacity: 1;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Footer */
+    footer {
+      background: transparent;
+      padding: 60px 0 40px;
+      color: white;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .footer-info {
+      display: flex;
+      gap: 40px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .footer-logo-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--sekunder), var(--yellow-300));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    .footer-logo-text h3 {
+      color: white;
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .footer-logo-text p {
+      color: var(--sekunder);
+      font-size: 14px;
+    }
+
+    .footer-contact {
+      color: white;
+      line-height: 1.6;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .contact-icon {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+
+    .footer-social {
+      text-align: center;
+    }
+
+    .social-links {
+      margin-bottom: 24px;
+    }
+
+    .social-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding: 8px 0;
+    }
+
+    .social-icon {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+
+    .footer-cta {
+      background: white;
+      color: var(--primer);
+      padding: 16px 32px;
+      border-radius: 50px;
+      border: 2px solid var(--primer);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .footer-cta:hover {
+      background: var(--primer);
+      color: white;
+    }
+
+    /* Responsive Design */
+    /* Responsive Design - Mobile First Approach */
+    @media (min-width: 1440px) {
+      .container {
+        max-width: 1440px;
+        padding: 0 32px;
+      }
+      
+      .hero-content {
+        gap: 60px;
+      }
+      
+      .section-title {
+        font-size: 40px;
+      }
+      
+      .partner .map {
+        max-width: 600px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .hero-content,
+      .partnership-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+      }
+
+      .stats-grid,
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      /* Partner Section 1024px */
+      .section-title {
+        font-size: 28px;
+      }
+      
+      .partner .map {
+        max-width: 90%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 16px;
+      }
+
+      /* Mobile Header */
+      header {
+        padding: 12px 0;
+      }
+
+      .header-content {
+        position: relative;
+      }
+
+      .logo-icon-svg {
+        height: 40px;
+      }
+
+      /* Hide desktop navigation */
+      nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        flex-direction: column;
+        padding: 20px;
+        gap: 16px;
+        box-shadow: var(--shadow);
+        border-radius: 0 0 12px 12px;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: var(--z-dropdown);
+      }
+
+      nav.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+
+      nav a {
+        padding: 12px 16px;
+        border-radius: var(--border-radius);
+        text-align: center;
+        font-size: 16px;
+      }
+
+      nav a::after {
+        display: none;
+      }
+
+      /* Show mobile menu toggle */
+      .mobile-menu-toggle {
+        display: block;
+      }
+
+      .btn-login {
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+
+      .hero-card .logo-large img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      /* Keep desktop layout for about section */
+      .about-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        text-align: left;
+      }
+
+      .about-text h2 {
+        font-size: 28px;
+      }
+
+      .partnership-image img,
+      .products-grid img,
+      .partner-logo {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .video-player img {
+        width: 100%;
+        height: auto;
+        max-height: 300px;
+        object-fit: cover;
+      }
+
+      .hero {
+        padding: 60px 0;
+      }
+
+      /* Keep larger font size for mobile */
+      .h1 {
+        font-size: clamp(28px, 5vw, 42px);
+        line-height: 1.0;
+        white-space: nowrap;
+      }
+
+      /* Keep desktop layout for buttons */
+      .hero-buttons {
+        flex-direction: row;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      /* Keep desktop grid layout */
+      .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+      }
+      
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+
+      .partners-logos {
+        gap: 30px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .partners-logos img {
+        height: 75px;
+        max-width: 220px;
+        object-fit: contain;
+      }
+
+      .footer-logo-icon img {
+        height: 40px !important;
+      }
+
+      .header-logo-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+
+      .header-logo-grid img {
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Keep desktop footer layout */
+      .footer-info {
+        flex-direction: row;
+        text-align: left;
+        gap: 40px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      /* Only modify buttons for very small screens */
+      .btn-primary,
+      .btn-secondary {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+
+      .hero-card {
+        padding: 24px;
+      }
+
+      .hero-card .logo-large {
+        width: 160px;
+        height: 100px;
+        font-size: 24px;
+      }
+
+      /* Adjust font size slightly for very small screens */
+      .h1 {
+        font-size: clamp(24px, 6vw, 36px);
+      }
+      
+      /* Switch to single column only on very small screens */
+      .about-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Partner Section Responsive */
+      .section-title {
+        font-size: 20px;
+      }
+      
+      .partner .map iframe {
+        height: 180px;
+      }
+      
+      .map-caption {
+        font-size: 10px;
+      }
+      
+      .swoosh-lines span {
+        height: 50px;
+      }
+      
+      .footer-info {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <div class="logo-container">
+            <img src="assets/images/Frame 3.svg" alt="BSI Logo" class="logo-icon-svg">
+          </div>
+        </div>
+        
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        <!-- Navigation -->
+        <nav id="mobile-nav">
+          <a href="#tentang">Tentang Kami</a>
+          <a href="katalog.html">Produk</a>
+          <a href="faq.html">FAQ</a>
+        </nav>
+        
+        <button class="btn-login" onclick="window.location.href='login.html'">Login</button>
+      </div>
+    </div>
+  </header>
+  
+  <script>
+    function toggleMobileMenu() {
+      const nav = document.getElementById('mobile-nav');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      
+      nav.classList.toggle('active');
+      toggle.classList.toggle('active');
+    }
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const nav = document.getElementById('mobile-nav');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      
+      if (!nav.contains(event.target) && !toggle.contains(event.target)) {
+        nav.classList.remove('active');
+        toggle.classList.remove('active');
+      }
+    });
+    
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', function() {
+        const nav = document.getElementById('mobile-nav');
+        const toggle = document.querySelector('.mobile-menu-toggle');
+        
+        nav.classList.remove('active');
+        toggle.classList.remove('active');
+      });
+    });
+  </script>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1 class="h1" style="margin-bottom: 8px;">
+            <span class="highlight">BSI UMKM CENTER</span>
+          </h1>
+          <h2 style="color: var(--primary); margin-bottom: 24px; margin-top: 0; font-weight: 600; font-size: 48px; line-height: 48px; font-family: 'Lato', sans-serif;">
+            Yogyakarta
+          </h2>
+          <p class="paragraph">
+            Marketplace produk unggulan UMKM lokal berbasis syariah.
+Temukan aneka produk halal, kreatif, dan berkualitas dari pelaku usaha Yogyakarta untuk mendukung ekonomi umat.
+          </p>
+          <div class="hero-buttons">
+            <a href="#" class="btn-primary button-text">Mulai Belanja Sekarang</a>
+            <a href="#" class="btn-secondary button-text">Daftarkan UMKM</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <div class="hero-card">
+            <div class="logo-large">
+              <img src="assets/images/Logo BSI UMKM Centre.svg" alt="BSI Logo">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tentang Kami Section -->
+  <section class="about" id="tentang">
+    <div class="container">
+      <div class="about-content">
+        <div class="about-image">
+          <img src="assets/images/foto bsi yogyakarta.svg" alt="BSI UMKM Center Yogyakarta Building" style="width: 100%; height: auto; border-radius: 12px;">
+        </div>
+        <div class="about-text">
+          <h2>Tentang Kami</h2>
+          <p>
+            BSI UMKM Centre Yogyakarta adalah pusat pemasaran digital dan pemberdayaan UMKM. Melalui platform e-commerce ini, kami mempertemukan produk lokal berkualitas dengan konsumen lebih luas, serta membuka akses pembayaran syariah, pelatihan, dan kemitraan strategis. Setiap produk dikurasi agar sesuai standar halal, kreatif, dan mencerminkan khas Yogyakarta. Dengan dukungan Bank Syariah Indonesia, kami berkomitmen mendorong pertumbuhan UMKM yang berdaya saing, berkelanjutan, dan bermanfaat bagi masyarakat.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Section -->
+  <section class="video-section">
+    <div class="container">
+      <h2>VIDEO PROFILE</h2>
+      <div class="video-container">
+        <iframe 
+          width="100%" 
+          height="400" 
+          src="https://www.youtube.com/embed/MPR6nmUJJIY?si=TtJI8iGG36r9g1dV" 
+          title="BSI UMKM Center Yogyakarta Profile Video" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin" 
+          allowfullscreen
+          style="border-radius: 12px;">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <h3><span class="highlight">50</span>+</h3>
+          <p>UMKM Terdaftar</p>
+        </div>
+        <div class="stat-item">
+          <h3><span class="highlight">100</span>+</h3>
+          <p>Produk Tersedia</p>
+        </div>
+        <div class="stat-item">
+          <h3><span class="highlight">1000</span>+</h3>
+          <p>Customer Puas</p>
+        </div>
+      </div>
+      <div class="stats-description">
+        <p class="paragraph">
+          BSI UMKM Center Yogyakarta telah berkembang pesat sejak didirikan. Kami berkomitmen untuk terus mendukung UMKM lokal dalam mengembangkan bisnis mereka melalui platform digital yang mudah digunakan dan terpercaya.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products" id="produk">
+    <div class="container">
+      <h2 class="h1">
+        <span class="highlight">Pilih produk</span> UMKM pilihanmu!
+      </h2>
+      <p class="products-subtitle">Temukan berbagai produk berkualitas dari UMKM lokal Yogyakarta</p>
+      
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-image" style="background-image: url('https://s3-alpha-sig.figma.com/img/17ed/9928/91bbf834ebce5b67f46532d073a881f0?Expires=1760313600&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=ASFEyhdHnp0kA~CSD4nQWMt60oosLs2cmA7QUkwzxAvKwcevmbeXvTbRbXpSw3VsbvnscqOipivJZZgytsTKtb0unevoH7~mVLTnEKmsQUhLbLI~KjbvsE6VPzR~yF62fUcIRSxYGSHnH2k4g95Hnbt331q-MtpGlpMyWb00OYXeaI6pfdlu-xX5jHmr1OQ8otttLFPXz93AiePRbLBWyfpIOe9xHoXeGam84FIMsimfdEcM3pGUShtIp7EQqkGfUmfwD-XN0DXQXzXYoauzuwwOnY~8mLUYaM~WiKyteO0TKbeua4oAIDGQ4uTx9JKjyv~HdUcmhp708Dsi~lzKrg__');">
+            <div class="product-category">F&B</div>
+          </div>
+          <div class="product-info">
+            <h4 class="h4">Makanan & Minuman</h4>
+            <p class="paragraph">Aneka kuliner khas Yogyakarta</p>
+          </div>
+        </div>
+        
+        <div class="product-card">
+          <div class="product-image" style="background-image: url('https://s3-alpha-sig.figma.com/img/5765/94e9/5424eb074022d9704903b5fe56b13b1e?Expires=1760313600&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=QSmQ4R1Ty~5EtoYN-7m97m7zVuEu9Krw810stM-kR5cE3GkPAw4l7rdNSdqmWjy8s~ZFuV4vh5f35a7Y7fjF70x~uQp7XEvlkjHFP6RSj-hxZElDpBr8P48Yv30nbxhkpmN1siQUthOukHcGR0oMA6AZ5oByh2rxnHwJsV2fgnCtncE9ln7FpqFLLwM2~ykWUGUdcy0-7MBSetcXVW8rKSob-tL0Lbpo-SBDeuT5d5TD3ZmYu~P-OpkwZ6AB4RTw6UUp3vZujE~Y-zm3o4HgQQ971z8MWyGcaT2aR1k0o1UmxjwoJePgERKUV4rD2JeqKXQD-J-IGzP-~KWbx3Dvkg__');">
+            <div class="product-category">Aksesoris</div>
+          </div>
+          <div class="product-info">
+            <h4 class="h4">Aksesoris</h4>
+            <p class="paragraph">Produk aksesoris handmade</p>
+          </div>
+        </div>
+        
+        <div class="product-card">
+          <div class="product-image" style="background-image: url('https://s3-alpha-sig.figma.com/img/6d19/e4b0/28e6d91d2ada9b2398498d3f29a7d550?Expires=1760313600&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=fzl0Jz4kzW~TOSiSMu5oixD2MChgAjMxHrc6a4kH9fhfu8tvzqnIENl2Xwh1fhGWNh4h33LoPTw1LaDW5-zpcMQk8Eddx17m0JXJfZnL9cT1f5ByIUWEkiOB7WicAzgMYVEWrMWHUYohqODg9XQnnDxwlkYI7wFoe~coNQ0y3bxfCmTADzDu94q4zn6SUgbXofdenlGP-xHiYBR6Jqh0vgHDaRG-M2WpcD~vddFKLrk9Fy8FX-Zvzn8d9sdsQ2mS55vCJnJRk8FIYDZiXo-JrlXswOhRSZ7G5ofsTIBQxzYLo4X5SzSd1ADK5~bSnJF~rrsJ2k2XhmKLU7BoYvkwaQ__');">
+            <div class="product-category">Fashion</div>
+          </div>
+          <div class="product-info">
+            <h4 class="h4">Fashion</h4>
+            <p class="paragraph">Pakaian dan fashion lokal</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="view-all-btn">
+        <a href="katalog.html" class="btn-primary button-text">Lihat Semua Produk</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partnership Section -->
+  <section id="partner" class="partner section-padding">
+    <div class="container">
+      <h2 class="section-title center">Ayo Menjadi <span class="pill">Partner</span> <span class="teal-text">UMKM kami!</span></h2>
+      <p class="center">Untuk menjadi Partner kami, anda dapat langsung datang ke kantor cabang kami dan mendaftarkan diri! Anda dapat langsung datang ke BSI UMKM Center Yogyakarta yang berlokasi di:</p>
+      <div class="map card">
+        <iframe title="Lokasi BSI UMKM Center" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.6985939071253!2d110.36585931413396!3d-7.804915879708437!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5796db8b8c41%3A0x6e8de2f4b2c8a8a5!2sJl.%20Doktor%20Sutomo%20No.8%2C%20Baciro%2C%20Kec.%20Gondokusuman%2C%20Kota%20Yogyakarta%2C%20Daerah%20Istimewa%20Yogyakarta%2055225!5e0!3m2!1sen!2sid!4v1642567890123!5m2!1sen!2sid" 
+                width="600" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+        <div class="map-caption">Jl. Doktor Sutomo No.8, Baciro, Kec. Gondokusuman, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55225</div>
+        <div class="map-actions">
+          <a class="btn" target="_blank" rel="noopener" href="https://maps.google.com/?q=Jl.+Doktor+Sutomo+No.8,+Baciro,+Kec.+Gondokusuman,+Kota+Yogyakarta">Buka di Google Maps sekarang!</a>
+        </div>
+      </div>
+    </div>
+    <div class="swoosh-lines" aria-hidden="true">
+      <span></span>
+      <span></span>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <h2>FAQ</h2>
+      <p class="faq-subtitle">
+        Jika anda ada pertanyaan lain,<br>
+        ayo bertahu kami!
+      </p>
+      <div class="faq-cta">
+        <a href="#" class="btn-primary button-text">Ada pertanyaan? Klik di sini</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partners -->
+  <section class="partners">
+    <div class="container">
+      <h3>Partner by</h3>
+      <div class="partners-logos">
+        <img src="assets/images/Danantara Indonesia.png" alt="Danantara Indonesia" class="partner-logo" style="height: 300px; width: auto;">
+        <img src="assets/images/Bank Syariah Indonesia.png" alt="Bank Syariah Indonesia" class="partner-logo">
+        <img src="assets/images/GO UMKM.png" alt="GO UMKM" class="partner-logo" style="background: white; padding: 8px; border-radius: 4px;">
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="footer-background">
+    <footer>
+      <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <div>
+            <div class="footer-logo">
+              <div class="footer-logo-icon" style="background: white; border-radius: 4px; padding: 8px; display: flex; align-items: center; justify-content: center;">
+                <img src="assets/images/Logo BSI UMKM Centre.svg" alt="BSI" style="height: 60px; width: auto;">
+              </div>
+            </div>
+            <div class="footer-contact">
+              <div class="contact-item">
+                <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                </svg>
+                <div>
+                  <p>Jl. Doktor Sutomo No.8, Baciro, Kec. Gondokusuman,</p>
+                  <p>Kota Yogyakarta, Daerah Istimewa Yogyakarta 55225</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                </svg>
+                <span>081234567890</span>
+              </div>
+              <div class="contact-item">
+                <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+                <span>bsiumkmyk@blabla.com</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="footer-social">
+          <div class="social-links">
+            <div class="social-item">
+              <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>
+              </svg>
+              <span>@bsi.umkmcenter.yogyakarta</span>
+            </div>
+            <div class="social-item">
+              <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/>
+              </svg>
+              <span>@bsi.umkmcenter.yogyakarta</span>
+            </div>
+            <div class="social-item">
+              <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+              <span>bsi.umkmcenter.yogyakarta</span>
+            </div>
+          </div>
+          <a href="#" class="footer-cta button-text">Ada pertanyaan? klik disini!!!</a>
+        </div>
+      </div>
+    </div>
+    </footer>
+  </div>
+</body>
+</html>

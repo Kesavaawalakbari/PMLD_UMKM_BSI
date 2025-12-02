@@ -1,19 +1,30 @@
 // Authentication Module for BSI UMKM Centre
-// Integrates with Express.js Backend API
+// Integrates with Supabase + Express.js Backend API
+// Combined authentication: Supabase Auth + Custom Backend
 
 /**
- * Express.js Backend API authentication endpoints
+ * Supabase Configuration
+ * For direct Supabase auth (optional - can use backend API instead)
  */
-const API_BASE_URL = 'http://localhost:5000';
+const SUPABASE_URL = import.meta?.env?.VITE_SUPABASE_URL || 'https://your-project.supabase.co';
+const SUPABASE_ANON_KEY = import.meta?.env?.VITE_SUPABASE_ANON_KEY || '';
+
+/**
+ * Backend API Configuration
+ * Primary authentication through Express.js backend
+ */
+const API_BASE_URL = import.meta?.env?.VITE_API_URL || 'http://localhost:5000';
 const AUTH_ENDPOINTS = {
   LOGIN: '/api/auth/login',
   REGISTER: '/api/auth/register',
   VALIDATE: '/api/auth/validate',
-  PROFILE: '/api/auth/profile'
+  PROFILE: '/api/auth/profile',
+  LOGOUT: '/api/auth/logout'
 };
 
 /**
  * Auth Manager - Handles token and user data storage
+ * Compatible with both Supabase and custom JWT
  */
 const AuthManager = {
   getToken() {
@@ -42,6 +53,8 @@ const AuthManager = {
     localStorage.removeItem('bsi_auth_token');
     localStorage.removeItem('bsi_user_data');
     localStorage.removeItem('bsi_remember_email');
+    // Also clear Supabase session if using direct Supabase auth
+    localStorage.removeItem('supabase.auth.token');
   },
   
   isAuthenticated() {
@@ -50,7 +63,7 @@ const AuthManager = {
 };
 
 /**
- * Login user with Express backend credentials
+ * Login user with backend API (Supabase database)
  * @param {string} email - User email
  * @param {string} password - User password
  * @returns {Promise<Object>} User data with token
@@ -78,9 +91,13 @@ export async function login(email, password) {
     const data = await response.json();
     
     // Store authentication data
-    AuthManager.setAuth(data.token, data.user);
-
-    return data.user;
+    if (data.success && data.data) {
+      AuthManager.setAuth(data.data.token, data.data.user);
+      return data.data.user;
+    } else {
+      AuthManager.setAuth(data.token, data.user);
+      return data.user;
+    }
 
   } catch (error) {
     console.error('Login error:', error);
@@ -89,7 +106,7 @@ export async function login(email, password) {
 }
 
 /**
- * Register new user with Express backend
+ * Register new user with backend API (Supabase database)
  * @param {Object} userData - User registration data
  * @returns {Promise<Object>} Created user data
  */
@@ -103,8 +120,8 @@ export async function register(userData) {
       body: JSON.stringify({
         email: userData.email,
         password: userData.password,
-        name: userData.name,
-        phone: userData.phone || ''
+        nama: userData.name || userData.nama,
+        confirmPassword: userData.confirmPassword || userData.password
       })
     });
 
@@ -118,9 +135,13 @@ export async function register(userData) {
     const data = await response.json();
     
     // Store authentication data (backend auto-logs in after registration)
-    AuthManager.setAuth(data.token, data.user);
-
-    return data.user;
+    if (data.success && data.data) {
+      AuthManager.setAuth(data.data.token, data.data.user);
+      return data.data.user;
+    } else {
+      AuthManager.setAuth(data.token, data.user);
+      return data.user;
+    }
 
   } catch (error) {
     console.error('Registration error:', error);
@@ -140,7 +161,7 @@ export async function validateToken() {
   }
 
   try {
-    const response = await fetch(`${API_BASE_URL}${AUTH_ENDPOINTS.VALIDATE}`, {
+    const response = await fetch(`${API_BASE_URL}${AUTH_ENDPOINTS.PROFILE}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -235,11 +256,32 @@ export async function updateProfile(profileData) {
     const data = await response.json();
     
     // Update local user data
-    AuthManager.setUser(data.user);
-    
-    return data.user;
+    if (data.success && data.data) {
+      AuthManager.setUser(data.data.user);
+      return data.data.user;
+    } else {
+      AuthManager.setUser(data.user);
+      return data.user;
+    }
   } catch (error) {
     console.error('Profile update error:', error);
     throw error;
   }
 }
+
+/**
+ * Get authorization header for API requests
+ * @returns {Object} Headers object with Authorization
+ */
+export function getAuthHeaders() {
+  const token = AuthManager.getToken();
+  return token ? {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  } : {
+    'Content-Type': 'application/json'
+  };
+}
+
+// Export AuthManager for advanced usage
+export { AuthManager };

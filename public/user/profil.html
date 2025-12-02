@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil User - BSI UMKM Center Yogyakarta</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* RESET */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* VARIABLES */
+        :root {
+            --primary-teal: #00A39D;
+            --secondary-orange: #F8AD3C;
+            --text-primary: #2C3E50;
+            --text-secondary: #7F8C8D;
+            --text-muted: #6C757D;
+            --gray-50: #F8F9FA;
+            --gray-100: #E9ECEF;
+            --gray-200: #DEE2E6;
+            --white: #FFFFFF;
+            --error: #E74C3C;
+            --dashboard-bg: #F5F6FA;
+        }
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            background: var(--dashboard-bg);
+            color: var(--text-primary);
+        }
+        
+        /* LAYOUT */
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            grid-template-rows: 70px 1fr;
+            grid-template-areas: "sidebar header" "sidebar main";
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .dashboard-sidebar {
+            grid-area: sidebar;
+            background: var(--primary-teal);
+            overflow-y: auto;
+            height: 100vh;
+        }
+        
+        .dashboard-header {
+            grid-area: header;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .dashboard-main {
+            grid-area: main;
+            padding: 20px;
+            overflow-y: auto;
+            height: calc(100vh - 70px);
+        }
+        
+        /* SIDEBAR */
+        .sidebar {
+            padding: 24px 0;
+        }
+        
+        .sidebar__logo {
+            padding: 40px 24px 40px 24px;
+            margin-bottom: 32px;
+            background: var(--primary-teal);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0;
+            position: relative;
+        }
+        
+        .logo-text {
+            color: white;
+            text-align: left;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .logo-text__brand {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -1px;
+            position: relative;
+        }
+        
+        .logo-text__subtitle {
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 2.5px;
+            line-height: 1.5;
+            white-space: nowrap;
+        }
+        
+        .logo-star {
+            color: var(--secondary-orange);
+            width: 32px;
+            height: 32px;
+            position: absolute;
+            top: -18px;
+            left: 60px;
+        }
+        
+        .nav-list {
+            list-style: none;
+            padding: 0 20px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            font-size: 15px;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+        
+        .nav-item--active .nav-link {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .nav-icon {
+            width: 20px;
+            font-size: 20px;
+        }
+        
+        /* HEADER */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 0 24px;
+            height: 100%;
+        }
+        
+        .header__toggle {
+            display: none;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            color: var(--primary-teal);
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        
+        .header__toggle:hover {
+            background: var(--gray-50);
+        }
+        
+        .header__search {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            max-width: 400px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header__search i {
+            font-size: 18px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .search-decoration {
+            position: absolute;
+            top: -24px;
+            left: -24px;
+            width: 80px;
+            height: auto;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 8px 0;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            background: transparent;
+            position: relative;
+            z-index: 10;
+            color: var(--text-muted);
+        }
+        
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+        
+        .header__actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-left: auto;
+            position: relative;
+        }
+        
+        .header-decoration-right {
+            position: absolute;
+            top: -12px;
+            right: -24px;
+            width: 70px;
+            height: auto;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .user-profile__toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .user-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+        }
+        
+        .user-info {
+            text-align: left;
+        }
+        
+        .user-name {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .user-role {
+            display: block;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .profile-dropdown {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .user-profile__toggle.active .profile-dropdown {
+            transform: rotate(180deg);
+        }
+        
+        /* PROFILE DROPDOWN MENU */
+        .profile-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            min-width: 180px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            overflow: hidden;
+        }
+        
+        .profile-dropdown-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .profile-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 14px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .profile-menu-item:hover {
+            background: rgba(248, 173, 60, 0.1);
+            color: var(--secondary-orange);
+        }
+        
+        .profile-menu-item:hover i {
+            color: var(--secondary-orange);
+        }
+        
+        .profile-menu-item i {
+            font-size: 16px;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+        
+        .profile-menu-divider {
+            height: 1px;
+            background: var(--gray-100);
+            margin: 4px 0;
+        }
+        
+        /* BREADCRUMBS */
+        .breadcrumbs {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .breadcrumbs__title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .breadcrumbs__path {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        
+        .breadcrumbs__link {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+        
+        .breadcrumbs__link:hover {
+            color: var(--primary-teal);
+        }
+        
+        .breadcrumbs__current {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        /* PROFILE CONTENT */
+        .profile-container {
+            display: grid;
+            grid-template-columns: 1fr 412px;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+        
+        .profile-form-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .profile-form-header {
+            padding: 15px 30px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .profile-form-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .profile-form-body {
+            padding: 20px 30px 30px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+            margin-bottom: 22px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-label {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        
+        .form-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 11px 18px;
+            padding-left: 50px;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Lato', sans-serif;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 3px rgba(0, 163, 157, 0.1);
+        }
+        
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+        
+        .form-input-icon {
+            position: absolute;
+            left: 18px;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 18px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 8px 25px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-family: 'Lato', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-secondary {
+            background: var(--gray-100);
+            color: var(--text-primary);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--gray-200);
+        }
+        
+        .btn-primary {
+            background: #10B981;
+            color: var(--white);
+        }
+        
+        .btn-primary:hover {
+            background: #059669;
+        }
+        
+        /* PHOTO UPLOAD CARD */
+        .photo-upload-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+        }
+        
+        .photo-upload-header {
+            padding: 15px 28px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .photo-upload-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .photo-upload-body {
+            padding: 28px;
+        }
+        
+        .photo-preview-section {
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
+            margin-bottom: 28px;
+        }
+        
+        .photo-preview {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .photo-preview-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .photo-preview-icon {
+            color: var(--text-muted);
+            font-size: 24px;
+        }
+        
+        .photo-preview-info {
+            flex: 1;
+        }
+        
+        .photo-preview-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        
+        .photo-preview-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .photo-action-link {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .photo-action-link:hover {
+            color: var(--text-primary);
+        }
+        
+        .photo-action-update {
+            color: var(--secondary-orange);
+        }
+        
+        .photo-action-update:hover {
+            color: #E89A2D;
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--secondary-orange);
+            border-radius: 12px;
+            padding: 48px 32px;
+            text-align: center;
+            background: rgba(248, 173, 60, 0.08);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .upload-area:hover {
+            border-color: #E89A2D;
+            background: rgba(248, 173, 60, 0.12);
+        }
+        
+        .upload-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .upload-icon i {
+            color: var(--secondary-orange);
+            font-size: 20px;
+        }
+        
+        .upload-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .upload-text-orange {
+            color: var(--secondary-orange);
+            font-weight: 600;
+        }
+        
+        .upload-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin: 2px 0;
+        }
+        
+        .upload-input {
+            display: none;
+        }
+        
+        /* LOGOUT CONFIRMATION MODAL */
+        .logout-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10006;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .logout-modal-container {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 32px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            animation: modalSlideIn 0.3s ease;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .logout-modal-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        
+        .logout-modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .logout-modal-message {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        
+        .logout-modal-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .logout-modal-btn {
+            flex: 1;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-modal-btn-cancel {
+            background: var(--gray-100);
+            color: var(--text-primary);
+        }
+        
+        .logout-modal-btn-cancel:hover {
+            background: var(--gray-200);
+        }
+        
+        .logout-modal-btn-confirm {
+            background: var(--primary-teal);
+            color: var(--white);
+        }
+        
+        .logout-modal-btn-confirm:hover {
+            background: #008C87;
+            box-shadow: 0px 4px 12px 0px rgba(0, 163, 157, 0.3);
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+                grid-template-rows: 70px 1fr;
+                grid-template-areas: "header" "main";
+            }
+            
+            .dashboard-sidebar {
+                position: fixed;
+                left: -260px;
+                top: 0;
+                width: 260px;
+                z-index: 1000;
+                transition: left 0.3s ease;
+            }
+            
+            .dashboard-sidebar.active {
+                left: 0;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 0 16px;
+            }
+            
+            .dashboard-main {
+                padding: 16px;
+            }
+            
+            .breadcrumbs {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            
+            .breadcrumbs__title {
+                font-size: 24px;
+            }
+            
+            .profile-info {
+                display: none;
+            }
+            
+            .profile-form-body,
+            .photo-upload-body {
+                padding: 20px;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .breadcrumbs__title {
+                font-size: 20px;
+            }
+            
+            .profile-form-header,
+            .photo-upload-header {
+                padding: 12px 20px;
+            }
+            
+            .profile-form-body,
+            .photo-upload-body {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- SIDEBAR -->
+        <aside class="dashboard-sidebar" id="sidebar">
+            <div class="sidebar">
+                <div class="sidebar__logo">
+                    <div class="logo-text">
+                        <span class="logo-text__brand">BSI</span>
+                        <div>
+                            <div class="logo-text__subtitle">UMKM CENTER</div>
+                            <div class="logo-text__subtitle">YOGYAKARTA</div>
+                        </div>
+                        <svg class="logo-star" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                </div>
+                <nav>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="dashboard.html" class="nav-link">
+                                <i class="nav-icon fas fa-th-large"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="kelola-produk.html" class="nav-link">
+                                <i class="nav-icon fas fa-box"></i>
+                                <span>Kelola Produk</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="kelola-keuangan.html" class="nav-link">
+                                <i class="nav-icon fas fa-wallet"></i>
+                                <span>Kelola Keuangan</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="laporan.html" class="nav-link">
+                                <i class="nav-icon fas fa-clipboard-list"></i>
+                                <span>Laporan</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="bantuan.html" class="nav-link">
+                                <i class="nav-icon fas fa-question-circle"></i>
+                                <span>Bantuan</span>
+                            </a>
+                        </li>
+                        <li class="nav-item nav-item--active">
+                            <a href="profil.html" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <span>Profil</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        
+        <!-- HEADER -->
+        <header class="dashboard-header">
+            <div class="header">
+                <button class="header__toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header__search">
+                    <i class="fas fa-search" style="color: #6C757D;"></i>
+                    <input type="text" class="search-input" placeholder="Type to search...">
+                    <img src="../assets/images/Shape Left Down.webp" alt="" class="search-decoration">
+                </div>
+                <div class="header__actions">
+                    <img src="../assets/images/Shape Right Up.webp" alt="" class="header-decoration-right">
+                    <div class="user-profile__toggle" id="userProfileToggle">
+                        <img src="https://ui-avatars.com/api/?name=Thomas+Anree&background=00A39D&color=fff" class="user-avatar">
+                        <div class="user-info">
+                            <span class="user-name">Thomas Anree</span>
+                            <span class="user-role">Admin Basreng Bakar</span>
+                        </div>
+                        <i class="fas fa-chevron-down profile-dropdown"></i>
+                        
+                        <!-- Dropdown Menu -->
+                        <div class="profile-dropdown-menu" id="profileDropdownMenu">
+                            <a href="profil.html" class="profile-menu-item">
+                                <i class="fas fa-user-edit"></i>
+                                <span>Profile</span>
+                            </a>
+                            <a href="../index.html" class="profile-menu-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Keluar</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Breadcrumbs -->
+            <div class="breadcrumbs">
+                <h1 class="breadcrumbs__title">Profil</h1>
+                <div class="breadcrumbs__path">
+                    <a href="dashboard.html" class="breadcrumbs__link">Dashboard</a>
+                    <span>/</span>
+                    <span class="breadcrumbs__current">Profil</span>
+                </div>
+            </div>
+            
+            <!-- Profile Content -->
+            <div class="profile-container">
+                <!-- Profile Form Card -->
+                <div class="profile-form-card">
+                    <div class="profile-form-header">
+                        <h2 class="profile-form-title">Profil Pengguna</h2>
+                    </div>
+                    <div class="profile-form-body">
+                        <form>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Nama</label>
+                                    <div class="form-input-wrapper">
+                                        <i class="fas fa-user form-input-icon"></i>
+                                        <input type="text" class="form-input" value="Devid Jhon" placeholder="Masukkan nama">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Kontak</label>
+                                    <div class="form-input-wrapper">
+                                        <i class="fas fa-phone form-input-icon"></i>
+                                        <input type="tel" class="form-input" value="+62123457896" placeholder="Masukkan nomor kontak">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label class="form-label">Email</label>
+                                <div class="form-input-wrapper">
+                                    <i class="fas fa-envelope form-input-icon"></i>
+                                    <input type="email" class="form-input" value="devidjond45@gmail.com" placeholder="Masukkan email">
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary">Batal</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Photo Upload Card -->
+                <div class="photo-upload-card">
+                    <div class="photo-upload-header">
+                        <h2 class="photo-upload-title">Foto Profil</h2>
+                    </div>
+                    <div class="photo-upload-body">
+                        <!-- Photo Preview -->
+                        <div class="photo-preview-section">
+                            <div class="photo-preview">
+                                <img src="https://ui-avatars.com/api/?name=Thomas+Anree&background=00A39D&color=fff&size=80" class="photo-preview-img" alt="Profile">
+                            </div>
+                            <div class="photo-preview-info">
+                                <h3 class="photo-preview-title">Edit foto profil</h3>
+                                <div class="photo-preview-actions">
+                                    <a href="#" class="photo-action-link">Hapus</a>
+                                    <a href="#" class="photo-action-link photo-action-update">Perbarui</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Upload Area -->
+                        <label for="photoUpload" class="upload-area">
+                            <div class="upload-icon">
+                                <i class="fas fa-upload"></i>
+                            </div>
+                            <p class="upload-text"><span class="upload-text-orange">Klik untuk mengunggah</span> atau seret dan lepas</p>
+                            <p class="upload-hint">SVG, PNG, JPG or GIF (max, 800 X 800px)</p>
+                        </label>
+                        <input type="file" id="photoUpload" class="upload-input" accept="image/*">
+                        
+                        <!-- Actions -->
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary">Batal</button>
+                            <button type="button" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Logout Confirmation Modal -->
+    <div class="logout-modal" id="logoutModal">
+        <div class="logout-modal-container">
+            <div class="logout-modal-icon">😢</div>
+            <h3 class="logout-modal-title">Kamu yakin mau keluar dari aplikasi 😢?</h3>
+            <p class="logout-modal-message">
+                Apakah Kamu yakin ingin keluar dari akun? 💼 Semua perubahan yang belum disimpan mungkin akan hilang. Kamu dapat masuk kembali kapan saja untuk melanjutkan. Tekan Keluar untuk melanjutkan 🚪 atau Batal jika ingin tetap berada di akun Kamu 😊.
+            </p>
+            <div class="logout-modal-buttons">
+                <button class="logout-modal-btn logout-modal-btn-cancel" onclick="closeLogoutModal()">Batal</button>
+                <button class="logout-modal-btn logout-modal-btn-confirm" onclick="confirmLogout()">Keluar</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Photo upload preview
+        document.getElementById('photoUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const preview = document.querySelector('.photo-preview');
+                    preview.innerHTML = `<img src="${event.target.result}" alt="Preview">`;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Drag and drop functionality
+        const uploadArea = document.querySelector('.upload-area');
+        const uploadInput = document.getElementById('photoUpload');
+        
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, preventDefaults, false);
+        });
+        
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        ['dragenter', 'dragover'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, highlight, false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, unhighlight, false);
+        });
+        
+        function highlight(e) {
+            uploadArea.style.borderColor = '#00A39D';
+            uploadArea.style.background = 'rgba(0, 163, 157, 0.05)';
+        }
+        
+        function unhighlight(e) {
+            uploadArea.style.borderColor = '';
+            uploadArea.style.background = '';
+        }
+        
+        uploadArea.addEventListener('drop', handleDrop, false);
+        
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            
+            if (files.length > 0) {
+                uploadInput.files = files;
+                const event = new Event('change', { bubbles: true });
+                uploadInput.dispatchEvent(event);
+            }
+        }
+        
+        // ===== PROFILE DROPDOWN =====
+        const userProfileToggle = document.getElementById('userProfileToggle');
+        const profileDropdownMenu = document.getElementById('profileDropdownMenu');
+        
+        if (userProfileToggle && profileDropdownMenu) {
+            // Toggle dropdown
+            userProfileToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                userProfileToggle.classList.toggle('active');
+                profileDropdownMenu.classList.toggle('active');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!userProfileToggle.contains(e.target)) {
+                    userProfileToggle.classList.remove('active');
+                    profileDropdownMenu.classList.remove('active');
+                }
+            });
+            
+            // Prevent dropdown from closing when clicking inside
+            profileDropdownMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        }
+        
+        // ===== LOGOUT MODAL =====
+        const logoutModal = document.getElementById('logoutModal');
+        const logoutButton = document.querySelector('.profile-menu-item[href="../index.html"]');
+        
+        // Intercept logout button click
+        if (logoutButton) {
+            logoutButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                openLogoutModal();
+            });
+        }
+        
+        function openLogoutModal() {
+            logoutModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            // Close dropdown when opening logout modal
+            if (userProfileToggle) {
+                userProfileToggle.classList.remove('active');
+                profileDropdownMenu.classList.remove('active');
+            }
+        }
+        
+        function closeLogoutModal() {
+            logoutModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        function confirmLogout() {
+            // Redirect to landing page
+            window.location.href = '../index.html';
+        }
+        
+        // Close logout modal when clicking outside
+        logoutModal.addEventListener('click', function(e) {
+            if (e.target === logoutModal) {
+                closeLogoutModal();
+            }
+        });
+        
+        // Close logout modal with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && logoutModal.classList.contains('active')) {
+                closeLogoutModal();
+            }
+        });
+    </script>
+</body>
+</html>

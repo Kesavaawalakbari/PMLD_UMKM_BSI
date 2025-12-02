@@ -1,17 +1,19 @@
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
 require('dotenv').config();
 
-const connectDB = require('./config/database');
+const { supabase, supabaseAdmin, testConnection, initializeDatabase } = require('./config/database');
 const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 
 /**
- * Database Connection
+ * Database Connection - Supabase
  */
-connectDB();
+(async () => {
+    await testConnection();
+    await initializeDatabase();
+})();
 
 /**
  * Middleware
@@ -62,13 +64,25 @@ if (process.env.NODE_ENV === 'development') {
  */
 
 // Health check endpoint
-app.get('/api/health', (req, res) => {
+app.get('/api/health', async (req, res) => {
+    // Check Supabase connection
+    let dbStatus = 'Unknown';
+    try {
+        const { error } = await supabase.from('users').select('count').limit(1);
+        dbStatus = error ? 'Error' : 'Connected';
+    } catch {
+        dbStatus = 'Disconnected';
+    }
+
     res.status(200).json({ 
         success: true, 
         message: 'BSI UMKM Centre API is running',
         timestamp: new Date().toISOString(),
         environment: process.env.NODE_ENV || 'development',
-        database: mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected'
+        database: {
+            type: 'Supabase (PostgreSQL)',
+            status: dbStatus
+        }
     });
 });
 
@@ -174,26 +188,20 @@ app.listen(PORT, () => {
  */
 process.on('SIGTERM', () => {
     console.log('👋 SIGTERM received. Shutting down gracefully...');
-    mongoose.connection.close(false, () => {
-        console.log('💤 MongoDB connection closed');
-        process.exit(0);
-    });
+    console.log('💤 Closing connections...');
+    process.exit(0);
 });
 
 process.on('SIGINT', () => {
     console.log('👋 SIGINT received. Shutting down gracefully...');
-    mongoose.connection.close(false, () => {
-        console.log('💤 MongoDB connection closed');
-        process.exit(0);
-    });
+    console.log('💤 Closing connections...');
+    process.exit(0);
 });
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {
     console.error('❌ Unhandled Promise Rejection:', err);
-    mongoose.connection.close(false, () => {
-        process.exit(1);
-    });
+    process.exit(1);
 });
 
 module.exports = app;

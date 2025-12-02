@@ -1,17 +1,20 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "echo 'Static HTML - Using root level Figma implementation'",
-  "outputDirectory": "./",
+  "buildCommand": "cd admin && npm install && npm run build && cp -r dist/* ../public/admin/",
+  "outputDirectory": "public",
   "framework": null,
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/", "destination": "/landingpage.html" },
+    { "source": "/", "destination": "/index.html" },
     { "source": "/login", "destination": "/login.html" },
     { "source": "/register", "destination": "/register.html" },
     { "source": "/katalog", "destination": "/katalog.html" },
     { "source": "/product-detail", "destination": "/product-detail.html" },
-    { "source": "/faq", "destination": "/faq.html" }
+    { "source": "/faq", "destination": "/faq.html" },
+    { "source": "/user/:path*", "destination": "/user/:path*.html" },
+    { "source": "/admin", "destination": "/admin/index.html" },
+    { "source": "/admin/:path*", "destination": "/admin/index.html" }
   ],
   "headers": [
     {

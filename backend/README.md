@@ -1,20 +1,28 @@
 # BSI UMKM Centre Backend - Setup Guide
 
+## 📋 Tech Stack
+
+- **Database:** Supabase (PostgreSQL with Row Level Security)
+- **Authentication:** Supabase Auth + Custom JWT
+- **E-Commerce:** WooCommerce REST API
+- **Backend:** Node.js + Express.js
+
 ## 📋 Prerequisites
 
-Sebelum menjalankan backend, pastikan Anda sudah menginstall:
+Sebelum menjalankan backend, pastikan Anda sudah memiliki:
 
 1. **Node.js** (v16 atau lebih tinggi)
    - Download dari: https://nodejs.org/
    - Verifikasi: `node --version` dan `npm --version`
 
-2. **MongoDB** (Community Edition)
-   - Download dari: https://www.mongodb.com/try/download/community
-   - Atau gunakan MongoDB Atlas (cloud database)
-   - Verifikasi: `mongod --version`
+2. **Supabase Account** (Free tier available)
+   - Daftar di: https://supabase.com/
+   - Buat project baru
+   - Dapatkan API keys dari Settings → API
 
-3. **Git** (optional, untuk version control)
-   - Download dari: https://git-scm.com/
+3. **WooCommerce Store** (untuk e-commerce)
+   - WordPress dengan WooCommerce plugin
+   - Generate REST API keys
 
 ## 🚀 Cara Instalasi
 
@@ -27,7 +35,7 @@ npm install
 
 Dependencies yang akan terinstall:
 - `express` - Web framework
-- `mongoose` - MongoDB ODM
+- `@supabase/supabase-js` - Supabase client
 - `bcryptjs` - Password hashing
 - `jsonwebtoken` - JWT authentication
 - `express-validator` - Input validation
@@ -38,36 +46,47 @@ Dependencies yang akan terinstall:
 
 ### 2. Setup Environment Variables
 
-File `.env` sudah dibuat dengan konfigurasi default:
+Copy `.env.example` ke `.env` dan isi dengan nilai Anda:
+
+```bash
+cp .env.example .env
+```
 
 ```env
+# Server
 PORT=5000
 NODE_ENV=development
-MONGODB_URI=mongodb://localhost:27017/bsi_umkm_centre
-JWT_SECRET=bsi-umkm-centre-super-secret-key-change-in-production-2025
+
+# Supabase (Required)
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+
+# JWT
+JWT_SECRET=your-super-secret-key-min-32-chars
 JWT_EXPIRES_IN=7d
-FRONTEND_URL=http://127.0.0.1:5500
-CORS_ORIGIN=http://127.0.0.1:5500
+
+# WooCommerce (Optional)
+WOOCOMMERCE_URL=https://your-store.com
+WOOCOMMERCE_CONSUMER_KEY=ck_xxxxx
+WOOCOMMERCE_CONSUMER_SECRET=cs_xxxxx
+
+# CORS
+FRONTEND_URL=http://localhost:3000
+CORS_ORIGIN=http://localhost:5500
 ```
 
-**⚠️ PENTING:** Ubah `JWT_SECRET` di production!
+### 3. Setup Supabase Database
 
-### 3. Jalankan MongoDB
+1. Buka Supabase Dashboard
+2. Go to SQL Editor
+3. Run migration script:
 
-**Opsi A: Local MongoDB**
-```bash
-# Windows
-mongod
-
-# Mac/Linux
-sudo mongod
+```sql
+-- Copy content from: backend/migrations/001_create_users_table.sql
 ```
 
-**Opsi B: MongoDB Atlas (Cloud)**
-1. Buat account di https://www.mongodb.com/cloud/atlas
-2. Create cluster (free tier)
-3. Get connection string
-4. Update `MONGODB_URI` di `.env`
+Atau jalankan file migration langsung di SQL Editor.
 
 ### 4. Jalankan Server
 
@@ -93,7 +112,10 @@ Response:
 {
   "success": true,
   "message": "BSI UMKM Centre API is running",
-  "database": "Connected"
+  "database": {
+    "type": "Supabase (PostgreSQL)",
+    "status": "Connected"
+  }
 }
 ```
 
