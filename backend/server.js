@@ -3,7 +3,15 @@ const cors = require('cors');
 require('dotenv').config();
 
 const { supabase, supabaseAdmin, testConnection, initializeDatabase } = require('./config/database');
+
+// Routes
 const authRoutes = require('./routes/authRoutes');
+const productRoutes = require('./routes/productRoutes');
+const supplierRoutes = require('./routes/supplierRoutes');
+const transactionRoutes = require('./routes/transactionRoutes');
+const storeRoutes = require('./routes/storeRoutes');
+const employeeRoutes = require('./routes/employeeRoutes');
+const reportRoutes = require('./routes/reportRoutes');
 
 const app = express();
 
@@ -90,18 +98,30 @@ app.get('/api/health', async (req, res) => {
 app.get('/', (req, res) => {
     res.status(200).json({
         success: true,
-        message: 'Welcome to BSI UMKM Centre API',
-        version: '1.0.0',
+        message: 'Welcome to KONEK - BSI UMKM Centre API',
+        version: '2.0.0',
         documentation: '/api/docs',
         endpoints: {
             health: '/api/health',
             auth: '/api/auth',
+            products: '/api/products',
+            suppliers: '/api/suppliers',
+            transactions: '/api/transactions',
+            stores: '/api/stores',
+            employees: '/api/employees',
+            reports: '/api/reports'
         }
     });
 });
 
 // API Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/suppliers', supplierRoutes);
+app.use('/api/transactions', transactionRoutes);
+app.use('/api/stores', storeRoutes);
+app.use('/api/employees', employeeRoutes);
+app.use('/api/reports', reportRoutes);
 
 // 404 Handler - Route not found
 app.use((req, res) => {
@@ -110,9 +130,13 @@ app.use((req, res) => {
         message: `Endpoint ${req.method} ${req.path} tidak ditemukan`,
         availableEndpoints: {
             health: 'GET /api/health',
-            register: 'POST /api/auth/register',
-            login: 'POST /api/auth/login',
-            profile: 'GET /api/auth/profile',
+            auth: '/api/auth/*',
+            products: '/api/products/*',
+            suppliers: '/api/suppliers/*',
+            transactions: '/api/transactions/*',
+            stores: '/api/stores/*',
+            employees: '/api/employees/*',
+            reports: '/api/reports/*'
         }
     });
 });

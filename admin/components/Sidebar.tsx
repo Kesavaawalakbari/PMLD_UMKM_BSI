@@ -8,6 +8,7 @@ interface SidebarProps {
   activeSubPage: UserSubPage;
   setActiveSubPage: (subPage: UserSubPage) => void;
   isSidebarOpen: boolean;
+  userRole?: 'owner' | 'karyawan';
 }
 
 interface NavItemProps {
@@ -18,25 +19,37 @@ interface NavItemProps {
   children?: React.ReactNode;
   isExpanded?: boolean;
   isSidebarOpen: boolean;
+  disabled?: boolean;
 }
 
-const NavItem: React.FC<NavItemProps> = ({ icon, label, isActive, onClick, children, isExpanded, isSidebarOpen }) => {
+const NavItem: React.FC<NavItemProps> = ({ icon, label, isActive, onClick, children, isExpanded, isSidebarOpen, disabled = false }) => {
   const hasChildren = !!children;
   
   const baseClasses = "flex items-center px-6 py-3 text-white cursor-pointer transition-colors duration-200 relative";
   const activeClasses = "bg-teal-700";
   const hoverClasses = "hover:bg-teal-700";
+  const disabledClasses = "opacity-50 cursor-not-allowed";
+  
+  const handleClick = () => {
+    if (!disabled) {
+      onClick();
+    }
+  };
   
   return (
     <div>
         <div 
-            className={`${baseClasses} ${isActive ? activeClasses : ''} ${!isActive ? hoverClasses : ''}`}
-            onClick={onClick}
+            className={`${baseClasses} ${isActive ? activeClasses : ''} ${!isActive && !disabled ? hoverClasses : ''} ${disabled ? disabledClasses : ''}`}
+            onClick={handleClick}
+            title={disabled ? 'Akses hanya untuk Owner' : ''}
         >
             {isActive && <div className="absolute left-0 top-0 h-full w-1 bg-orange-400 rounded-r-full"></div>}
             {icon}
             <span className={`mx-4 font-medium transition-opacity duration-300 ${!isSidebarOpen && 'lg:hidden'}`}>{label}</span>
             {hasChildren && <ChevronDownIcon className={`w-5 h-5 ml-auto transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''} ${!isSidebarOpen && 'lg:hidden'}`} />}
+            {disabled && isSidebarOpen && (
+              <span className="ml-auto text-xs bg-orange-400 px-2 py-0.5 rounded">Owner</span>
+            )}
         </div>
         {hasChildren && isExpanded && isSidebarOpen && (
             <div className="bg-teal-800/50">
@@ -59,8 +72,9 @@ const SubNavItem: React.FC<{label: string; isActive: boolean; onClick: () => voi
     );
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ activePage, setActivePage, activeSubPage, setActiveSubPage, isSidebarOpen }) => {
+const Sidebar: React.FC<SidebarProps> = ({ activePage, setActivePage, activeSubPage, setActiveSubPage, isSidebarOpen, userRole = 'karyawan' }) => {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(activePage === 'Kelola Pengguna');
+    const isOwner = userRole === 'owner';
     
     useEffect(() => {
         if(activePage === 'Kelola Pengguna') {
@@ -89,8 +103,22 @@ const Sidebar: React.FC<SidebarProps> = ({ activePage, setActivePage, activeSubP
       <nav className="flex-1 py-6 overflow-y-auto overflow-x-hidden">
         <NavItem isSidebarOpen={isSidebarOpen} icon={<img src="/assets/img/dashbor.svg" alt="Dashboard" className="h-6 w-6 flex-shrink-0" />} label="Dashboard" isActive={activePage === 'Dashboard'} onClick={() => setActivePage('Dashboard')} />
         <NavItem isSidebarOpen={isSidebarOpen} icon={<img src="/assets/img/balok.svg" alt="Kelola Produk" className="h-6 w-6 flex-shrink-0" />} label="Kelola Produk" isActive={activePage === 'Kelola Produk'} onClick={() => setActivePage('Kelola Produk')} />
-        <NavItem isSidebarOpen={isSidebarOpen} icon={<img src="/assets/img/uang.svg" alt="Kelola Keuangan" className="h-6 w-6 flex-shrink-0" />} label="Kelola Keuangan" isActive={activePage === 'Kelola Keuangan'} onClick={() => setActivePage('Kelola Keuangan')} />
-        <NavItem isSidebarOpen={isSidebarOpen} icon={<img src="/assets/img/home.svg" alt="Kelola UMKM" className="h-6 w-6 flex-shrink-0" />} label="Kelola UMKM" isActive={activePage === 'Kelola UMKM'} onClick={() => setActivePage('Kelola UMKM')} />
+        <NavItem 
+          isSidebarOpen={isSidebarOpen} 
+          icon={<img src="/assets/img/uang.svg" alt="Kelola Keuangan" className="h-6 w-6 flex-shrink-0" />} 
+          label="Kelola Keuangan" 
+          isActive={activePage === 'Kelola Keuangan'} 
+          onClick={() => setActivePage('Kelola Keuangan')}
+          disabled={!isOwner}
+        />
+        <NavItem 
+          isSidebarOpen={isSidebarOpen} 
+          icon={<img src="/assets/img/home.svg" alt="Kelola UMKM" className="h-6 w-6 flex-shrink-0" />} 
+          label="Kelola UMKM" 
+          isActive={activePage === 'Kelola UMKM'} 
+          onClick={() => setActivePage('Kelola UMKM')}
+          disabled={!isOwner}
+        />
         <NavItem 
             isSidebarOpen={isSidebarOpen}
             icon={<img src="/assets/img/user.svg" alt="Kelola Pengguna" className="h-6 w-6 flex-shrink-0" />} 

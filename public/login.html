@@ -484,10 +484,13 @@
 
       <!-- Right side - Login Form -->
       <div class="login-form-container">
-        <form class="login-form">
+        <form class="login-form" id="loginForm">
           <h2>Selamat Datang...</h2>
           <p>Assalamualaikum warahmatullahi wabarakatuh,<br>
           Selamat datang di BSI UMKM Centre cabang Yogyakarta.</p>
+
+          <!-- Error message container -->
+          <div id="errorMessage" class="error-message" style="display: none; background: #fee2e2; color: #dc2626; padding: 12px; border-radius: 8px; margin-bottom: 16px; font-size: 14px;"></div>
 
           <div class="form-group">
             <label for="email" class="form-label">Email</label>
@@ -521,11 +524,108 @@
             <a href="#" class="forgot-password">Lupa Password?</a>
           </div>
 
-          <button type="submit" class="btn-login-primary button-text">Login sekarang!</button>
+          <button type="submit" class="btn-login-primary button-text" id="loginBtn">Login sekarang!</button>
           <a href="register.html" class="btn-register button-text">Belum punya akun? Registrasi akun baru</a>
         </form>
       </div>
     </div>
   </section>
+
+  <script>
+    // API Configuration
+    const API_BASE_URL = window.location.hostname === 'localhost' 
+      ? 'http://localhost:5000/api' 
+      : '/api';
+
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const loginBtn = document.getElementById('loginBtn');
+      const errorMessage = document.getElementById('errorMessage');
+      
+      // Hide previous error
+      errorMessage.style.display = 'none';
+      
+      // Validate inputs
+      if (!email || !password) {
+        errorMessage.textContent = 'Email dan kata sandi harus diisi.';
+        errorMessage.style.display = 'block';
+        return;
+      }
+      
+      // Show loading state
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Memproses...';
+      
+      try {
+        const response = await fetch(`${API_BASE_URL}/auth/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(data.message || 'Login gagal. Silakan coba lagi.');
+        }
+        
+        if (data.success && data.data) {
+          // Store authentication data
+          localStorage.setItem('authToken', data.data.token);
+          localStorage.setItem('user', JSON.stringify(data.data.user));
+          
+          // Remember me functionality
+          if (document.getElementById('remember').checked) {
+            localStorage.setItem('rememberEmail', email);
+          } else {
+            localStorage.removeItem('rememberEmail');
+          }
+          
+          // Redirect based on role
+          const userRole = data.data.user.role;
+          if (userRole === 'owner' || userRole === 'karyawan') {
+            // Redirect to admin panel
+            window.location.href = '/admin/';
+          } else {
+            // Regular user - redirect to homepage
+            window.location.href = '/';
+          }
+        } else {
+          throw new Error(data.message || 'Login gagal.');
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        errorMessage.textContent = error.message || 'Terjadi kesalahan. Silakan coba lagi.';
+        errorMessage.style.display = 'block';
+      } finally {
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'Login sekarang!';
+      }
+    });
+
+    // Check for remembered email on page load
+    window.addEventListener('DOMContentLoaded', function() {
+      const rememberedEmail = localStorage.getItem('rememberEmail');
+      if (rememberedEmail) {
+        document.getElementById('email').value = rememberedEmail;
+        document.getElementById('remember').checked = true;
+      }
+      
+      // Check if already logged in
+      const token = localStorage.getItem('authToken');
+      const user = localStorage.getItem('user');
+      if (token && user) {
+        const userData = JSON.parse(user);
+        if (userData.role === 'owner' || userData.role === 'karyawan') {
+          window.location.href = '/admin/';
+        }
+      }
+    });
+  </script>
 </body>
 </html>

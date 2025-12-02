@@ -9,9 +9,17 @@ interface LayoutProps {
   setActivePage: (page: Page) => void;
   activeSubPage: UserSubPage;
   setActiveSubPage: (subPage: UserSubPage) => void;
+  userRole?: 'owner' | 'karyawan';
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, activePage, setActivePage, activeSubPage, setActiveSubPage }) => {
+const Layout: React.FC<LayoutProps> = ({ 
+  children, 
+  activePage, 
+  setActivePage, 
+  activeSubPage, 
+  setActiveSubPage,
+  userRole = 'karyawan'
+}) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
@@ -30,6 +38,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activePage, setActivePage, ac
         activeSubPage={activeSubPage} 
         setActiveSubPage={setActiveSubPage}
         isSidebarOpen={isSidebarOpen}
+        userRole={userRole}
       />
       <div className="flex-1 flex flex-col overflow-hidden">
         <Header isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
