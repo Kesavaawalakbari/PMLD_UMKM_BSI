@@ -287,17 +287,20 @@
     .footer-background {
       position: relative;
       background: transparent;
+      overflow: hidden;
+      margin-top: -250px;  /* More negative = curve moves higher up the page */
+      padding-top: 300px;  /* Compensates for the margin to keep footer content in place */
     }
 
     .footer-background::before {
       content: "";
       position: absolute;
-      bottom: -274px;
+      top: 0;
       left: 0;
+      right: 0;
       width: 100%;
-      min-width: 100vw;
-      height: 819px;
-      background: url("assets/images/Mask Group.svg") no-repeat center bottom;
+      height: 100%;
+      background: url("assets/images/Mask Group.svg") no-repeat center top;
       background-size: 100% auto;
       opacity: 1;
       pointer-events: none;
@@ -656,7 +659,47 @@
 
       .footer-info {
         flex-direction: column;
+        align-items: center;
         text-align: center;
+        gap: 30px;
+      }
+
+      .footer-logo {
+        justify-content: center;
+      }
+
+      .footer-contact {
+        text-align: center;
+      }
+
+      .contact-item {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .footer-social {
+        text-align: center;
+      }
+
+      .social-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .social-item {
+        justify-content: center;
+      }
+
+      /* Reduce footer white space on mobile */
+      .footer-background {
+        margin-top: -100px;
+        padding-top: 150px;
+      }
+
+      .footer-background::before {
+        background-size: cover;
+        background-position: center top;
       }
     }
   </style>
