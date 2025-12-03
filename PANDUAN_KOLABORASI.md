@@ -167,6 +167,37 @@ Contoh: `git push origin revisi/fix-footer`
 
 ---
 
+## LANGKAH 8: Deployment ke Vercel
+
+### 8.1 Install Vercel CLI
+```bash
+npm install -g vercel
+```
+
+### 8.2 Login ke Vercel
+```bash
+vercel login
+```
+- Pilih metode login (GitHub/Email)
+- Ikuti instruksi di browser
+
+### 8.3 Deploy ke Production
+Pastikan sudah di folder project utama (`PMLD_UMKM_BSI`):
+```bash
+vercel --prod
+```
+
+### 8.4 Verifikasi Deployment
+- Setelah deploy selesai, akan muncul URL production
+- Buka URL tersebut di browser untuk memastikan perubahan sudah live
+
+### Catatan Penting:
+- **Selalu commit dan push dulu** sebelum deploy
+- Deploy hanya setelah perubahan sudah di-review/approve
+- URL Production: https://pmld-umkm-bsi.vercel.app (atau sesuai konfigurasi)
+
+---
+
 ## STRUKTUR PROJECT
 
 ```
