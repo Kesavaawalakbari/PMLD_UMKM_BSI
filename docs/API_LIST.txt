@@ -1,0 +1,183 @@
+================================================================================
+                         BSI UMKM CENTRE - KONEK SYSTEM
+                              API ENDPOINT LIST
+================================================================================
+
+BASE URL: http://localhost:5000/api
+          atau https://your-domain.com/api (production)
+
+================================================================================
+                              AUTHENTICATION
+================================================================================
+
+POST   /api/auth/register          Registrasi user baru
+POST   /api/auth/login             Login user
+GET    /api/auth/me                Get profil user yang login
+POST   /api/auth/logout            Logout user
+
+================================================================================
+                         PRODUCTS (Gudang Module)
+================================================================================
+
+GET    /api/products                    List semua produk                [Auth]
+GET    /api/products/:id                Detail produk by ID              [Auth]
+POST   /api/products                    Tambah produk baru               [Auth]
+PUT    /api/products/:id                Update produk                    [Auth]
+DELETE /api/products/:id                Hapus produk                     [Auth]
+PATCH  /api/products/:id/stock          Update stok (add/subtract)       [Auth]
+GET    /api/products/alerts/low-stock   Produk dengan stok rendah        [Auth]
+GET    /api/products/stats/best-sellers Produk terlaris                  [Auth]
+
+================================================================================
+                        SUPPLIERS (Pemasok Module)
+================================================================================
+
+GET    /api/suppliers                   List semua pemasok               [Owner]
+GET    /api/suppliers/:id               Detail pemasok                   [Owner]
+POST   /api/suppliers                   Tambah pemasok baru              [Owner]
+PUT    /api/suppliers/:id               Update pemasok                   [Owner]
+DELETE /api/suppliers/:id               Hapus pemasok                    [Owner]
+
+================================================================================
+                       TRANSACTIONS (Transaksi Module)
+================================================================================
+
+GET    /api/transactions                List transaksi                   [Auth]
+GET    /api/transactions/:id            Detail transaksi                 [Auth]
+POST   /api/transactions                Buat transaksi baru              [Auth]
+PUT    /api/transactions/:id            Update transaksi                 [Owner]
+DELETE /api/transactions/:id            Hapus transaksi                  [Owner]
+GET    /api/transactions/summary/daily  Ringkasan harian                 [Auth]
+GET    /api/transactions/summary/monthly Ringkasan bulanan               [Auth]
+
+================================================================================
+                           STORES (Toko Module)
+================================================================================
+
+GET    /api/stores                      List semua toko                  [Auth]
+GET    /api/stores/:id                  Detail toko                      [Auth]
+POST   /api/stores                      Tambah toko baru                 [Owner]
+PUT    /api/stores/:id                  Update toko                      [Owner]
+DELETE /api/stores/:id                  Hapus toko                       [Owner]
+
+================================================================================
+                        EMPLOYEES (Karyawan Module)
+================================================================================
+
+GET    /api/employees                   List semua karyawan              [Owner]
+GET    /api/employees/:id               Detail karyawan                  [Owner]
+POST   /api/employees                   Tambah karyawan baru             [Owner]
+PUT    /api/employees/:id               Update karyawan                  [Owner]
+DELETE /api/employees/:id               Hapus karyawan                   [Owner]
+POST   /api/employees/:id/reset-password Reset password karyawan         [Owner]
+
+================================================================================
+                         REPORTS (Laporan Module)
+================================================================================
+
+GET    /api/reports/sales               Laporan penjualan                [Auth]
+GET    /api/reports/inventory           Laporan inventori                [Auth]
+GET    /api/reports/download/sales      Download laporan penjualan       [Auth]
+GET    /api/reports/download/inventory  Download laporan stok            [Auth]
+GET    /api/reports/download/transactions Download laporan transaksi     [Auth]
+
+================================================================================
+                              KETERANGAN
+================================================================================
+
+[Auth]  = Membutuhkan login (semua user)
+[Owner] = Hanya untuk role owner
+
+================================================================================
+                           QUERY PARAMETERS
+================================================================================
+
+Pagination:
+  page      = Nomor halaman (default: 1)
+  limit     = Items per halaman (default: 10)
+
+Pencarian:
+  search    = Kata kunci pencarian
+
+Filter Tanggal:
+  startDate = Tanggal mulai (format: YYYY-MM-DD)
+  endDate   = Tanggal akhir (format: YYYY-MM-DD)
+
+Filter Lainnya:
+  category  = Filter berdasarkan kategori
+  city      = Filter berdasarkan kota
+  status    = Filter berdasarkan status
+  store_id  = Filter berdasarkan toko
+
+================================================================================
+                           CONTOH REQUEST
+================================================================================
+
+Login:
+  POST /api/auth/login
+  Body: { "email": "user@example.com", "password": "password123" }
+
+Get Products dengan Pagination:
+  GET /api/products?page=1&limit=10&search=basreng
+
+Create Transaction:
+  POST /api/transactions
+  Body: {
+    "store_id": "uuid-store",
+    "customer_name": "John Doe",
+    "items": [
+      { "product_id": "uuid-product", "quantity": 2 }
+    ],
+    "payment_method": "cash"
+  }
+
+Update Stock:
+  PATCH /api/products/:id/stock
+  Body: { "quantity": 10, "type": "add" }
+
+Download Report:
+  GET /api/reports/download/sales?startDate=2025-01-01&endDate=2025-12-31
+
+================================================================================
+                            RESPONSE FORMAT
+================================================================================
+
+Success Response:
+  {
+    "success": true,
+    "message": "Data berhasil diambil",
+    "data": { ... }
+  }
+
+Error Response:
+  {
+    "success": false,
+    "message": "Pesan error",
+    "errors": [ ... ]
+  }
+
+Pagination Response:
+  {
+    "success": true,
+    "data": [ ... ],
+    "pagination": {
+      "page": 1,
+      "limit": 10,
+      "total": 100,
+      "totalPages": 10
+    }
+  }
+
+================================================================================
+                              AUTHORIZATION
+================================================================================
+
+Semua endpoint (kecuali login/register) membutuhkan header:
+
+  Authorization: Bearer <token>
+
+Token didapat dari response login.
+
+================================================================================
+                         Last Updated: December 2025
+================================================================================

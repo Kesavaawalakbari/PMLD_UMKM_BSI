@@ -271,7 +271,7 @@ GET    /api/reports/download/transactions
 
 ## 📝 Next Steps
 
-1. [ ] Connect Dashboard.tsx to dashboard API
+1. [ ] Connect Dashboard.tsx to dashboard API   
 2. [ ] Update ManageProducts.tsx to use Products API
 3. [ ] Deploy to VPS when network is accessible
 4. [ ] Run database migrations on Supabase
