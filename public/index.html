@@ -1049,11 +1049,20 @@
     }
 
     .partner-logo {
-      height: 100px;
-      max-width: 300px;
+      height: 60px;
+      width: auto;
+      max-width: 200px;
       object-fit: contain;
-      opacity: 0.8;
-      transition: opacity 0.3s ease;
+      opacity: 0.9;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .partner-logo.logo-small {
+      height: 40px;
+    }
+
+    .partner-logo.logo-large {
+      height: 50px;
     }
 
     .partner-logo:hover {
@@ -1867,9 +1876,9 @@ Temukan aneka produk halal, kreatif, dan berkualitas dari pelaku usaha Yogyakart
     <div class="container">
       <h3>Partner by</h3>
       <div class="partners-logos">
-        <img src="assets/images/Danantara Indonesia.png" alt="Danantara Indonesia" class="partner-logo">
-        <img src="assets/images/Bank Syariah Indonesia.png" alt="Bank Syariah Indonesia" class="partner-logo">
-        <img src="assets/images/GO UMKM.png" alt="GO UMKM" class="partner-logo" style="background: white; padding: 8px; border-radius: 4px;">
+        <img src="assets/images/Danantara Indonesia.png" alt="Danantara Indonesia" class="partner-logo logo-small">
+        <img src="assets/images/Bank Syariah Indonesia.png" alt="Bank Syariah Indonesia" class="partner-logo logo-large">
+        <img src="assets/images/GO UMKM.png" alt="GO UMKM" class="partner-logo">
       </div>
     </div>
   </section>
