@@ -179,6 +179,18 @@
             border-radius: 2px;
         }
 
+        .mobile-nav-toggle.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .mobile-nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-nav-toggle.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
         .nav-menu a {
             text-decoration: none;
             color: #333;
@@ -771,8 +783,16 @@
                     <img src="assets/images/Logo BSI UMKM Centre.svg" alt="BSI UMKM Center">
                 </a>
             </div>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-nav-toggle" onclick="toggleMobileMenu()" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
             <nav>
-                <ul class="nav-menu">
+                <ul class="nav-menu" id="mobile-nav">
                     <li><a href="index.html#tentang">Tentang Kami</a></li>
                     <li><a href="katalog.html">Produk</a></li>
                     <li><a href="faq.html">FAQ</a></li>
@@ -809,9 +829,9 @@
                             </svg>
                             FnB
                         </div>
-                        <div class="subcategory-item">blar blar</div>
-                        <div class="subcategory-item">blar blar</div>
-                        <div class="subcategory-item">blar blar</div>
+                        <div class="subcategory-item">Makanan Ringan</div>
+                        <div class="subcategory-item">Minuman</div>
+                        <div class="subcategory-item">Kue & Roti</div>
                         
                         <div class="category-item">
                             <svg class="chevron-icon" viewBox="0 0 24 24">
@@ -844,92 +864,92 @@
                 <div class="products-grid">
                     <div class="product-card">
                         <div class="product-image">
-                            <img src="assets/images/Frame 3.png" alt="Product" onerror="this.style.display='none'">
+                            <img src="assets/images/Frame 3.png" alt="Bakpia Pathok" onerror="this.style.display='none'">
                         </div>
-                        <div class="product-category">Tahu terutama yang</div>
-                        <h3 class="product-title">Product lorem ipsu...</h3>
-                        <div class="product-price">Rp 100.000</div>
-                        <button class="buy-button">Beli</button>
+                        <div class="product-category">Makanan Ringan</div>
+                        <h3 class="product-title">Bakpia Pathok Isi 20</h3>
+                        <div class="product-price">Rp 45.000</div>
+                        <button class="buy-button" onclick="window.location.href='product-detail.html'">Beli</button>
                     </div>
                     
                     <div class="product-card">
                         <div class="product-image">
-                            <img src="assets/images/Frame 3.png" alt="Product" onerror="this.style.display='none'">
+                            <img src="assets/images/Frame 3.png" alt="Kopi Merapi" onerror="this.style.display='none'">
                         </div>
-                        <div class="product-category">Tahu terutama yang</div>
-                        <h3 class="product-title">Product lorem ipsu...</h3>
-                        <div class="product-price">Rp 100.000</div>
-                        <button class="buy-button">Beli</button>
+                        <div class="product-category">Minuman</div>
+                        <h3 class="product-title">Kopi Merapi Premium</h3>
+                        <div class="product-price">Rp 85.000</div>
+                        <button class="buy-button" onclick="window.location.href='product-detail.html'">Beli</button>
                     </div>
                     
                     <div class="product-card">
                         <div class="product-image">
-                            <img src="assets/images/Frame 3.png" alt="Product" onerror="this.style.display='none'">
+                            <img src="assets/images/Frame 3.png" alt="Batik Jogja" onerror="this.style.display='none'">
                         </div>
-                        <div class="product-category">Tahu terutama yang</div>
-                        <h3 class="product-title">Product lorem ipsu...</h3>
-                        <div class="product-price">Rp 100.000</div>
-                        <button class="buy-button">Beli</button>
+                        <div class="product-category">Fashion</div>
+                        <h3 class="product-title">Batik Tulis Jogja</h3>
+                        <div class="product-price">Rp 250.000</div>
+                        <button class="buy-button" onclick="window.location.href='product-detail.html'">Beli</button>
                     </div>
                     
                     <div class="product-card">
                         <div class="product-image">
-                            <img src="assets/images/Frame 3.png" alt="Product" onerror="this.style.display='none'">
+                            <img src="assets/images/Frame 3.png" alt="Gudeg Kaleng" onerror="this.style.display='none'">
                         </div>
-                        <div class="product-category">Tahu terutama yang</div>
-                        <h3 class="product-title">Product lorem ipsu...</h3>
-                        <div class="product-price">Rp 100.000</div>
-                        <button class="buy-button">Beli</button>
+                        <div class="product-category">Makanan</div>
+                        <h3 class="product-title">Gudeg Bu Tjitro</h3>
+                        <div class="product-price">Rp 35.000</div>
+                        <button class="buy-button" onclick="window.location.href='product-detail.html'">Beli</button>
                     </div>
                     
                     <div class="product-card">
                         <div class="product-image">
-                            <img src="assets/images/Frame 3.png" alt="Product" onerror="this.style.display='none'">
+                            <img src="assets/images/Frame 3.png" alt="Kerajinan Perak" onerror="this.style.display='none'">
                         </div>
-                        <div class="product-category">Tahu terutama yang</div>
-                        <h3 class="product-title">Product lorem ipsu...</h3>
-                        <div class="product-price">Rp 100.000</div>
-                        <button class="buy-button">Beli</button>
+                        <div class="product-category">Aksesoris</div>
+                        <h3 class="product-title">Cincin Perak Kotagede</h3>
+                        <div class="product-price">Rp 175.000</div>
+                        <button class="buy-button" onclick="window.location.href='product-detail.html'">Beli</button>
                     </div>
                     
                     <div class="product-card">
                         <div class="product-image">
-                            <img src="assets/images/Frame 3.png" alt="Product" onerror="this.style.display='none'">
+                            <img src="assets/images/Frame 3.png" alt="Yangko" onerror="this.style.display='none'">
                         </div>
-                        <div class="product-category">Tahu terutama yang</div>
-                        <h3 class="product-title">Product lorem ipsu...</h3>
-                        <div class="product-price">Rp 100.000</div>
-                        <button class="buy-button">Beli</button>
+                        <div class="product-category">Makanan Ringan</div>
+                        <h3 class="product-title">Yangko Kotak 500gr</h3>
+                        <div class="product-price">Rp 28.000</div>
+                        <button class="buy-button" onclick="window.location.href='product-detail.html'">Beli</button>
                     </div>
                     
                     <div class="product-card">
                         <div class="product-image">
-                            <img src="assets/images/Frame 3.png" alt="Product" onerror="this.style.display='none'">
+                            <img src="assets/images/Frame 3.png" alt="Blangkon" onerror="this.style.display='none'">
                         </div>
-                        <div class="product-category">Tahu terutama yang</div>
-                        <h3 class="product-title">Product lorem ipsu...</h3>
-                        <div class="product-price">Rp 100.000</div>
-                        <button class="buy-button">Beli</button>
+                        <div class="product-category">Aksesoris</div>
+                        <h3 class="product-title">Blangkon Jogja</h3>
+                        <div class="product-price">Rp 65.000</div>
+                        <button class="buy-button" onclick="window.location.href='product-detail.html'">Beli</button>
                     </div>
                     
                     <div class="product-card">
                         <div class="product-image">
-                            <img src="assets/images/Frame 3.png" alt="Product" onerror="this.style.display='none'">
+                            <img src="assets/images/Frame 3.png" alt="Salak Pondoh" onerror="this.style.display='none'">
                         </div>
-                        <div class="product-category">Tahu terutama yang</div>
-                        <h3 class="product-title">Product lorem ipsu...</h3>
-                        <div class="product-price">Rp 100.000</div>
-                        <button class="buy-button">Beli</button>
+                        <div class="product-category">Buah Segar</div>
+                        <h3 class="product-title">Salak Pondoh 1kg</h3>
+                        <div class="product-price">Rp 25.000</div>
+                        <button class="buy-button" onclick="window.location.href='product-detail.html'">Beli</button>
                     </div>
                     
                     <div class="product-card">
                         <div class="product-image">
-                            <img src="assets/images/Frame 3.png" alt="Product" onerror="this.style.display='none'">
+                            <img src="assets/images/Frame 3.png" alt="Geplak" onerror="this.style.display='none'">
                         </div>
-                        <div class="product-category">Tahu terutama yang</div>
-                        <h3 class="product-title">Product lorem ipsu...</h3>
-                        <div class="product-price">Rp 100.000</div>
-                        <button class="buy-button">Beli</button>
+                        <div class="product-category">Makanan Ringan</div>
+                        <h3 class="product-title">Geplak Bantul</h3>
+                        <div class="product-price">Rp 22.000</div>
+                        <button class="buy-button" onclick="window.location.href='product-detail.html'">Beli</button>
                     </div>
                 </div>
 
@@ -987,13 +1007,13 @@
                                 <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
                                 </svg>
-                                <span>081234567890</span>
+                                <span>(0274) 515-858</span>
                             </div>
                             <div class="contact-item">
                                 <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                                 </svg>
-                                <span>bsiumkmyk@blabla.com</span>
+                                <span>umkmcenter.yogyakarta@bankbsi.co.id</span>
                             </div>
                         </div>
                     </div>
@@ -1020,13 +1040,46 @@
                             <span>bsi.umkmcenter.yogyakarta</span>
                         </div>
                     </div>
-                    <a href="#" class="footer-cta">Ada pertanyaan? klik disini!!!</a>
+                    <a href="faq.html" class="footer-cta">Ada pertanyaan? Hubungi Kami</a>
                 </div>
             </div>
         </footer>
     </div>
 
     <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const nav = document.getElementById('mobile-nav');
+            const toggle = document.querySelector('.mobile-nav-toggle');
+            
+            nav.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.getElementById('mobile-nav');
+            const toggle = document.querySelector('.mobile-nav-toggle');
+            
+            if (nav && toggle && !nav.contains(event.target) && !toggle.contains(event.target)) {
+                nav.classList.remove('active');
+                toggle.classList.remove('active');
+            }
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                const nav = document.getElementById('mobile-nav');
+                const toggle = document.querySelector('.mobile-nav-toggle');
+                
+                if (nav && toggle) {
+                    nav.classList.remove('active');
+                    toggle.classList.remove('active');
+                }
+            });
+        });
+
         // Category toggle functionality
         document.querySelectorAll('.category-item').forEach(item => {
             item.addEventListener('click', function() {

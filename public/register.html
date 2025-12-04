@@ -189,17 +189,163 @@
       background: var(--green-500);
     }
 
+    /* Mobile Menu Toggle */
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--primary);
+      cursor: pointer;
+      padding: 8px;
+      border-radius: var(--border-radius);
+      transition: all 0.3s ease;
+      z-index: var(--z-tooltip);
+    }
+
+    .mobile-menu-toggle:hover {
+      background-color: var(--gray-50);
+    }
+
+    .mobile-menu-toggle span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: var(--primary);
+      margin: 5px 0;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(1) {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .mobile-menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(3) {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    /* Footer Styles */
+    .footer-background {
+      position: relative;
+      margin-top: 60px;
+      padding-top: 200px;
+    }
+
+    .footer-background::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("assets/images/Mask Group.svg") no-repeat;
+      background-size: 100% auto;
+      background-position: center top;
+      z-index: -1;
+    }
+
+    footer {
+      background: transparent;
+      color: var(--text-dark);
+      padding: 60px 0;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+
+    .footer-info {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .footer-logo-icon {
+      background: white;
+      border-radius: 4px;
+      padding: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer-contact {
+      font-size: 14px;
+      color: var(--text-dark);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .contact-icon {
+      width: 20px;
+      height: 20px;
+      color: var(--primary);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .footer-social {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .social-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-dark);
+      font-size: 14px;
+    }
+
+    .social-icon {
+      width: 24px;
+      height: 24px;
+      color: var(--primary);
+    }
+
+    .footer-cta {
+      background: var(--secondary);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .footer-cta:hover {
+      background: var(--warning);
+      transform: translateY(-2px);
+    }
+
     /* Main Registration Section */
     .registration-section {
-      height: 100vh;
+      min-height: calc(100vh - 88px);
       background: url("assets/images/Background Gelombang.svg") no-repeat left center;
       background-size: cover;
       display: flex;
       align-items: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      position: relative;
       overflow: hidden;
       padding-top: 88px;
     }
@@ -419,13 +565,59 @@
         padding: 0 16px;
       }
 
-      .header-content {
-        flex-direction: column;
-        gap: 16px;
+      /* Mobile Header */
+      header {
+        padding: 12px 0;
       }
 
+      .header-content {
+        position: relative;
+      }
+
+      .logo-icon-svg {
+        height: 40px;
+      }
+
+      /* Mobile Navigation */
       nav {
-        gap: 24px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        flex-direction: column;
+        padding: 20px;
+        gap: 16px;
+        box-shadow: var(--shadow);
+        border-radius: 0 0 12px 12px;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: var(--z-dropdown);
+      }
+
+      nav.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+
+      nav a {
+        padding: 12px 16px;
+        border-radius: var(--border-radius);
+        text-align: center;
+        font-size: 16px;
+      }
+
+      /* Show mobile menu toggle */
+      .mobile-menu-toggle {
+        display: block;
+      }
+
+      .btn-login {
+        padding: 8px 16px;
+        font-size: 14px;
       }
 
       .registration-container {
@@ -447,6 +639,40 @@
 
       .brand-logo-container {
         transform: scale(1);
+      }
+
+      /* Footer Mobile */
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .footer-contact {
+        font-size: 12px;
+      }
+
+      .contact-icon {
+        width: 16px;
+        height: 16px;
+      }
+
+      .social-item {
+        font-size: 12px;
+      }
+
+      .social-icon {
+        width: 20px;
+        height: 20px;
+      }
+
+      .footer-cta {
+        padding: 10px 20px;
+        font-size: 12px;
+      }
+
+      .footer-background {
+        margin-top: -100px;
+        padding-top: 150px;
       }
     }
 
@@ -472,11 +698,28 @@
   <header>
     <div class="container">
       <div class="header-content">
-        <nav>
+        <div class="logo">
+          <div class="logo-container">
+            <a href="index.html">
+              <img src="assets/images/Frame 3.svg" alt="BSI Logo" class="logo-icon-svg">
+            </a>
+          </div>
+        </div>
+        
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        
+        <!-- Navigation -->
+        <nav id="mobile-nav">
           <a href="index.html#tentang">Tentang Kami</a>
           <a href="katalog.html">Produk</a>
           <a href="faq.html">FAQ</a>
         </nav>
+        
         <button class="btn-login" onclick="window.location.href='login.html'">Login</button>
       </div>
     </div>
@@ -509,37 +752,37 @@
           </div>
 
           <div class="form-group">
-            <label for="nama" class="form-label">Nama</label>
+            <label for="nama" class="form-label">Nama Lengkap</label>
             <input 
               type="text" 
               id="nama" 
               name="nama" 
               class="form-input" 
-              placeholder="Masukkan Kata sandi anda..."
+              placeholder="Masukkan nama lengkap anda..."
               required
             >
           </div>
 
           <div class="form-group">
-            <label for="blar1" class="form-label">Blar blar</label>
+            <label for="telepon" class="form-label">Nomor Telepon</label>
             <input 
-              type="text" 
-              id="blar1" 
-              name="blar1" 
+              type="tel" 
+              id="telepon" 
+              name="telepon" 
               class="form-input" 
-              placeholder="Masukkan Blar blar anda..."
+              placeholder="Masukkan nomor telepon anda..."
               required
             >
           </div>
 
           <div class="form-group">
-            <label for="blar2" class="form-label">Blar blar</label>
+            <label for="password" class="form-label">Kata Sandi</label>
             <input 
-              type="text" 
-              id="blar2" 
-              name="blar2" 
+              type="password" 
+              id="password" 
+              name="password" 
               class="form-input" 
-              placeholder="Masukkan Blar blar anda..."
+              placeholder="Masukkan kata sandi anda..."
               required
             >
           </div>
@@ -549,7 +792,7 @@
               <input type="checkbox" id="remember" name="remember">
               <label for="remember">Ingat saya</label>
             </div>
-            <a href="#" class="forgot-password">Lupa Password?</a>
+            <a href="javascript:alert('Fitur reset password akan segera tersedia')" class="forgot-password">Lupa Password?</a>
           </div>
 
           <button type="submit" class="btn-register-primary button-text">Daftarkan akun sekarang!</button>
@@ -558,5 +801,104 @@
       </div>
     </div>
   </section>
+
+  <!-- Footer -->
+  <div class="footer-background">
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-info">
+            <div>
+              <div class="footer-logo">
+                <div class="footer-logo-icon">
+                  <img src="assets/images/Logo BSI UMKM Centre.svg" alt="BSI" style="height: 60px; width: auto;">
+                </div>
+              </div>
+              <div class="footer-contact">
+                <div class="contact-item">
+                  <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  </svg>
+                  <div>
+                    <p>Jl. Doktor Sutomo No.8, Baciro, Kec. Gondokusuman,</p>
+                    <p>Kota Yogyakarta, Daerah Istimewa Yogyakarta 55225</p>
+                  </div>
+                </div>
+                <div class="contact-item">
+                  <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                  </svg>
+                  <span>(0274) 515-858</span>
+                </div>
+                <div class="contact-item">
+                  <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                  </svg>
+                  <span>umkmcenter.yogyakarta@bankbsi.co.id</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="footer-social">
+            <div class="social-links">
+              <div class="social-item">
+                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>
+                </svg>
+                <span>@bsi.umkmcenter.yogyakarta</span>
+              </div>
+              <div class="social-item">
+                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/>
+                </svg>
+                <span>@bsi.umkmcenter.yogyakarta</span>
+              </div>
+              <div class="social-item">
+                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                <span>bsi.umkmcenter.yogyakarta</span>
+              </div>
+            </div>
+            <a href="faq.html" class="footer-cta button-text">Ada pertanyaan? Hubungi Kami</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+      const nav = document.getElementById('mobile-nav');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      
+      nav.classList.toggle('active');
+      toggle.classList.toggle('active');
+    }
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const nav = document.getElementById('mobile-nav');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      
+      if (!nav.contains(event.target) && !toggle.contains(event.target)) {
+        nav.classList.remove('active');
+        toggle.classList.remove('active');
+      }
+    });
+    
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', function() {
+        const nav = document.getElementById('mobile-nav');
+        const toggle = document.querySelector('.mobile-menu-toggle');
+        
+        nav.classList.remove('active');
+        toggle.classList.remove('active');
+      });
+    });
+  </script>
 </body>
 </html>
