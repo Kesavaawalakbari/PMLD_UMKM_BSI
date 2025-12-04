@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { authAPI } from '../utils/api';
 
 interface User {
     id: string;
@@ -31,22 +30,36 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const checkAuth = async () => {
         const token = localStorage.getItem('authToken');
+        const storedUser = localStorage.getItem('user');
         
-        if (!token) {
+        if (!token || !storedUser) {
             setUser(null);
             setLoading(false);
             return;
         }
 
         try {
-            const response = await authAPI.getProfile();
-            if (response.success && response.data) {
-                setUser(response.data);
-            } else {
-                localStorage.removeItem('authToken');
-                localStorage.removeItem('user');
-                setUser(null);
+            // Parse user from localStorage (saved by login.html)
+            const userData = JSON.parse(storedUser);
+            
+            // Validate token hasn't expired
+            try {
+                const tokenData = JSON.parse(atob(token));
+                if (tokenData.exp && tokenData.exp < Date.now()) {
+                    throw new Error('Token expired');
+                }
+            } catch {
+                // If token parsing fails, still try to use stored user
             }
+            
+            // Set user from localStorage
+            setUser({
+                id: userData.id,
+                email: userData.email,
+                nama: userData.nama || userData.email.split('@')[0],
+                role: userData.role,
+                isActive: true
+            });
         } catch (error) {
             console.error('Auth check failed:', error);
             localStorage.removeItem('authToken');
@@ -61,21 +74,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         checkAuth();
     }, []);
 
-    const login = async (email: string, password: string) => {
-        setLoading(true);
-        try {
-            const response = await authAPI.login(email, password);
-            
-            if (response.success && response.data) {
-                localStorage.setItem('authToken', response.data.token);
-                localStorage.setItem('user', JSON.stringify(response.data.user));
-                setUser(response.data.user);
-            } else {
-                throw new Error(response.message || 'Login gagal');
-            }
-        } finally {
-            setLoading(false);
-        }
+    const login = async (_email: string, _password: string) => {
+        // Login is handled by login.html with Supabase
+        // This function redirects to login page
+        window.location.href = '/login.html';
     };
 
     const logout = () => {
