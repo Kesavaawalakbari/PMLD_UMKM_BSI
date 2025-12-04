@@ -587,12 +587,8 @@
           throw new Error('Akun Anda tidak aktif. Hubungi admin.');
         }
         
-        // Simple password check (for demo - in production use bcrypt on backend)
-        // Since we stored hashed password, we need to verify differently
-        // For now, check if password matches "owner123" for the demo owner account
-        const isValidPassword = (password === 'owner123' && email === 'owner@bsi-umkm.com');
-        
-        if (!isValidPassword) {
+        // Verify password matches the stored password
+        if (user.password !== password) {
           throw new Error('Kata sandi salah. Silakan coba lagi.');
         }
         
